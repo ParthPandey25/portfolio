@@ -42,6 +42,11 @@ yarn-error.log*
 # local config
 links.txt
 
+# AI assistant instruction files
+AGENTS.md
+CLAUDE.md
+README.md
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
