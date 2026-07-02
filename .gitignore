@@ -36,6 +36,12 @@ yarn-error.log*
 # vercel
 .vercel
 
+# local source certificates (public/certificates/ is tracked for deployment)
+/certificate/
+
+# local config
+links.txt
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
