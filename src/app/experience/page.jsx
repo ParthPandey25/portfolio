@@ -13,8 +13,8 @@ export const metadata = {
 };
 
 const stats = [
-  { label: "Roles & Training",    value: "16+", icon: <Briefcase size={18} className="text-emerald-400" /> },
-  { label: "Industry Partners",   value: "12",   icon: <GraduationCap size={18} className="text-cyan-400" /> },
+  { label: "Roles & Training",    value: "15+", icon: <Briefcase size={18} className="text-emerald-400" /> },
+  { label: "Industry Partners",   value: "11",   icon: <GraduationCap size={18} className="text-cyan-400" /> },
   { label: "Years Active",        value: "2",    icon: <Calendar size={18} className="text-purple-400" /> },
 ];
 

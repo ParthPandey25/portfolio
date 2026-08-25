@@ -19,24 +19,13 @@ export const experiences = [
   },
   {
     company: "Unisoft Technology",
-    role: "CompTIA Network+ Training",
+    role: "CompTIA Network+ & EC-Council CEH Training",
     period: "2026 – Present",
-    location: "India",
+    location: "Nagpur, India",
     type: "training",
     color: "cyan",
     bullets: [
-      "Recognized that a strong networking foundation is essential for security engineering roles (Situation). Enrolled in an instructor-led CompTIA Network+ preparation program at Unisoft Technology (Task). Actively studying network topologies, switching & routing protocols, subnetting, VLANs, wireless standards, and troubleshooting methodologies (Action). Building vendor-neutral networking expertise aligned with the CompTIA N10-009 exam objectives (Result).",
-    ],
-  },
-  {
-    company: "EC-Council",
-    role: "Certified Ethical Hacker (CEH) Training",
-    period: "2026 – Present",
-    location: "Remote",
-    type: "training",
-    color: "red",
-    bullets: [
-      "Aimed to develop offensive security skills to complement existing blue-team competencies (Situation). Began training for EC-Council's Certified Ethical Hacker (CEH) certification (Task). Studying reconnaissance techniques, vulnerability analysis, system hacking methodologies, web application attacks, and social engineering tactics in structured lab environments (Action). Developing a well-rounded red team + blue team skill set for comprehensive security roles (Result).",
+      "Recognized that a strong networking foundation paired with offensive security skills is essential for cybersecurity roles (Situation). Enrolled in instructor-led CompTIA Network+ and EC-Council Certified Ethical Hacker (CEH) preparation programs at Unisoft Technology, Nagpur (Task). Actively studying network topologies, switching & routing protocols, subnetting, VLANs, and troubleshooting for Network+, alongside reconnaissance techniques, vulnerability analysis, system hacking methodologies, web application attacks, and social engineering for CEH (Action). Building a well-rounded red team + blue team skill set with vendor-neutral networking expertise aligned with CompTIA N10-009 and CEH exam objectives (Result).",
     ],
   },
   {

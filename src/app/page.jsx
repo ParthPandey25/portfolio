@@ -61,7 +61,7 @@ export default function Home() {
               href="/experience"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 hover:border-emerald-400/60 transition-all font-medium text-sm"
             >
-              View All 16 Roles <ArrowRight size={14} />
+              View All 15 Roles <ArrowRight size={14} />
             </Link>
           </div>
         </div>
