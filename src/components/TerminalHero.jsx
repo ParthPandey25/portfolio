@@ -11,15 +11,47 @@ const COMMANDS = [
     output: (
       <div className="space-y-1 text-slate-300 leading-relaxed">
         <p>
-          <span className="text-cyan-400">Role:</span> Network &amp; Security AI Engineer L2 Plus
+          <span className="text-cyan-400">Role:</span> Aspiring Cybersecurity Engineer | Red Teaming &amp; Blue Teaming
         </p>
         <p>
-          <span className="text-cyan-400">Focus:</span> Blue Team SOC · Zero Trust · SIEM · Enterprise Firewalls
+          <span className="text-cyan-400">Focus:</span> SOC Operations · Zero Trust · SIEM (Splunk) · Ethical Hacking · Enterprise Firewalls
         </p>
         <p className="text-slate-400 text-xs mt-2 max-w-lg">
-          Results-driven engineer with hands-on enterprise firewall experience (Check Point Gaia, Palo Alto), 
-          TCP/IP packet analysis, and AWS cloud security. Building SIEM (Splunk) and MITRE ATT&amp;CK competencies.
+          Driven B.Tech CSE graduate (CGPA 8.3, GATE 355) with 10+ virtual internships across Zscaler, 
+          Palo Alto, Fortinet, Google Cloud &amp; AWS. Currently pursuing Google Cybersecurity Professional 
+          Certificate, CompTIA Network+, and EC-Council CEH. TryHackMe Top 8% with 58 rooms completed 
+          and a 70-day active streak. Building SOC readiness via Splunk SIEM, MITRE ATT&amp;CK, and home lab projects.
         </p>
+      </div>
+    ),
+  },
+  {
+    cmd: "./tryhackme.sh",
+    output: (
+      <div className="space-y-2">
+        <p className="text-xs text-slate-500 mb-2">// TryHackMe Profile — parthrspandey25</p>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="bg-slate-800/60 border border-emerald-500/20 rounded-lg p-2.5 text-center">
+            <p className="text-lg font-extrabold text-emerald-400">Top 8%</p>
+            <p className="text-[10px] text-slate-500 font-mono">Global Rank</p>
+          </div>
+          <div className="bg-slate-800/60 border border-cyan-500/20 rounded-lg p-2.5 text-center">
+            <p className="text-lg font-extrabold text-cyan-400">58</p>
+            <p className="text-[10px] text-slate-500 font-mono">Rooms Done</p>
+          </div>
+          <div className="bg-slate-800/60 border border-orange-500/20 rounded-lg p-2.5 text-center">
+            <p className="text-lg font-extrabold text-orange-400">🔥 70</p>
+            <p className="text-[10px] text-slate-500 font-mono">Day Streak</p>
+          </div>
+          <div className="bg-slate-800/60 border border-purple-500/20 rounded-lg p-2.5 text-center">
+            <p className="text-lg font-extrabold text-purple-400">11</p>
+            <p className="text-[10px] text-slate-500 font-mono">Badges</p>
+          </div>
+        </div>
+        <a href="https://tryhackme.com/p/parthrspandey25" target="_blank" rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 text-xs text-emerald-400 hover:text-emerald-300 mt-1 font-mono">
+          → View Full TryHackMe Profile
+        </a>
       </div>
     ),
   },
@@ -70,8 +102,9 @@ const COMMANDS = [
         <p className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block" />
           <span className="text-emerald-400 font-semibold">ACTIVELY SEEKING:</span>
-          <span className="text-slate-300">Blue Team SOC Analyst / Security Engineer roles</span>
+          <span className="text-slate-300">SOC Analyst / Cybersecurity Engineer / Pen Testing roles</span>
         </p>
+        <p><span className="text-cyan-400">Current training:</span> <span className="text-slate-300">Google Cybersec Pro · CEH · Network+ · TryHackMe (Top 8%)</span></p>
         <p><span className="text-cyan-400">Current build:</span> <span className="text-slate-300">Home SOC Lab — Splunk SIEM + AWS CloudTrail ingestion</span></p>
         <p><span className="text-cyan-400">Location:</span> <span className="text-slate-300">India (Open to Remote)</span></p>
       </div>

@@ -1,16 +1,16 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Parth Pandey — Network & Security AI Engineer",
+  title: "Parth Pandey — Cybersecurity Engineer | Red Team & Blue Team",
   description:
-    "Portfolio of Parth Pandey — Network & Security AI Engineer with expertise in Check Point, Palo Alto, Zscaler Zero Trust, Splunk SIEM, AWS Cloud Security, and SOC Blue Team operations.",
+    "Portfolio of Parth Pandey — Cybersecurity Engineer with expertise in Red Teaming, Blue Teaming, Check Point, Palo Alto, Zscaler Zero Trust, Splunk SIEM, AWS Cloud Security, and SOC operations.",
   keywords:
     "Parth Pandey, Cybersecurity, Network Security, SOC Analyst, SIEM, Splunk, Check Point, Palo Alto, Zscaler, AWS, Portfolio",
   authors: [{ name: "Parth Pandey" }],
   openGraph: {
-    title: "Parth Pandey — Network & Security AI Engineer",
+    title: "Parth Pandey — Cybersecurity Engineer | Red Team & Blue Team",
     description:
-      "Interactive cybersecurity portfolio showcasing expertise in enterprise firewalls, zero-trust, SIEM, and cloud security.",
+      "Interactive cybersecurity portfolio showcasing expertise in enterprise firewalls, zero-trust, SIEM, ethical hacking, and cloud security.",
     type: "website",
   },
 };

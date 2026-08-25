@@ -9,12 +9,12 @@ import Link from "next/link";
 export const metadata = {
   title: "Experience — Parth Pandey Portfolio",
   description:
-    "Full work history and internship timeline for Parth Pandey — Network Security Engineer with experience at Magma Technology, Zscaler, Palo Alto Networks, Fortinet, and more.",
+    "Full work history, training, and internship timeline for Parth Pandey — Cybersecurity Engineer with virtual internships at Zscaler, Palo Alto Networks, Fortinet, Google Cloud, and more.",
 };
 
 const stats = [
-  { label: "Roles & Internships", value: "11+", icon: <Briefcase size={18} className="text-emerald-400" /> },
-  { label: "Industry Partners",   value: "10",   icon: <GraduationCap size={18} className="text-cyan-400" /> },
+  { label: "Roles & Training",    value: "16+", icon: <Briefcase size={18} className="text-emerald-400" /> },
+  { label: "Industry Partners",   value: "12",   icon: <GraduationCap size={18} className="text-cyan-400" /> },
   { label: "Years Active",        value: "2",    icon: <Calendar size={18} className="text-purple-400" /> },
 ];
 
@@ -49,7 +49,7 @@ export default function ExperiencePage() {
         {/* Legend */}
         <div className="flex items-center gap-6 mb-8 text-xs text-slate-500 font-mono">
           <span className="flex items-center gap-1.5">
-            <Briefcase size={12} className="text-emerald-400" /> Full-Time Role
+            <Briefcase size={12} className="text-emerald-400" /> Full-Time / Training
           </span>
           <span className="flex items-center gap-1.5">
             <GraduationCap size={12} className="text-cyan-400" /> Internship / Training

@@ -13,9 +13,9 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 export const metadata = {
-  title: "Parth Pandey — Network & Security AI Engineer",
+  title: "Parth Pandey — Cybersecurity Engineer | Red Team & Blue Team",
   description:
-    "Portfolio of Parth Pandey — Network & Security AI Engineer specialising in Check Point, Palo Alto, Zscaler ZTNA, Splunk SIEM, AWS Cloud Security, and SOC Blue Team operations.",
+    "Portfolio of Parth Pandey — Cybersecurity Engineer specialising in Red Teaming, Blue Teaming, Check Point, Palo Alto, Zscaler ZTNA, Splunk SIEM, AWS Cloud Security, and SOC operations.",
 };
 
 export default function Home() {
@@ -61,7 +61,7 @@ export default function Home() {
               href="/experience"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 hover:border-emerald-400/60 transition-all font-medium text-sm"
             >
-              View All 11 Roles <ArrowRight size={14} />
+              View All 16 Roles <ArrowRight size={14} />
             </Link>
           </div>
         </div>

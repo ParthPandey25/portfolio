@@ -2,22 +2,78 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Briefcase, GraduationCap, ChevronDown, ChevronUp, MapPin, Calendar } from "lucide-react";
+import { Briefcase, GraduationCap, BookOpen, ChevronDown, ChevronUp, MapPin, Calendar, Loader } from "lucide-react";
 
 export const experiences = [
+  /* ═══════════ CURRENT TRAINING (In Progress) ═══════════ */
   {
-    company: "Magma Technology",
-    role: "Network and Security AI Engineer L2 Plus",
-    period: "February 2026 – May 2026",
-    location: "India",
-    type: "job",
+    company: "Google / Coursera",
+    role: "Google Cybersecurity Professional Certificate",
+    period: "2026 – Present",
+    location: "Remote",
+    type: "training",
     color: "emerald",
     bullets: [
-      "Architected and maintained secure enterprise network infrastructures; executed configurations and complex troubleshooting of 15+ production routers, switches, and core gateways, contributing to a 15% reduction in average network downtime.",
-      "Enforced corporate access controls and security baseline measures; continuously monitored perimeter firewalls and multi-tier VPN topologies, analyzing 500+ daily systemic network monitoring logs to isolate threats.",
-      "Served as a core escalation resource for investigating security incidents, resolving 30+ high-priority network anomalies and coordinating across cross-functional teams to maintain 99.9% high availability.",
+      "Identified a critical need to build industry-recognized cybersecurity foundations to complement hands-on lab work (Situation). Enrolled in Google's 9-course Cybersecurity Professional Certificate on Coursera (Task). Completed 3 of 9 courses — Foundations of Cybersecurity, Play It Safe: Manage Security Risks, and Connect & Protect: Networks and Network Security — covering threat modeling, risk frameworks (NIST CSF), and TCP/IP defense (Action). Earned 3 verified certificates and built a structured knowledge base in security operations and network defense (Result).",
     ],
   },
+  {
+    company: "Unisoft Technology",
+    role: "CompTIA Network+ Training",
+    period: "2026 – Present",
+    location: "India",
+    type: "training",
+    color: "cyan",
+    bullets: [
+      "Recognized that a strong networking foundation is essential for security engineering roles (Situation). Enrolled in an instructor-led CompTIA Network+ preparation program at Unisoft Technology (Task). Actively studying network topologies, switching & routing protocols, subnetting, VLANs, wireless standards, and troubleshooting methodologies (Action). Building vendor-neutral networking expertise aligned with the CompTIA N10-009 exam objectives (Result).",
+    ],
+  },
+  {
+    company: "EC-Council",
+    role: "Certified Ethical Hacker (CEH) Training",
+    period: "2026 – Present",
+    location: "Remote",
+    type: "training",
+    color: "red",
+    bullets: [
+      "Aimed to develop offensive security skills to complement existing blue-team competencies (Situation). Began training for EC-Council's Certified Ethical Hacker (CEH) certification (Task). Studying reconnaissance techniques, vulnerability analysis, system hacking methodologies, web application attacks, and social engineering tactics in structured lab environments (Action). Developing a well-rounded red team + blue team skill set for comprehensive security roles (Result).",
+    ],
+  },
+  {
+    company: "Google / Coursera",
+    role: "Google IT Support Professional Certificate",
+    period: "2026 – Present",
+    location: "Remote",
+    type: "training",
+    color: "yellow",
+    bullets: [
+      "Identified gaps in foundational IT support knowledge required for helpdesk-to-SOC career progression (Situation). Enrolled in Google's IT Support Professional Certificate on Coursera (Task). Progressing through modules on troubleshooting, networking, operating systems, system administration, and IT security fundamentals (Action). Building a comprehensive IT operations baseline to support future security engineering specializations (Result).",
+    ],
+  },
+  {
+    company: "IBM / Coursera",
+    role: "IBM Full Stack Software Developer Professional Certificate",
+    period: "2026 – Present",
+    location: "Remote",
+    type: "training",
+    color: "blue",
+    bullets: [
+      "Recognized the value of full-stack development skills for building security tools and internal dashboards (Situation). Enrolled in IBM's Full Stack Developer Professional Certificate on Coursera (Task). Studying cloud-native development with React, Node.js, Python, Django, Docker, Kubernetes, and microservices architecture (Action). Expanding skill set to bridge the gap between development and security operations (DevSecOps) (Result).",
+    ],
+  },
+  {
+    company: "Be 10x",
+    role: "AI Tool Workshop Bootcamp",
+    period: "2026",
+    location: "Remote",
+    type: "training",
+    color: "purple",
+    bullets: [
+      "Wanted to leverage AI tools to boost productivity and automate repetitive security and development workflows (Situation). Participated in the Be 10x AI Tool Workshop bootcamp (Task). Gained hands-on experience with AI-powered productivity tools, prompt engineering techniques, and workflow automation strategies (Action). Completed the bootcamp and earned a certificate, integrating AI tools into daily development and security analysis workflows (Result).",
+    ],
+  },
+
+  /* ═══════════ COMPLETED INTERNSHIPS ═══════════ */
   {
     company: "Zscaler / EduSkills AICTE",
     role: "Zero Trust Cloud Security Virtual Intern",
@@ -26,7 +82,7 @@ export const experiences = [
     type: "internship",
     color: "cyan",
     bullets: [
-      "Graduated from an 8-week intensive training program with a 100% completion rate, achieving an 'O' (Outstanding) grade in Zero Trust Network Access (ZTNA) frameworks and Secure Access Service Edge (SASE) principles.",
+      "Enrolled in an 8-week Zscaler Zero Trust training program to deepen cloud security expertise (Situation). Tasked with mastering Zero Trust Network Access (ZTNA) frameworks and Secure Access Service Edge (SASE) architecture (Task). Completed all modules including ZIA/ZPA configuration, policy enforcement labs, and secure web gateway design (Action). Achieved an 'O' (Outstanding) grade with 100% completion rate, earning the Zscaler Zero Trust Cyber Associate credential (Result).",
     ],
   },
   {
@@ -37,7 +93,7 @@ export const experiences = [
     type: "internship",
     color: "red",
     bullets: [
-      "Navigated intensive specialization tracking labs covering 20+ Palo Alto hardware rules, Next-Generation Firewalls (NGFW), Strata access policy engines, and Cortex endpoint threat telemetry.",
+      "Required hands-on exposure to enterprise-grade firewall and endpoint security platforms (Situation). Assigned to complete intensive specialization labs across 20+ Palo Alto hardware configurations (Task). Navigated Next-Generation Firewall (NGFW) deployments, configured Strata access policy engines, and analyzed Cortex endpoint threat telemetry feeds (Action). Earned 4 Palo Alto course certificates covering network security, cloud security, and SOC operations (Result).",
     ],
   },
   {
@@ -48,7 +104,7 @@ export const experiences = [
     type: "internship",
     color: "yellow",
     bullets: [
-      "Analyzed secure infrastructure baselines within Google Cloud Platform environments; modeled isolated cloud network architectures, security perimeter controls, and enterprise-level IAM user group profiles.",
+      "Needed to understand cloud-native security architectures for hybrid enterprise environments (Situation). Tasked with modeling secure cloud network topologies within Google Cloud Platform (Task). Designed isolated VPC architectures, configured security perimeter controls using Cloud Armor, and built enterprise-level IAM policies with role-based access groups (Action). Developed practical GCP security skills and earned the Google Cloud Cybersecurity Specialization credential (Result).",
     ],
   },
   {
@@ -59,7 +115,7 @@ export const experiences = [
     type: "internship",
     color: "orange",
     bullets: [
-      "Mastered validated technical knowledge in unified protection deployments; evaluated 5+ Fortinet Security Fabric blueprints and simulated robust threat mitigation policies.",
+      "Sought vendor-specific security expertise in the Fortinet ecosystem for enterprise defense roles (Situation). Tasked with evaluating Fortinet Security Fabric architectures and threat mitigation strategies (Task). Analyzed 5+ Security Fabric blueprints, simulated FortiGate NGFW policies, and tested IDS/IPS rule sets in lab environments (Action). Earned the Fortinet Certified Associate (FCA) and FortiGate 7.4 Operator certifications (Result).",
     ],
   },
   {
@@ -70,7 +126,7 @@ export const experiences = [
     type: "internship",
     color: "green",
     bullets: [
-      "Engineered a deep learning Garbage Classification AI platform; deployed convolutional neural network (CNN) models to parse raw waste asset variables and establish automatic sorting boundaries for sustainability.",
+      "Challenged to apply deep learning to a real-world sustainability problem for Shell's green skills initiative (Situation). Tasked with building an automated waste classification system using computer vision (Task). Engineered a CNN-based Garbage Classification AI platform that parsed raw image data and established automatic sorting boundaries for recyclable vs. non-recyclable waste (Action). Delivered a functional prototype achieving reliable classification accuracy, demonstrating AI's role in sustainability (Result).",
     ],
   },
   {
@@ -81,7 +137,7 @@ export const experiences = [
     type: "internship",
     color: "blue",
     bullets: [
-      "Constructed a predictive Employee Salary Prediction Model; scrubbed multi-variable historical corporate compensation datasets and programmed training regressions to evaluate wage trajectories.",
+      "Needed to build practical ML model development skills beyond theoretical coursework (Situation). Tasked with constructing a predictive model using real-world corporate compensation data (Task). Scrubbed multi-variable historical datasets, engineered features, and trained regression models to predict employee salary trajectories with scikit-learn (Action). Delivered a functional Employee Salary Prediction Model with validated accuracy metrics and documented methodology (Result).",
     ],
   },
   {
@@ -92,7 +148,7 @@ export const experiences = [
     type: "internship",
     color: "purple",
     bullets: [
-      "Engineered a secure Personal Finance Tracker Web App utilizing a MERN stack (MongoDB, Express, React, Node.js) structure; deployed cryptographic access state parameters and created custom transactional REST API schemas.",
+      "Required end-to-end full-stack development experience with security-focused architecture (Situation). Tasked with building a secure personal finance management application from scratch (Task). Engineered a MERN stack (MongoDB, Express, React, Node.js) Finance Tracker with JWT-based authentication, bcrypt password hashing, and custom transactional REST API schemas (Action). Deployed a fully functional web app with cryptographic access controls and real-time dashboard analytics (Result).",
     ],
   },
   {
@@ -103,7 +159,7 @@ export const experiences = [
     type: "internship",
     color: "cyan",
     bullets: [
-      "Executed advanced multi-variable data clustering operations; processed core algorithmic files to run complex analytical processing tasks, model optimization trees, and data parsing loops within strict mathematical margins.",
+      "Sought advanced data science skills for complex multi-variable analysis scenarios (Situation). Tasked with implementing clustering and classification algorithms on large-scale datasets (Task). Executed K-means clustering, decision tree optimization, and data parsing pipelines using Python and scikit-learn within strict mathematical validation margins (Action). Produced reproducible analytical workflows and model performance benchmarks for Altair's data science curriculum (Result).",
     ],
   },
   {
@@ -114,7 +170,7 @@ export const experiences = [
     type: "internship",
     color: "blue",
     bullets: [
-      "Engineered a secure cryptographic steganography module utilizing OpenStego to conceal encrypted text payloads within carrier images via LSB pixel-level manipulation, successfully evading structural hash detection.",
+      "Needed to understand steganographic data-hiding techniques for digital forensics applications (Situation). Tasked with building a secure steganography module that could evade standard detection (Task). Engineered a cryptographic steganography tool using OpenStego to embed encrypted text payloads within carrier images via LSB (Least Significant Bit) pixel-level manipulation (Action). Successfully concealed data that evaded structural hash detection in testing, demonstrating practical covert communication techniques (Result).",
     ],
   },
   {
@@ -125,7 +181,7 @@ export const experiences = [
     type: "internship",
     color: "orange",
     bullets: [
-      "Architected a High-Volume Cross-Account AWS Data Architecture; engineered a resilient 3-tier AWS operational sandbox deploying privilege-isolated IAM trust policies to safely execute bulk asset replication loops across separate domains.",
+      "Required hands-on AWS cloud infrastructure experience for DevOps and security operations roles (Situation). Tasked with designing a cross-account data replication architecture with strict IAM isolation (Task). Architected a resilient 3-tier AWS sandbox deploying privilege-isolated IAM trust policies, S3 cross-account replication, and CodePipeline CI/CD workflows (Action). Delivered a fully operational multi-account AWS architecture with documented security policies and automated deployment pipelines (Result).",
     ],
   },
 ];
@@ -145,6 +201,7 @@ function TimelineEntry({ exp, index, isLast }) {
   const [expanded, setExpanded] = useState(false);
   const c = colorMap[exp.color] ?? colorMap.emerald;
   const isJob = exp.type === "job";
+  const isTraining = exp.type === "training";
 
   return (
     <motion.div
@@ -166,7 +223,7 @@ function TimelineEntry({ exp, index, isLast }) {
 
       {/* Card */}
       <div
-        className={`bg-slate-900/70 border rounded-xl mb-6 overflow-hidden transition-all duration-300 glass-card ${c.border} ${isJob ? "ring-1 ring-emerald-500/20" : ""}`}
+        className={`bg-slate-900/70 border rounded-xl mb-6 overflow-hidden transition-all duration-300 glass-card ${c.border} ${isJob ? "ring-1 ring-emerald-500/20" : ""} ${isTraining ? "ring-1 ring-cyan-500/15" : ""}`}
       >
         <button
           onClick={() => setExpanded((e) => !e)}
@@ -174,7 +231,9 @@ function TimelineEntry({ exp, index, isLast }) {
         >
           {/* Icon */}
           <div className="p-2 rounded-lg bg-slate-800 border border-slate-700/50 shrink-0 mt-0.5">
-            {isJob ? (
+            {isTraining ? (
+              <BookOpen size={16} className="text-emerald-400" />
+            ) : isJob ? (
               <Briefcase size={16} className="text-emerald-400" />
             ) : (
               <GraduationCap size={16} className="text-cyan-400" />
@@ -187,6 +246,11 @@ function TimelineEntry({ exp, index, isLast }) {
               <div>
                 <div className="flex items-center gap-2 flex-wrap mb-0.5">
                   <h3 className="font-bold text-slate-100 text-base leading-snug">{exp.company}</h3>
+                  {isTraining && (
+                    <span className="text-xs px-2 py-0.5 rounded-full font-mono bg-cyan-500/10 text-cyan-400 flex items-center gap-1">
+                      <Loader size={10} className="animate-spin" /> In Progress
+                    </span>
+                  )}
                   {isJob && (
                     <span className={`text-xs px-2 py-0.5 rounded-full font-mono ${c.tag}`}>Full-Time</span>
                   )}

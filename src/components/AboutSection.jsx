@@ -38,13 +38,31 @@ export default function AboutSection() {
           <h2 className="text-2xl md:text-3xl font-bold text-slate-100 mb-3">
             Hi, I&apos;m <span className="gradient-text">Parth Pandey</span> 👋
           </h2>
-          <p className="text-slate-400 leading-relaxed mb-5">
-            Results-driven <strong className="text-slate-200">Network &amp; Security Engineer</strong> with
-            hands-on enterprise firewall deployment experience (Check Point Gaia, Palo Alto) and practical
-            TCP/IP packet analysis. Strong foundational knowledge in cloud infrastructure (AWS) and zero-trust
-            network segmentation. Actively building SIEM (Splunk), threat triage, and NIST Incident Response
-            competencies to transition into a <strong className="text-emerald-400">Blue Team SOC Analyst</strong> role.
+          <p className="text-slate-400 leading-relaxed mb-4">
+            Driven <strong className="text-slate-200">Cybersecurity Engineer</strong> (B.Tech CSE, CGPA 8.3, GATE 355) 
+            with 10+ virtual internships across <strong className="text-slate-200">Zscaler, Palo Alto Networks, Fortinet, 
+            Google Cloud &amp; AWS</strong>. Currently pursuing the Google Cybersecurity Professional Certificate, 
+            CompTIA Network+, and EC-Council CEH. Hands-on with enterprise firewalls (Check Point Gaia, FortiGate), 
+            ZTNA frameworks, and TCP/IP analysis. Actively building <strong className="text-emerald-400">Red Team &amp; Blue Team</strong> competencies 
+            via TryHackMe, Splunk SIEM, and MITRE ATT&amp;CK-mapped home lab projects.
           </p>
+
+          {/* TryHackMe Stats */}
+          <div className="flex flex-wrap items-center gap-3 mb-5 p-3 rounded-xl bg-slate-800/40 border border-slate-700/40">
+            <a href="https://tryhackme.com/p/parthrspandey25" target="_blank" rel="noopener noreferrer" 
+              className="text-xs font-mono font-bold text-emerald-400 hover:text-emerald-300 transition-colors">
+              TryHackMe
+            </a>
+            <span className="text-xs text-slate-500">|</span>
+            <span className="text-xs font-mono text-cyan-400 font-bold">Top 8%</span>
+            <span className="text-xs text-slate-500">|</span>
+            <span className="text-xs font-mono text-slate-300">58 Rooms</span>
+            <span className="text-xs text-slate-500">|</span>
+            <span className="text-xs font-mono text-orange-400">🔥 70-day streak</span>
+            <span className="text-xs text-slate-500">|</span>
+            <span className="text-xs font-mono text-purple-400">11 Badges</span>
+          </div>
+
           <div className="flex flex-wrap gap-3">
             <Link
               href="/experience"
