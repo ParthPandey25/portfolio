@@ -34,8 +34,8 @@ const SOCIAL = [
   {
     icon: <GithubIcon size={18} className="text-purple-400" />,
     label: "GitHub",
-    value: "github.com/CodParth",
-    href: "https://github.com/CodParth",
+    value: "github.com/ParthPandey25",
+    href: "https://github.com/ParthPandey25",
     color: "hover:border-purple-500/50 hover:shadow-[0_8px_30px_rgba(168,85,247,0.15)]",
   },
   {

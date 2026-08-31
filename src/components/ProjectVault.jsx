@@ -3,13 +3,18 @@
 import React from "react";
 import { motion } from "framer-motion";
 import {
-  Network,
-  Shield,
-  Cpu,
-  Globe,
+  Activity,
+  Boxes,
+  Film,
+  Wallet,
+  Recycle,
+  Mail,
+  Lock,
+  CheckSquare,
   ExternalLink,
   Clock,
   CheckCircle2,
+  Sparkles,
 } from "lucide-react";
 import { GithubIcon } from "./SocialIcons";
 import TiltCard from "./TiltCard";
@@ -17,44 +22,86 @@ import Link from "next/link";
 
 const projects = [
   {
-    title: "Home SOC Lab: Splunk SIEM & AWS CloudTrail",
+    title: "Yoga Guru AI — Real-Time Computer Vision & Health Guide",
     description:
-      "Orchestrating a local SOC environment ingesting AWS CloudTrail and VPC Flow Logs into Splunk. Custom SPL detection rules mapped to MITRE ATT&CK techniques (T1078, T1110) for brute-force alerting and rapid incident triage.",
-    icon: <Network className="text-emerald-400" size={26} />,
+      "Full-stack AI yoga instructor with real-time pose estimation and correction using YOLOv8, MediaPipe, Faster R-CNN, and LSTM sequence analysis. Integrates Gemini AI for biological profile meal planning.",
+    icon: <Activity className="text-emerald-400" size={26} />,
     color: "emerald",
-    tags: ["Splunk", "AWS CloudTrail", "MITRE ATT&CK", "SPL", "VPC Flow Logs"],
-    status: "in-progress",
-    github: "https://github.com/CodParth",
+    tags: ["Computer Vision", "YOLOv8", "MediaPipe", "Gemini AI", "PyTorch", "Flask"],
+    status: "completed",
+    featured: true,
+    github: "https://github.com/ParthPandey25/Yoga-Guru-AI",
   },
   {
-    title: "Distributed Enterprise Firewall Topology",
+    title: "Employee Salary Prediction — Docker Microservices",
     description:
-      "Modeled a highly available multi-branch corporate network with 3 redundant Check Point VSX infrastructure layers, isolated virtual switch networks, and Cisco ASA gateways inside GNS3 sandboxes.",
-    icon: <Shield className="text-cyan-400" size={26} />,
+      "Enterprise microservices pipeline for income bracket classification. Features an Express.js API Gateway, an isolated FastAPI ML inference engine (Gradient Boosting), and a React/Vite frontend.",
+    icon: <Boxes className="text-cyan-400" size={26} />,
     color: "cyan",
-    tags: ["Check Point Gaia", "Cisco", "GNS3", "Python", "Zero Trust"],
+    tags: ["Docker Compose", "FastAPI", "Express.js", "Scikit-Learn", "React", "Microservices"],
     status: "completed",
-    github: "https://github.com/CodParth",
+    featured: true,
+    github: "https://github.com/ParthPandey25/employee-salary-prediction",
   },
   {
-    title: "High-Performance Packet Analyzer",
+    title: "BookMyShow Clone — Full-Stack Cinema Platform",
     description:
-      "Native multi-threaded C++ traffic sniffer using libpcap. Decodes real-time packet structures with sub-millisecond latency, parses network headers, and applies rule-based kernel filtering logic.",
-    icon: <Cpu className="text-purple-400" size={26} />,
+      "End-to-end movie ticket booking platform with multi-city showtimes, interactive curved cinema seat selection, Razorpay payment gateway integration, and dynamic QR ticket generation.",
+    icon: <Film className="text-purple-400" size={26} />,
     color: "purple",
-    tags: ["C++", "libpcap", "Linux", "TCP/IP", "Multi-threading"],
+    tags: ["React (Vite)", "Express.js", "MongoDB", "Razorpay", "REST APIs"],
     status: "completed",
-    github: "https://github.com/CodParth",
+    github: "https://github.com/ParthPandey25/BookMyShow-Clone",
   },
   {
-    title: "Full-Stack Web Clones (BookMyShow, Zomato)",
+    title: "Smart Spender — Financial Budgeting & Analytics API",
     description:
-      "Multi-tier full-stack application mirrors using MERN stack with optimised state handling on the frontend and asynchronous backend database engines to drive low-latency transactional flows.",
-    icon: <Globe className="text-blue-400" size={26} />,
+      "Modular expense and budget management backend with JWT authentication, Bcrypt security, rate limiting, and real-time Socket.io transaction synchronization across clients.",
+    icon: <Wallet className="text-blue-400" size={26} />,
     color: "blue",
-    tags: ["MERN Stack", "React.js", "Node.js", "MongoDB", "REST APIs"],
+    tags: ["Node.js", "Express", "MongoDB", "Socket.io", "JWT", "Security"],
     status: "completed",
-    github: "https://github.com/CodParth",
+    github: "https://github.com/ParthPandey25/Smart-Spender",
+  },
+  {
+    title: "Smart Garbage Classification — CNN & Gradio",
+    description:
+      "Deep transfer learning vision pipeline using EfficientNetV2B2 for municipal solid waste sorting across multi-class recyclable streams with interactive Gradio web interface.",
+    icon: <Recycle className="text-emerald-400" size={26} />,
+    color: "emerald",
+    tags: ["TensorFlow", "Keras", "Transfer Learning", "Gradio", "EfficientNet"],
+    status: "completed",
+    github: "https://github.com/ParthPandey25/garbage-classification-cnn",
+  },
+  {
+    title: "Alexa Voice Mass Email System — Serverless AWS",
+    description:
+      "Voice-activated mass email dispatcher integrating Amazon Alexa Skills Kit, AWS Lambda event handlers, and Amazon Simple Email Service (SES) with dynamic recipient merge templates.",
+    icon: <Mail className="text-cyan-400" size={26} />,
+    color: "cyan",
+    tags: ["Alexa Skills", "AWS Lambda", "Amazon SES", "Python", "Boto3"],
+    status: "completed",
+    github: "https://github.com/ParthPandey25/alexa-voice-mass-email",
+  },
+  {
+    title: "Image Steganography — Cryptographic Pixel Encoder",
+    description:
+      "Security utility embedding password-protected secret messages into lossless image RGB pixel channels using OpenCV and NumPy matrix manipulation without visual distortion.",
+    icon: <Lock className="text-purple-400" size={26} />,
+    color: "purple",
+    tags: ["Python", "OpenCV", "NumPy", "Cryptography", "Security"],
+    status: "completed",
+    github: "https://github.com/ParthPandey25/Stegenography_image",
+  },
+  {
+    title: "Tasky App — Modern Task Management System",
+    description:
+      "Interactive task planner with HTML5 Drag & Drop prioritization, category tagging, overdue tracking, live stat counters, and persistent dark/light mode via localStorage.",
+    icon: <CheckSquare className="text-blue-400" size={26} />,
+    color: "blue",
+    tags: ["JavaScript (ES6+)", "HTML5 Drag & Drop", "CSS Grid", "LocalStorage"],
+    status: "completed",
+    github: "https://github.com/ParthPandey25/Tasky-App",
   },
 ];
 
@@ -101,7 +148,7 @@ export default function ProjectVault() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.5, delay: index * 0.08 }}
               className="h-full"
             >
               <TiltCard className="h-full">
@@ -119,20 +166,27 @@ export default function ProjectVault() {
                       <div className={`p-3 rounded-xl border ${c.iconBg}`}>
                         {project.icon}
                       </div>
-                      <span
-                        className={`flex items-center gap-1.5 text-xs font-mono px-2.5 py-1 rounded-full border ${
-                          project.status === "in-progress"
-                            ? "text-yellow-400 bg-yellow-500/10 border-yellow-500/20"
-                            : "text-emerald-400 bg-emerald-500/10 border-emerald-500/20"
-                        }`}
-                      >
-                        {project.status === "in-progress" ? (
-                          <Clock size={11} />
-                        ) : (
-                          <CheckCircle2 size={11} />
+                      <div className="flex items-center gap-2">
+                        {project.featured && (
+                          <span className="flex items-center gap-1 text-xs font-mono px-2.5 py-1 rounded-full border text-amber-300 bg-amber-500/10 border-amber-500/20">
+                            <Sparkles size={11} /> Featured
+                          </span>
                         )}
-                        {project.status === "in-progress" ? "In Progress" : "Completed"}
-                      </span>
+                        <span
+                          className={`flex items-center gap-1.5 text-xs font-mono px-2.5 py-1 rounded-full border ${
+                            project.status === "in-progress"
+                              ? "text-yellow-400 bg-yellow-500/10 border-yellow-500/20"
+                              : "text-emerald-400 bg-emerald-500/10 border-emerald-500/20"
+                          }`}
+                        >
+                          {project.status === "in-progress" ? (
+                            <Clock size={11} />
+                          ) : (
+                            <CheckCircle2 size={11} />
+                          )}
+                          {project.status === "in-progress" ? "In Progress" : "Completed"}
+                        </span>
+                      </div>
                     </div>
 
                     {/* Title & Description */}
@@ -163,9 +217,9 @@ export default function ProjectVault() {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-100 transition-colors"
+                        className="flex items-center gap-1.5 text-sm text-slate-300 hover:text-emerald-400 font-mono transition-colors"
                       >
-                        <GithubIcon size={14} /> GitHub
+                        <GithubIcon size={14} /> View Code on GitHub →
                       </a>
                     </div>
                   </div>
@@ -181,16 +235,18 @@ export default function ProjectVault() {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ delay: 0.5 }}
+        transition={{ delay: 0.3 }}
         className="mt-10 text-center"
       >
-        <Link
-          href="/projects"
+        <a
+          href="https://github.com/ParthPandey25?tab=repositories"
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 hover:border-emerald-400/60 transition-all font-medium text-sm"
         >
           <ExternalLink size={15} />
-          View All Projects
-        </Link>
+          Explore All Repositories on GitHub
+        </a>
       </motion.div>
     </div>
   );
