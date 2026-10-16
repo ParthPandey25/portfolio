@@ -9,12 +9,12 @@ export const experiences = [
   {
     company: "Google / Coursera",
     role: "Google Cybersecurity Professional Certificate",
-    period: "2026 – Present",
+    period: "2026",
     location: "Remote",
     type: "training",
     color: "emerald",
     bullets: [
-      "Identified a critical need to build industry-recognized cybersecurity foundations to complement hands-on lab work (Situation). Enrolled in Google's 9-course Cybersecurity Professional Certificate on Coursera (Task). Completed 3 of 9 courses — Foundations of Cybersecurity, Play It Safe: Manage Security Risks, and Connect & Protect: Networks and Network Security — covering threat modeling, risk frameworks (NIST CSF), and TCP/IP defense (Action). Earned 3 verified certificates and built a structured knowledge base in security operations and network defense (Result).",
+      "Completed Google's comprehensive 8-course Cybersecurity Professional Certificate on Coursera. Mastered foundational competencies across threat modeling, network security architecture (NIST CSF, TCP/IP defense), SIEM detection, Python automation for security tasks, and Linux/SQL tools for security analysts. Earned verified digital badges and professional certification.",
     ],
   },
   {
@@ -31,12 +31,12 @@ export const experiences = [
   {
     company: "Google / Coursera",
     role: "Google IT Support Professional Certificate",
-    period: "2026 – Present",
+    period: "2026",
     location: "Remote",
     type: "training",
     color: "yellow",
     bullets: [
-      "Identified gaps in foundational IT support knowledge required for helpdesk-to-SOC career progression (Situation). Enrolled in Google's IT Support Professional Certificate on Coursera (Task). Progressing through modules on troubleshooting, networking, operating systems, system administration, and IT security fundamentals (Action). Building a comprehensive IT operations baseline to support future security engineering specializations (Result).",
+      "Completed Google's 5-course IT Support Professional Certificate on Coursera covering hardware, operating systems (Linux & Windows), computer networking protocols (The Bits and Bytes of Networking), system administration & IT infrastructure services, and IT security defense fundamentals.",
     ],
   },
   {

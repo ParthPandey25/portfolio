@@ -149,15 +149,17 @@ export default function Navbar() {
                   </Link>
                 );
               })}
-              <div className="flex items-center gap-3 pt-2 border-t border-slate-800 mt-1">
-                <a href="https://github.com/ParthPandey25" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-3 py-2 text-sm text-slate-400 hover:text-slate-100">
-                  <GithubIcon size={15} /> GitHub
-                </a>
-                <a href="https://linkedin.com/in/parth-pandey-045709258" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-3 py-2 text-sm text-slate-400 hover:text-slate-100">
-                  <LinkedinIcon size={15} /> LinkedIn
-                </a>
-                <a href="/resume.pdf" download className="ml-auto flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border border-emerald-500/30 text-emerald-300">
-                  <Download size={14} /> Resume
+              <div className="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-slate-800 mt-2">
+                <div className="flex items-center gap-4">
+                  <a href="https://github.com/ParthPandey25" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-100">
+                    <GithubIcon size={14} /> GitHub
+                  </a>
+                  <a href="https://linkedin.com/in/parth-pandey-045709258" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-100">
+                    <LinkedinIcon size={14} /> LinkedIn
+                  </a>
+                </div>
+                <a href="/resume.pdf" download className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border border-emerald-500/30 text-emerald-300">
+                  <Download size={13} /> Resume
                 </a>
               </div>
             </div>

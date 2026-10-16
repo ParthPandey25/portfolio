@@ -15,12 +15,60 @@ import {
   Clock,
   CheckCircle2,
   Sparkles,
+  Shield,
+  Network,
+  Radar,
+  Search,
 } from "lucide-react";
 import { GithubIcon } from "./SocialIcons";
 import TiltCard from "./TiltCard";
 import Link from "next/link";
 
 const projects = [
+  {
+    title: "Home SOC Lab — Splunk SIEM & AWS CloudTrail Monitoring",
+    description:
+      "Real-time threat detection pipeline ingesting AWS CloudTrail and VPC Flow Logs into Splunk Enterprise. Custom SPL detection rules mapped to MITRE ATT&CK (T1110 Brute Force, T1078 Root without MFA, T1098 Privilege Escalation, T1530 S3 Exposure).",
+    icon: <Search className="text-red-400" size={26} />,
+    color: "red",
+    tags: ["Splunk SIEM", "AWS CloudTrail", "MITRE ATT&CK", "SPL", "SOC Operations"],
+    status: "completed",
+    featured: true,
+    github: "https://github.com/ParthPandey25/splunk-soc-aws-cloudtrail-lab",
+  },
+  {
+    title: "Enterprise Secure Finance Platform & Web App Penetration Audit",
+    description:
+      "Full-stack financial management platform (Spring Boot Java Security + Express/Node.js API + React) hardened against OWASP Top 10 vulnerabilities. Features comprehensive DAST/SAST penetration testing documentation, JWT RBAC, BOLA/IDOR mitigation, rate limiting, input sanitization, and automated security audit test cases.",
+    icon: <Wallet className="text-emerald-400" size={26} />,
+    color: "emerald",
+    tags: ["Web App Pentesting", "OWASP Top 10", "Spring Security", "Java", "React", "JWT Auth", "Express.js", "Secure Coding"],
+    status: "completed",
+    featured: true,
+    github: "https://github.com/ParthPandey25/Finance-Management-WebApp",
+  },
+  {
+    title: "High-Performance Packet Analyzer (C++17 & libpcap)",
+    description:
+      "Native multi-threaded network traffic analyzer decoding raw Ethernet frames, IPv4/IPv6, TCP, UDP, and ICMP headers with sub-millisecond parsing latency. Lock-free atomic throughput telemetry engine calculating real-time PPS and bandwidth (Mbps).",
+    icon: <Radar className="text-amber-400" size={26} />,
+    color: "amber",
+    tags: ["C++17", "libpcap", "Multi-Threading", "TCP/IP", "Network Security"],
+    status: "completed",
+    featured: true,
+    github: "https://github.com/ParthPandey25/cpp-packet-analyzer",
+  },
+  {
+    title: "Distributed Enterprise Firewall Topology & Policy Auditor",
+    description:
+      "High-availability corporate edge architecture with Cisco ASA and Check Point Gaia zero-trust zone segmentation (OUTSIDE, DMZ, CORP-INTERNAL). Custom Python compliance engine automatically flagging over-permissive ACLs.",
+    icon: <Shield className="text-orange-400" size={26} />,
+    color: "orange",
+    tags: ["Cisco ASA", "Check Point Gaia", "GNS3", "Python", "Zero Trust", "Firewall"],
+    status: "completed",
+    featured: true,
+    github: "https://github.com/ParthPandey25/enterprise-firewall-topology",
+  },
   {
     title: "Yoga Guru AI — Real-Time Computer Vision & Health Guide",
     description:
@@ -31,6 +79,17 @@ const projects = [
     status: "completed",
     featured: true,
     github: "https://github.com/ParthPandey25/Yoga-Guru-AI",
+  },
+  {
+    title: "Metasploitable Vulnerability Assessment & Port-by-Port Audit",
+    description:
+      "Comprehensive network vulnerability assessment across Metasploitable virtual targets. Utilized Nmap service discovery, NSE vulnerability scripts, and CVE mapping to audit FTP (21), SSH (22), Telnet (23), SMTP (25), HTTP (80), and SMB/Samba (139/445), authoring actionable defense hardening playbooks.",
+    icon: <Network className="text-rose-400" size={26} />,
+    color: "rose",
+    tags: ["Nmap", "Metasploitable", "Port Auditing", "CVE Mapping", "Kali Linux", "Remediation"],
+    status: "completed",
+    featured: true,
+    github: "https://github.com/ParthPandey25/parthpandey-cyberlab",
   },
   {
     title: "Employee Salary Prediction — Docker Microservices",
@@ -52,16 +111,6 @@ const projects = [
     tags: ["React (Vite)", "Express.js", "MongoDB", "Razorpay", "REST APIs"],
     status: "completed",
     github: "https://github.com/ParthPandey25/BookMyShow-Clone",
-  },
-  {
-    title: "Smart Spender — Financial Budgeting & Analytics API",
-    description:
-      "Modular expense and budget management backend with JWT authentication, Bcrypt security, rate limiting, and real-time Socket.io transaction synchronization across clients.",
-    icon: <Wallet className="text-blue-400" size={26} />,
-    color: "blue",
-    tags: ["Node.js", "Express", "MongoDB", "Socket.io", "JWT", "Security"],
-    status: "completed",
-    github: "https://github.com/ParthPandey25/Smart-Spender",
   },
   {
     title: "Smart Garbage Classification — CNN & Gradio",
@@ -133,6 +182,34 @@ const colorMap = {
     tag: "bg-blue-500/10 text-blue-400 border-blue-500/20",
     gradient: "from-blue-500/10 to-transparent",
     iconBg: "bg-blue-500/10 border-blue-500/20",
+  },
+  red: {
+    border: "hover:border-red-500/50",
+    glow: "hover:shadow-[0_20px_60px_-10px_rgba(239,68,68,0.25)]",
+    tag: "bg-red-500/10 text-red-400 border-red-500/20",
+    gradient: "from-red-500/10 to-transparent",
+    iconBg: "bg-red-500/10 border-red-500/20",
+  },
+  amber: {
+    border: "hover:border-amber-500/50",
+    glow: "hover:shadow-[0_20px_60px_-10px_rgba(245,158,11,0.25)]",
+    tag: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+    gradient: "from-amber-500/10 to-transparent",
+    iconBg: "bg-amber-500/10 border-amber-500/20",
+  },
+  orange: {
+    border: "hover:border-orange-500/50",
+    glow: "hover:shadow-[0_20px_60px_-10px_rgba(249,115,22,0.25)]",
+    tag: "bg-orange-500/10 text-orange-400 border-orange-500/20",
+    gradient: "from-orange-500/10 to-transparent",
+    iconBg: "bg-orange-500/10 border-orange-500/20",
+  },
+  rose: {
+    border: "hover:border-rose-500/50",
+    glow: "hover:shadow-[0_20px_60px_-10px_rgba(244,63,94,0.25)]",
+    tag: "bg-rose-500/10 text-rose-400 border-rose-500/20",
+    gradient: "from-rose-500/10 to-transparent",
+    iconBg: "bg-rose-500/10 border-rose-500/20",
   },
 };
 

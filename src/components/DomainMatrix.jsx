@@ -2,41 +2,57 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ShieldCheck, Cloud, Cpu, Activity } from "lucide-react";
+import { ShieldCheck, Cloud, Cpu, Activity, Terminal, Lock } from "lucide-react";
 import TiltCard from "./TiltCard";
 
 const domains = [
   {
-    title: "SIEM & SOC Blue Team",
-    icon: <Activity size={30} className="text-emerald-400" />,
+    title: "Reconnaissance & Threat Intelligence",
+    icon: <Terminal size={30} className="text-red-400" />,
+    color: "red",
+    tags: ["Nmap", "Amass", "Subfinder", "theHarvester", "Shodan", "Port Auditing", "NSE Scripts"],
+    description:
+      "Active and passive network reconnaissance, OSINT attack-surface discovery, automated subdomain enumeration, and port vulnerability mapping across Metasploitable targets.",
+  },
+  {
+    title: "Web Security & Penetration Testing",
+    icon: <Lock size={30} className="text-emerald-400" />,
     color: "emerald",
-    tags: ["Splunk", "MITRE ATT&CK", "NIST IR", "Threat Triage", "Log Correlation", "EDR/XDR"],
+    tags: ["Burp Suite", "OWASP ZAP", "Nikto", "Gobuster", "SQLmap", "PortSwigger", "OWASP Top 10"],
     description:
-      "Building SOC capabilities with Splunk SPL detection rules mapped to MITRE ATT&CK techniques. Incident response workflows and threat triage for enterprise environments.",
+      "Web vulnerability assessment and DAST security audits. Hands-on testing for SQL injection, directory brute-forcing, XSS, SSRF, IDOR/BOLA, and API authorization controls.",
   },
   {
-    title: "Cybersecurity & Firewalls",
-    icon: <ShieldCheck size={30} className="text-cyan-400" />,
-    color: "cyan",
-    tags: ["Check Point CCSA/CCVS", "Palo Alto NGFW", "Zscaler ZTNA", "Fortinet Fabric", "Zero Trust"],
-    description:
-      "Enterprise-grade firewall deployment (Check Point Gaia, Palo Alto Strata/Cortex), ZTNA/SASE security models, and multi-tier VPN topology management.",
-  },
-  {
-    title: "Cloud Security (AWS & GCP)",
-    icon: <Cloud size={30} className="text-blue-400" />,
-    color: "blue",
-    tags: ["AWS IAM", "CloudTrail", "VPC", "SES", "Lambda", "GCP", "Security Architecture"],
-    description:
-      "Designing secure cloud architectures with IAM trust policies, CloudTrail ingestion, VPC Flow Logs analysis, and cross-account AWS data pipelines.",
-  },
-  {
-    title: "Network Engineering",
+    title: "Network Security & Traffic Inspection",
     icon: <Cpu size={30} className="text-purple-400" />,
     color: "purple",
-    tags: ["C++ / libpcap", "TCP/IP", "GNS3", "Wireshark", "Cisco", "Packet Analysis"],
+    tags: ["Wireshark", "tcpdump", "Zeek", "Suricata", "Snort", "C++17 libpcap", "PCAP Dissection"],
     description:
-      "Low-level network packet analysis using C++ and libpcap. Enterprise network simulation with GNS3, Cisco Packet Tracer, and real-time traffic inspection.",
+      "Deep packet inspection, raw socket dissection, protocol decoding (TCP/IP, DNS, TLS), signature-based IDS/IPS alert rules, and high-performance network traffic telemetry.",
+  },
+  {
+    title: "Blue Team / SOC & SIEM Operations",
+    icon: <Activity size={30} className="text-cyan-400" />,
+    color: "cyan",
+    tags: ["Splunk SIEM", "Wazuh", "Elastic Security", "Microsoft Sentinel", "Security Onion", "MITRE ATT&CK"],
+    description:
+      "Enterprise security monitoring, SPL detection correlation pipelines, AWS CloudTrail & VPC Flow log ingestion, MITRE ATT&CK adversary mapping, and L1/L2 incident triage.",
+  },
+  {
+    title: "Digital Forensics & Reverse Engineering",
+    icon: <ShieldCheck size={30} className="text-amber-400" />,
+    color: "amber",
+    tags: ["Autopsy", "FTK Imager", "Volatility", "Plaso", "Ghidra", "Memory Forensics", "Linux IR"],
+    description:
+      "Host-based artifact triage, disk imaging, volatile memory forensics, malware decompilation with Ghidra, timeline analysis with Plaso, and Linux post-compromise incident analysis.",
+  },
+  {
+    title: "Zero Trust & Enterprise Cloud Defense",
+    icon: <Cloud size={30} className="text-blue-400" />,
+    color: "blue",
+    tags: ["Zscaler ZTNA (Grade 'O')", "Palo Alto NGFW", "Check Point Gaia", "Fortinet FortiGate", "AWS CloudTrail"],
+    description:
+      "Architecting zero-trust access (Zscaler ZPA/ZIA), next-gen firewall multi-zone perimeters (Check Point CCSA, FortiGate 7.4), and hardened cloud infrastructure with IAM least privilege.",
   },
 ];
 
@@ -64,6 +80,18 @@ const colorMap = {
     border: "hover:border-purple-500/50",
     tag: "bg-purple-500/10 text-purple-400 border-purple-500/20",
     icon: "bg-purple-500/10 border-purple-500/20",
+  },
+  red: {
+    glow: "hover:shadow-[0_20px_50px_-10px_rgba(239,68,68,0.3)]",
+    border: "hover:border-red-500/50",
+    tag: "bg-red-500/10 text-red-400 border-red-500/20",
+    icon: "bg-red-500/10 border-red-500/20",
+  },
+  amber: {
+    glow: "hover:shadow-[0_20px_50px_-10px_rgba(245,158,11,0.3)]",
+    border: "hover:border-amber-500/50",
+    tag: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+    icon: "bg-amber-500/10 border-amber-500/20",
   },
 };
 

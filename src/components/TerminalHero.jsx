@@ -18,9 +18,10 @@ const COMMANDS = [
         </p>
         <p className="text-slate-400 text-xs mt-2 max-w-lg">
           Driven B.Tech CSE graduate (CGPA 8.3, GATE 355) with 10+ virtual internships across Zscaler, 
-          Palo Alto, Fortinet, Google Cloud &amp; AWS. Currently pursuing Google Cybersecurity Professional 
-          Certificate, CompTIA Network+, and EC-Council CEH. TryHackMe Top 8% with 58 rooms completed 
-          and a 70-day active streak. Building SOC readiness via Splunk SIEM, MITRE ATT&amp;CK, and home lab projects.
+          Palo Alto, Fortinet, Google Cloud &amp; AWS. Certified in Google Cybersecurity Professional 
+          &amp; Google IT Support, Cisco CCNA / CompTIA Network+ (Unisoft), and Certified Ethical Hacker (CEH). 
+          Ranked in TryHackMe Top 2% (Level 12 [GURU]) with 115+ rooms, a 122-day streak, and Diamond League standing. Actively auditing web application security 
+          on PortSwigger Web Security Academy, OverTheWire wargames, and Hack The Box.
         </p>
       </div>
     ),
@@ -29,23 +30,23 @@ const COMMANDS = [
     cmd: "./tryhackme.sh",
     output: (
       <div className="space-y-2">
-        <p className="text-xs text-slate-500 mb-2">// TryHackMe Profile — parthrspandey25</p>
+        <p className="text-xs text-slate-500 mb-2">// TryHackMe Profile — parthrspandey25 [GURU Level 12]</p>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div className="bg-slate-800/60 border border-emerald-500/20 rounded-lg p-2.5 text-center">
-            <p className="text-lg font-extrabold text-emerald-400">Top 8%</p>
-            <p className="text-[10px] text-slate-500 font-mono">Global Rank</p>
+            <p className="text-lg font-extrabold text-emerald-400">Top 2%</p>
+            <p className="text-[10px] text-slate-500 font-mono">Global (#42,194)</p>
           </div>
           <div className="bg-slate-800/60 border border-cyan-500/20 rounded-lg p-2.5 text-center">
-            <p className="text-lg font-extrabold text-cyan-400">58</p>
-            <p className="text-[10px] text-slate-500 font-mono">Rooms Done</p>
+            <p className="text-lg font-extrabold text-cyan-400">115+</p>
+            <p className="text-[10px] text-slate-500 font-mono">Rooms Solved</p>
           </div>
           <div className="bg-slate-800/60 border border-orange-500/20 rounded-lg p-2.5 text-center">
-            <p className="text-lg font-extrabold text-orange-400">🔥 70</p>
+            <p className="text-lg font-extrabold text-orange-400">🔥 122</p>
             <p className="text-[10px] text-slate-500 font-mono">Day Streak</p>
           </div>
           <div className="bg-slate-800/60 border border-purple-500/20 rounded-lg p-2.5 text-center">
-            <p className="text-lg font-extrabold text-purple-400">11</p>
-            <p className="text-[10px] text-slate-500 font-mono">Badges</p>
+            <p className="text-lg font-extrabold text-purple-400">23</p>
+            <p className="text-[10px] text-slate-500 font-mono">Badges (Diamond)</p>
           </div>
         </div>
         <a href="https://tryhackme.com/p/parthrspandey25" target="_blank" rel="noopener noreferrer"
@@ -104,9 +105,22 @@ const COMMANDS = [
           <span className="text-emerald-400 font-semibold">ACTIVELY SEEKING:</span>
           <span className="text-slate-300">SOC Analyst / Cybersecurity Engineer / Pen Testing roles</span>
         </p>
-        <p><span className="text-cyan-400">Current training:</span> <span className="text-slate-300">Google Cybersec Pro · CEH · Network+ · TryHackMe (Top 8%)</span></p>
+        <p><span className="text-cyan-400">Current training:</span> <span className="text-slate-300">Google Cybersec Pro · CEH · Network+ · TryHackMe (Top 2% | Level 12 [GURU])</span></p>
         <p><span className="text-cyan-400">Current build:</span> <span className="text-slate-300">Home SOC Lab — Splunk SIEM + AWS CloudTrail ingestion</span></p>
         <p><span className="text-cyan-400">Location:</span> <span className="text-slate-300">India (Open to Remote)</span></p>
+      </div>
+    ),
+  },
+  {
+    cmd: "./tools.sh",
+    output: (
+      <div className="space-y-1.5 text-xs text-slate-300">
+        <p className="text-emerald-400 font-mono font-semibold">// Primary Cybersecurity Tool Arsenal</p>
+        <p><span className="text-red-400 font-semibold">Reconnaissance:</span> Nmap · Amass · Subfinder · theHarvester · Shodan</p>
+        <p><span className="text-pink-400 font-semibold">Web Security:</span> Burp Suite · OWASP ZAP · Nikto · Gobuster · SQLmap</p>
+        <p><span className="text-purple-400 font-semibold">Network Security:</span> Wireshark · tcpdump · Zeek · Suricata · Snort</p>
+        <p><span className="text-cyan-400 font-semibold">Blue Team / SOC:</span> Splunk · Wazuh · Elastic Security · Microsoft Sentinel · Security Onion</p>
+        <p><span className="text-amber-400 font-semibold">Digital Forensics:</span> Autopsy · FTK Imager · Volatility · Plaso · Ghidra</p>
       </div>
     ),
   },
@@ -265,22 +279,24 @@ export default function TerminalHero() {
           </div>
 
           {/* Quick social row */}
-          <div className="border-t border-slate-800 px-5 md:px-7 py-3 flex items-center gap-4 bg-slate-950/50">
-            <span className="text-xs text-slate-600 font-mono">// quick links</span>
-            <a href="https://github.com/ParthPandey25" target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-emerald-400 transition-colors">
-              <GithubIcon size={13} /> GitHub
-            </a>
-            <a href="https://linkedin.com/in/parth-pandey-045709258" target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-cyan-400 transition-colors">
-              <LinkedinIcon size={13} /> LinkedIn
-            </a>
-            <a href="mailto:parthrspandey25@gmail.com"
-              className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-emerald-400 transition-colors">
-              <Mail size={13} /> Email
-            </a>
+          <div className="border-t border-slate-800 px-4 sm:px-6 md:px-7 py-3 flex flex-wrap items-center justify-between gap-3 bg-slate-950/50">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+              <span className="text-xs text-slate-600 font-mono hidden xs:inline">// quick links</span>
+              <a href="https://github.com/ParthPandey25" target="_blank" rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-emerald-400 transition-colors">
+                <GithubIcon size={13} /> GitHub
+              </a>
+              <a href="https://linkedin.com/in/parth-pandey-045709258" target="_blank" rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-cyan-400 transition-colors">
+                <LinkedinIcon size={13} /> LinkedIn
+              </a>
+              <a href="mailto:parthrspandey25@gmail.com"
+                className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-emerald-400 transition-colors">
+                <Mail size={13} /> Email
+              </a>
+            </div>
             <a href="/resume.pdf" download
-              className="ml-auto flex items-center gap-1.5 text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition-colors border border-emerald-500/30 px-3 py-1.5 rounded-md hover:border-emerald-400/60 hover:bg-emerald-500/10">
+              className="flex items-center gap-1.5 text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition-colors border border-emerald-500/30 px-3 py-1.5 rounded-md hover:border-emerald-400/60 hover:bg-emerald-500/10">
               <ExternalLink size={12} /> Download CV
             </a>
           </div>
