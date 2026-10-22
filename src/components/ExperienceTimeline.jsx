@@ -2,16 +2,17 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Briefcase, GraduationCap, BookOpen, ChevronDown, ChevronUp, MapPin, Calendar, Loader } from "lucide-react";
+import { Briefcase, GraduationCap, BookOpen, ChevronDown, ChevronUp, MapPin, Calendar, Loader, CheckCircle2 } from "lucide-react";
 
 export const experiences = [
-  /* ═══════════ CURRENT TRAINING (In Progress) ═══════════ */
+  /* ═══════════ PROFESSIONAL TRAINING (Completed & Ongoing) ═══════════ */
   {
     company: "Google / Coursera",
     role: "Google Cybersecurity Professional Certificate",
     period: "2026",
     location: "Remote",
     type: "training",
+    status: "completed",
     color: "emerald",
     bullets: [
       "Completed Google's comprehensive 8-course Cybersecurity Professional Certificate on Coursera. Mastered foundational competencies across threat modeling, network security architecture (NIST CSF, TCP/IP defense), SIEM detection, Python automation for security tasks, and Linux/SQL tools for security analysts. Earned verified digital badges and professional certification.",
@@ -19,13 +20,14 @@ export const experiences = [
   },
   {
     company: "Unisoft Technology",
-    role: "CompTIA Network+ & EC-Council CEH Training",
-    period: "2026 – Present",
+    role: "CompTIA Network+ & EC-Council CEH v13 Training",
+    period: "2026",
     location: "Nagpur, India",
     type: "training",
+    status: "completed",
     color: "cyan",
     bullets: [
-      "Recognized that a strong networking foundation paired with offensive security skills is essential for cybersecurity roles (Situation). Enrolled in instructor-led CompTIA Network+ and EC-Council Certified Ethical Hacker (CEH) preparation programs at Unisoft Technology, Nagpur (Task). Actively studying network topologies, switching & routing protocols, subnetting, VLANs, and troubleshooting for Network+, alongside reconnaissance techniques, vulnerability analysis, system hacking methodologies, web application attacks, and social engineering for CEH (Action). Building a well-rounded red team + blue team skill set with vendor-neutral networking expertise aligned with CompTIA N10-009 and CEH exam objectives (Result).",
+      "Recognized that a strong networking foundation paired with offensive security skills is essential for cybersecurity roles (Situation). Enrolled in and completed instructor-led CompTIA Network+ and EC-Council Certified Ethical Hacker (CEH v13 AI) preparation programs at Unisoft Technology, Nagpur (Task). Mastered network topologies, switching & routing protocols, subnetting, VLANs, and troubleshooting for Network+, alongside reconnaissance techniques, vulnerability analysis, system hacking methodologies, web application attacks, and social engineering for CEH (Action). Built a well-rounded red team + blue team skill set aligned with CompTIA N10-009 and CEH v13 exam objectives (Result).",
     ],
   },
   {
@@ -34,6 +36,7 @@ export const experiences = [
     period: "2026",
     location: "Remote",
     type: "training",
+    status: "completed",
     color: "yellow",
     bullets: [
       "Completed Google's 5-course IT Support Professional Certificate on Coursera covering hardware, operating systems (Linux & Windows), computer networking protocols (The Bits and Bytes of Networking), system administration & IT infrastructure services, and IT security defense fundamentals.",
@@ -45,6 +48,7 @@ export const experiences = [
     period: "2026 – Present",
     location: "Remote",
     type: "training",
+    status: "in-progress",
     color: "blue",
     bullets: [
       "Recognized the value of full-stack development skills for building security tools and internal dashboards (Situation). Enrolled in IBM's Full Stack Developer Professional Certificate on Coursera (Task). Studying cloud-native development with React, Node.js, Python, Django, Docker, Kubernetes, and microservices architecture (Action). Expanding skill set to bridge the gap between development and security operations (DevSecOps) (Result).",
@@ -56,6 +60,7 @@ export const experiences = [
     period: "2026",
     location: "Remote",
     type: "training",
+    status: "completed",
     color: "purple",
     bullets: [
       "Wanted to leverage AI tools to boost productivity and automate repetitive security and development workflows (Situation). Participated in the Be 10x AI Tool Workshop bootcamp (Task). Gained hands-on experience with AI-powered productivity tools, prompt engineering techniques, and workflow automation strategies (Action). Completed the bootcamp and earned a certificate, integrating AI tools into daily development and security analysis workflows (Result).",
@@ -236,9 +241,15 @@ function TimelineEntry({ exp, index, isLast }) {
                 <div className="flex items-center gap-2 flex-wrap mb-0.5">
                   <h3 className="font-bold text-slate-100 text-base leading-snug">{exp.company}</h3>
                   {isTraining && (
-                    <span className="text-xs px-2 py-0.5 rounded-full font-mono bg-cyan-500/10 text-cyan-400 flex items-center gap-1">
-                      <Loader size={10} className="animate-spin" /> In Progress
-                    </span>
+                    exp.status === "in-progress" ? (
+                      <span className="text-xs px-2 py-0.5 rounded-full font-mono bg-cyan-500/10 text-cyan-400 flex items-center gap-1">
+                        <Loader size={10} className="animate-spin" /> In Progress
+                      </span>
+                    ) : (
+                      <span className="text-xs px-2 py-0.5 rounded-full font-mono bg-emerald-500/10 text-emerald-400 flex items-center gap-1">
+                        <CheckCircle2 size={10} /> Completed
+                      </span>
+                    )
                   )}
                   {isJob && (
                     <span className={`text-xs px-2 py-0.5 rounded-full font-mono ${c.tag}`}>Full-Time</span>

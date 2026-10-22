@@ -302,19 +302,6 @@ const ALL_CREDS = [
     ],
   },
 
-  // 9. Certified Ethical Hacker (CEH v12) - Standalone Major
-  {
-    title: "Certified Ethical Hacker (CEH v12)",
-    issuer: "EC-Council / Industrial Accreditation",
-    abbr: "CEH-V12",
-    category: "security",
-    icon: <ShieldCheck size={22} className="text-red-400" />,
-    color: "red",
-    desc: "Practical knowledge of reconnaissance, scanning networks, vulnerability analysis, system hacking, malware threats, sniffing, social engineering, and web application attacks.",
-    mainFile: "certified-ethical-hacker-ceh (1).png",
-    mainLabel: "🏆 View Certified Ethical Hacker Credential",
-  },
-
   // 10. TryHackMe Top 2% Standalone
   {
     title: "TryHackMe — Top 2% Global Rank (Level 12 [GURU])",
@@ -567,7 +554,7 @@ export default function CredentialGrid() {
           </span>
         </span>
         <span className="font-mono text-emerald-400 text-[11px]">
-          20 Master Programs · 35+ Sub-Certificates
+          {ALL_CREDS.length} Master Programs · 35+ Sub-Certificates
         </span>
       </div>
 

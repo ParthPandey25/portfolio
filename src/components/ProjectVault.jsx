@@ -19,6 +19,8 @@ import {
   Network,
   Radar,
   Search,
+  BookOpen,
+  FileText,
 } from "lucide-react";
 import { GithubIcon } from "./SocialIcons";
 import TiltCard from "./TiltCard";
@@ -28,32 +30,36 @@ const projects = [
   {
     title: "Home SOC Lab — Splunk SIEM & AWS CloudTrail Monitoring",
     description:
-      "Real-time threat detection pipeline ingesting AWS CloudTrail and VPC Flow Logs into Splunk Enterprise. Custom SPL detection rules mapped to MITRE ATT&CK (T1110 Brute Force, T1078 Root without MFA, T1098 Privilege Escalation, T1530 S3 Exposure).",
+      "Enterprise cloud threat detection pipeline ingesting AWS CloudTrail management events and VPC Flow Logs into Splunk Enterprise. Features 12 custom SPL detection rules mapped across 8 MITRE ATT&CK techniques, validated against 20 simulated attacks, with 3 complete NIST CSF incident investigation reports (IR-001 to IR-003) and 40% false-positive reduction tuning.",
     icon: <Search className="text-red-400" size={26} />,
     color: "red",
-    tags: ["Splunk SIEM", "AWS CloudTrail", "MITRE ATT&CK", "SPL", "SOC Operations"],
+    tags: ["Splunk SIEM", "AWS CloudTrail", "MITRE ATT&CK", "12 SPL Rules", "NIST CSF", "SOC Triage"],
     status: "completed",
     featured: true,
     github: "https://github.com/ParthPandey25/splunk-soc-aws-cloudtrail-lab",
+    articleUrl: "https://github.com/ParthPandey25/splunk-soc-aws-cloudtrail-lab/tree/main/incident_reports",
+    articleLabel: "View NIST IR Reports →",
   },
   {
-    title: "Enterprise Secure Finance Platform & Web App Penetration Audit",
+    title: "Confessions of a Top 2% TryHackMe Practitioner — Where Tools Break",
     description:
-      "Full-stack financial management platform (Spring Boot Java Security + Express/Node.js API + React) hardened against OWASP Top 10 vulnerabilities. Features comprehensive DAST/SAST penetration testing documentation, JWT RBAC, BOLA/IDOR mitigation, rate limiting, input sanitization, and automated security audit test cases.",
-    icon: <Wallet className="text-emerald-400" size={26} />,
-    color: "emerald",
-    tags: ["Web App Pentesting", "OWASP Top 10", "Spring Security", "Java", "React", "JWT Auth", "Express.js", "Secure Coding"],
+      "Technical deep-dive into hands-on offensive security realities: four detailed breakdowns where standard automated tools failed (the 850k-word dictionary freeze, the Netcat dumb shell trap, the vanishing Meterpreter session, and modern Windows root DACLs) and the exact architectural troubleshooting pivots used to unlock the root shell.",
+    icon: <BookOpen className="text-cyan-400" size={26} />,
+    color: "cyan",
+    tags: ["Medium Story", "TryHackMe [GURU]", "Tool Troubleshooting", "Kernel Exploits", "PrivEsc"],
     status: "completed",
     featured: true,
-    github: "https://github.com/ParthPandey25/Finance-Management-WebApp",
+    github: "https://github.com/ParthPandey25/parthpandey-cyberlab",
+    articleUrl: "https://github.com/ParthPandey25/parthpandey-cyberlab/blob/main/_posts/2026-10-22-confessions-of-a-tryhackme-practitioner-where-tools-break.md",
+    articleLabel: "Read Technical Story →",
   },
   {
     title: "High-Performance Packet Analyzer (C++17 & libpcap)",
     description:
-      "Native multi-threaded network traffic analyzer decoding raw Ethernet frames, IPv4/IPv6, TCP, UDP, and ICMP headers with sub-millisecond parsing latency. Lock-free atomic throughput telemetry engine calculating real-time PPS and bandwidth (Mbps).",
+      "Native multi-threaded network traffic analyzer decoding raw Ethernet frames, IPv4/IPv6, TCP, UDP, and ICMP headers with sub-millisecond parsing latency. Benchmarked at 100,000+ packets per second replaying synthetic PCAP captures using lock-free std::atomic throughput counters.",
     icon: <Radar className="text-amber-400" size={26} />,
     color: "amber",
-    tags: ["C++17", "libpcap", "Multi-Threading", "TCP/IP", "Network Security"],
+    tags: ["C++17", "libpcap", "Multi-Threading", "100k+ PPS", "Atomic Counters", "PCAP Benchmark"],
     status: "completed",
     featured: true,
     github: "https://github.com/ParthPandey25/cpp-packet-analyzer",
@@ -61,13 +67,39 @@ const projects = [
   {
     title: "Distributed Enterprise Firewall Topology & Policy Auditor",
     description:
-      "High-availability corporate edge architecture with Cisco ASA and Check Point Gaia zero-trust zone segmentation (OUTSIDE, DMZ, CORP-INTERNAL). Custom Python compliance engine automatically flagging over-permissive ACLs.",
+      "High-availability corporate edge architecture with Cisco ASA and Check Point Gaia zero-trust zone segmentation (OUTSIDE, DMZ, CORP-INTERNAL). Empirically validated against 10 distinct cross-zone cyber attack scenarios with a custom Python compliance engine flagging over-permissive ACLs.",
     icon: <Shield className="text-orange-400" size={26} />,
     color: "orange",
-    tags: ["Cisco ASA", "Check Point Gaia", "GNS3", "Python", "Zero Trust", "Firewall"],
+    tags: ["Cisco ASA", "Check Point Gaia", "GNS3", "10 Attack Scenarios", "Python Auditor", "Zero Trust"],
     status: "completed",
     featured: true,
     github: "https://github.com/ParthPandey25/enterprise-firewall-topology",
+    articleUrl: "https://github.com/ParthPandey25/enterprise-firewall-topology/blob/main/tests/cross_zone_attack_matrix.md",
+    articleLabel: "View Attack Matrix →",
+  },
+  {
+    title: "Enterprise Secure Finance Platform & Web App Penetration Audit",
+    description:
+      "Full-stack financial management platform (Spring Boot Java Security + Express/Node.js API + React) hardened against OWASP Top 10 vulnerabilities. Features comprehensive DAST/SAST penetration testing documentation, JWT RBAC, BOLA/IDOR mitigation, rate limiting, and automated security audit test cases.",
+    icon: <Wallet className="text-emerald-400" size={26} />,
+    color: "emerald",
+    tags: ["Web App Pentesting", "OWASP Top 10", "Spring Security", "Java", "React", "JWT Auth", "Secure Coding"],
+    status: "completed",
+    featured: true,
+    github: "https://github.com/ParthPandey25/Finance-Management-WebApp",
+  },
+  {
+    title: "TryHackMe Walkthroughs & Port-by-Port CyberLab Blog",
+    description:
+      "Public security research blog and port-by-port vulnerability assessments across Metasploitable targets and 8+ published TryHackMe CTF walkthroughs (EternalBlue MS17-010, Mr. Robot, Ice, Windows PrivEsc). Features in-depth tool troubleshooting and defensive hardening insights.",
+    icon: <Network className="text-rose-400" size={26} />,
+    color: "rose",
+    tags: ["TryHackMe", "8 Published Posts", "Nmap", "Metasploit", "PrivEsc", "Jekyll Blog"],
+    status: "completed",
+    featured: true,
+    github: "https://github.com/ParthPandey25/parthpandey-cyberlab",
+    articleUrl: "https://parthpandey25.github.io/parthpandey-cyberlab",
+    articleLabel: "Visit Live Blog →",
   },
   {
     title: "Yoga Guru AI — Real-Time Computer Vision & Health Guide",
@@ -79,17 +111,6 @@ const projects = [
     status: "completed",
     featured: true,
     github: "https://github.com/ParthPandey25/Yoga-Guru-AI",
-  },
-  {
-    title: "Metasploitable Vulnerability Assessment & Port-by-Port Audit",
-    description:
-      "Comprehensive network vulnerability assessment across Metasploitable virtual targets. Utilized Nmap service discovery, NSE vulnerability scripts, and CVE mapping to audit FTP (21), SSH (22), Telnet (23), SMTP (25), HTTP (80), and SMB/Samba (139/445), authoring actionable defense hardening playbooks.",
-    icon: <Network className="text-rose-400" size={26} />,
-    color: "rose",
-    tags: ["Nmap", "Metasploitable", "Port Auditing", "CVE Mapping", "Kali Linux", "Remediation"],
-    status: "completed",
-    featured: true,
-    github: "https://github.com/ParthPandey25/parthpandey-cyberlab",
   },
   {
     title: "Employee Salary Prediction — Docker Microservices",
@@ -215,26 +236,48 @@ const colorMap = {
 
 export default function ProjectVault() {
   return (
-    <div className="w-full max-w-6xl mx-auto px-4">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {projects.map((project, index) => {
-          const c = colorMap[project.color];
+    <div className="max-w-6xl mx-auto px-4">
+      {/* Section Header */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+        <div>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-xs font-mono mb-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+            ENGINEERED SYSTEMS &amp; LABS
+          </div>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-100 tracking-tight">
+            Security &amp; Software <span className="gradient-text">Project Vault</span>
+          </h2>
+          <p className="text-slate-400 text-sm md:text-base mt-2 max-w-xl">
+            Production-grade cybersecurity pipelines, SIEM correlation engines, low-level network protocol parsers, and full-stack software deployments.
+          </p>
+        </div>
+
+        <div className="flex items-center gap-2 text-xs font-mono text-slate-500 bg-slate-800/40 border border-slate-700/40 px-3 py-1.5 rounded-lg w-fit">
+          <span className="w-2 h-2 rounded-full bg-emerald-400" />
+          <span>{projects.length} Repositories Synchronized</span>
+        </div>
+      </div>
+
+      {/* Projects Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {projects.map((project, idx) => {
+          const c = colorMap[project.color] || colorMap.emerald;
+
           return (
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
-              className="h-full"
+              transition={{ delay: idx * 0.05, duration: 0.4 }}
             >
               <TiltCard className="h-full">
                 <div
-                  className={`relative flex flex-col h-full bg-slate-900/80 border border-slate-800/60 rounded-2xl p-7 overflow-hidden transition-all duration-300 group ${c.border} ${c.glow}`}
+                  className={`relative h-full flex flex-col justify-between rounded-2xl border border-slate-800/60 bg-slate-900/40 backdrop-blur-xl p-6 transition-all duration-300 ${c.border} ${c.glow}`}
                 >
-                  {/* Background gradient */}
+                  {/* Subtle gradient overlay */}
                   <div
-                    className={`absolute inset-0 bg-gradient-to-br ${c.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl`}
+                    className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${c.gradient} opacity-20 pointer-events-none`}
                   />
 
                   <div className="relative z-10 flex flex-col h-full gap-4">
@@ -289,15 +332,27 @@ export default function ProjectVault() {
                     </div>
 
                     {/* Links */}
-                    <div className="flex gap-3 pt-2 border-t border-slate-800/60">
+                    <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-800/60 mt-2">
                       <a
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-sm text-slate-300 hover:text-emerald-400 font-mono transition-colors"
+                        className="flex items-center gap-1.5 text-xs text-slate-300 hover:text-emerald-400 font-mono transition-colors"
                       >
-                        <GithubIcon size={14} /> View Code on GitHub →
+                        <GithubIcon size={13} /> View Repository →
                       </a>
+
+                      {project.articleUrl && (
+                        <a
+                          href={project.articleUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1 text-xs text-cyan-400 hover:text-cyan-300 font-mono transition-colors"
+                        >
+                          <ExternalLink size={12} />
+                          {project.articleLabel || "Read Walkthrough →"}
+                        </a>
+                      )}
                     </div>
                   </div>
                 </div>

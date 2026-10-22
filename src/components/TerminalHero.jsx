@@ -19,7 +19,7 @@ const COMMANDS = [
         <p className="text-slate-400 text-xs mt-2 max-w-lg">
           Driven B.Tech CSE graduate (CGPA 8.3, GATE 355) with 10+ virtual internships across Zscaler, 
           Palo Alto, Fortinet, Google Cloud &amp; AWS. Certified in Google Cybersecurity Professional 
-          &amp; Google IT Support, Cisco CCNA / CompTIA Network+ (Unisoft), and Certified Ethical Hacker (CEH). 
+          &amp; Google IT Support, with hands-on training in Cisco CCNA / CompTIA Network+ and EC-Council CEH v13 (Unisoft). 
           Ranked in TryHackMe Top 2% (Level 12 [GURU]) with 115+ rooms, a 122-day streak, and Diamond League standing. Actively auditing web application security 
           on PortSwigger Web Security Academy, OverTheWire wargames, and Hack The Box.
         </p>
@@ -105,7 +105,7 @@ const COMMANDS = [
           <span className="text-emerald-400 font-semibold">ACTIVELY SEEKING:</span>
           <span className="text-slate-300">SOC Analyst / Cybersecurity Engineer / Pen Testing roles</span>
         </p>
-        <p><span className="text-cyan-400">Current training:</span> <span className="text-slate-300">Google Cybersec Pro · CEH · Network+ · TryHackMe (Top 2% | Level 12 [GURU])</span></p>
+        <p><span className="text-cyan-400">Credentials &amp; Training:</span> <span className="text-slate-300">Google Cybersec Pro · CEH v13 &amp; Network+ Training · TryHackMe (Top 2% | Level 12 [GURU])</span></p>
         <p><span className="text-cyan-400">Current build:</span> <span className="text-slate-300">Home SOC Lab — Splunk SIEM + AWS CloudTrail ingestion</span></p>
         <p><span className="text-cyan-400">Location:</span> <span className="text-slate-300">India (Open to Remote)</span></p>
       </div>

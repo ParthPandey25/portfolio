@@ -41,8 +41,8 @@ export default function AboutSection() {
           <p className="text-slate-400 leading-relaxed mb-4">
             Driven <strong className="text-slate-200">Cybersecurity Engineer</strong> (B.Tech CSE, CGPA 8.3, GATE 355) 
             with 10+ virtual internships across <strong className="text-slate-200">Zscaler, Palo Alto Networks, Fortinet, 
-            Google Cloud &amp; AWS</strong>. Certified in <strong className="text-slate-200">Google Cybersecurity Professional, 
-            Google IT Support, Cisco CCNA / CompTIA Network+ (Unisoft), and CEH</strong>. Hands-on with enterprise firewalls (Check Point Gaia, FortiGate), 
+            Google Cloud &amp; AWS</strong>. Certified in <strong className="text-slate-200">Google Cybersecurity Professional 
+            and Google IT Support</strong>, with hands-on training in <strong className="text-slate-200">Cisco CCNA / CompTIA Network+ and EC-Council CEH v13 (Unisoft)</strong>. Hands-on with enterprise firewalls (Check Point Gaia, FortiGate), 
             ZTNA frameworks, and TCP/IP packet analysis. Actively building <strong className="text-emerald-400">Red Team &amp; Blue Team</strong> competencies 
             via PortSwigger Web Security Academy, OverTheWire wargames, TryHackMe (Top 2% | Level 12 [GURU]), Hack The Box, and Splunk SIEM.
           </p>
