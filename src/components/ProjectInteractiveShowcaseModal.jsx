@@ -247,7 +247,8 @@ export default function ProjectInteractiveShowcaseModal({ project, onClose }) {
   };
 
   // Detect project type
-  const isSocLab = project.title.toLowerCase().includes("soc");
+  const isSplunk = project.title.toLowerCase().includes("splunk") || project.title.toLowerCase().includes("soc");
+  const isSocLab = isSplunk;
   const isFirewall = project.title.toLowerCase().includes("firewall");
   const isPacket = project.title.toLowerCase().includes("packet");
   const isSalary = project.title.toLowerCase().includes("salary");
@@ -616,6 +617,28 @@ export default function ProjectInteractiveShowcaseModal({ project, onClose }) {
                         </div>
                       </div>
                     </div>
+                  </div>
+                )}
+
+                {/* 6. GENERAL APPLICATION & ARCHITECTURE SIMULATOR */}
+                {!isSocLab && !isFirewall && !isPacket && !isSalary && !isCyberlab && !isConfessions && (
+                  <div className="space-y-4">
+                    <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <h4 className="font-bold text-slate-100 flex items-center gap-2">
+                          <Activity size={16} className="text-emerald-400" />
+                          Interactive Architecture &amp; System Simulator
+                        </h4>
+                        <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded">
+                          Live Architecture Model
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-400 leading-relaxed">
+                        {project.description}
+                      </p>
+                    </div>
+
+                    <Project3DVisualizer defaultProject={project3dType} />
                   </div>
                 )}
               </div>
