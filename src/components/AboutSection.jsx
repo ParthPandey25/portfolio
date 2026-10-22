@@ -71,6 +71,14 @@ export default function AboutSection() {
               View Experience <ArrowRight size={14} />
             </Link>
             <a
+              href="https://parthpandey25.github.io/parthpandey-cyberlab/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 text-cyan-300 hover:from-cyan-500/30 hover:to-blue-500/30 transition-all text-sm font-semibold shadow-[0_0_15px_rgba(6,182,212,0.15)]"
+            >
+              Explore CyberLab Blog ↗
+            </a>
+            <a
               href="/resume.pdf"
               download
               className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-700 text-slate-300 hover:border-slate-500 hover:text-slate-100 transition-all text-sm font-medium"

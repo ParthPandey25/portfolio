@@ -4,13 +4,14 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Shield, Menu, X, Download } from "lucide-react";
+import { Shield, Menu, X, Download, ExternalLink } from "lucide-react";
 import { LinkedinIcon, GithubIcon, TryhackmeIcon } from "./SocialIcons";
 
 const navLinks = [
   { href: "/",              label: "Home"           },
   { href: "/experience",   label: "Experience"     },
   { href: "/projects",     label: "Projects"       },
+  { href: "https://parthpandey25.github.io/parthpandey-cyberlab/", label: "CyberLab", external: true },
   { href: "/certifications", label: "Certifications" },
   { href: "/publications", label: "Publications"   },
   { href: "/contact",      label: "Contact"        },
@@ -56,6 +57,24 @@ export default function Navbar() {
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => {
+              if (link.external) {
+                return (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative px-3 py-1.5 text-sm font-medium rounded-md transition-colors text-slate-400 hover:text-cyan-300 flex items-center gap-1 group"
+                  >
+                    <span className="relative z-10 flex items-center gap-1.5">
+                      {link.label}
+                      <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-gradient-to-r from-cyan-500/20 to-emerald-500/20 text-cyan-300 border border-cyan-500/30">
+                        LIVE ↗
+                      </span>
+                    </span>
+                  </a>
+                );
+              }
               const isActive = pathname === link.href;
               return (
                 <Link
@@ -144,6 +163,22 @@ export default function Navbar() {
           >
             <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
               {navLinks.map((link) => {
+                if (link.external) {
+                  return (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-cyan-300 hover:bg-slate-800 flex items-center justify-between"
+                    >
+                      <span>{link.label}</span>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-300 border border-cyan-500/30">
+                        Live Research Blog ↗
+                      </span>
+                    </a>
+                  );
+                }
                 const isActive = pathname === link.href;
                 return (
                   <Link

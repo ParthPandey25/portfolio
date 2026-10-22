@@ -9,7 +9,7 @@ import ExperienceTimeline from "@/components/ExperienceTimeline";
 import SectionHeader from "@/components/SectionHeader";
 import Navbar from "@/components/Navbar";
 import AboutSection from "@/components/AboutSection";
-import Isometric3DNetworkVisualizer from "@/components/Isometric3DNetworkVisualizer";
+import Project3DVisualizer from "@/components/Project3DVisualizer";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
@@ -68,21 +68,20 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 3D Live Network Architecture Simulation ────────────── */}
+      {/* ── 3D Live Multi-Project Architecture Simulator ────────────── */}
       <section id="architecture-simulation" className="relative z-10 mt-24 md:mt-32">
         <div className="max-w-6xl mx-auto px-4 mb-8">
           <SectionHeader
-            title="3D Live Network Architecture Simulation"
-            subtitle="CRTA Enterprise Attack & Defense Topology"
+            title="3D Live Architecture & Modeling Simulator"
+            subtitle="Interactive 3D Visualizer for All Projects"
             accent="rose"
           />
           <p className="text-slate-400 text-sm max-w-3xl mt-3 font-mono leading-relaxed">
-            Interactive 3D isometric simulation modeling corporate network boundaries, DMZ segregation, 
-            stateful firewall filtering, and adversary kill-chain traversal. Select an attack phase or click any node to inspect live security posture.
+            Select any project to explore its 3D live animated architecture — from Splunk SIEM ingestion and C++ packet analysis to zero-trust firewall segmentation, OWASP web defense, and CTF privilege escalation.
           </p>
         </div>
         <div className="max-w-6xl mx-auto px-4">
-          <Isometric3DNetworkVisualizer />
+          <Project3DVisualizer defaultProject="firewall" />
         </div>
       </section>
 
@@ -132,9 +131,12 @@ export default function Home() {
               © {new Date().getFullYear()} Parth Pandey. Built with Next.js & Framer Motion.
             </p>
           </div>
-          <nav className="flex gap-5 text-sm">
+          <nav className="flex flex-wrap gap-5 text-sm">
             <Link href="/experience" className="text-slate-500 hover:text-emerald-400 transition-colors">Experience</Link>
             <Link href="/projects" className="text-slate-500 hover:text-emerald-400 transition-colors">Projects</Link>
+            <a href="https://parthpandey25.github.io/parthpandey-cyberlab/" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors">
+              CyberLab ↗
+            </a>
             <Link href="/certifications" className="text-slate-500 hover:text-emerald-400 transition-colors">Certs</Link>
             <Link href="/publications" className="text-slate-500 hover:text-emerald-400 transition-colors">Papers</Link>
             <Link href="/contact" className="text-slate-500 hover:text-cyan-400 transition-colors">Contact</Link>

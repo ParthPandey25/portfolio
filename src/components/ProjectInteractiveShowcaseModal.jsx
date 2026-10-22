@@ -24,6 +24,7 @@ import {
   Lock,
 } from "lucide-react";
 import { GithubIcon, TryhackmeIcon } from "./SocialIcons";
+import Project3DVisualizer from "./Project3DVisualizer";
 import Isometric3DNetworkVisualizer from "./Isometric3DNetworkVisualizer";
 
 export default function ProjectInteractiveShowcaseModal({ project, onClose }) {
@@ -252,6 +253,14 @@ export default function ProjectInteractiveShowcaseModal({ project, onClose }) {
   const isSalary = project.title.toLowerCase().includes("salary");
   const isCyberlab = project.title.toLowerCase().includes("cyberlab") || project.title.toLowerCase().includes("vulnerability");
   const isConfessions = project.title.toLowerCase().includes("confessions") || project.title.toLowerCase().includes("practitioner");
+  const isFinance = project.title.toLowerCase().includes("finance") || project.title.toLowerCase().includes("spring");
+
+  let project3dType = "firewall";
+  if (isSplunk) project3dType = "splunk";
+  else if (isPacket) project3dType = "packet";
+  else if (isFirewall) project3dType = "firewall";
+  else if (isFinance) project3dType = "finance";
+  else if (isCyberlab || isConfessions || project.title.toLowerCase().includes("tryhackme")) project3dType = "cyberlab";
 
   return (
     <AnimatePresence>
@@ -628,8 +637,8 @@ export default function ProjectInteractiveShowcaseModal({ project, onClose }) {
                   </p>
                 </div>
 
-                {/* Live 3D Visualizer Component */}
-                <Isometric3DNetworkVisualizer />
+                {/* Live 3D Modeling Visualizer for this Project */}
+                <Project3DVisualizer defaultProject={project3dType} />
 
                 <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
                   <h5 className="text-xs font-mono font-bold text-slate-300">Target Hardening &amp; Compliance Standards</h5>

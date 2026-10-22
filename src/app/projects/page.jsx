@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import ProjectVault from "@/components/ProjectVault";
 import SectionHeader from "@/components/SectionHeader";
 import InteractiveBackground from "@/components/InteractiveBackground";
-import Isometric3DNetworkVisualizer from "@/components/Isometric3DNetworkVisualizer";
+import Project3DVisualizer from "@/components/Project3DVisualizer";
 import Link from "next/link";
 
 export const metadata = {
@@ -44,7 +44,7 @@ export default function ProjectsPage() {
               </p>
             </div>
           </div>
-          <Isometric3DNetworkVisualizer />
+          <Project3DVisualizer defaultProject="firewall" />
         </div>
 
         <ProjectVault />

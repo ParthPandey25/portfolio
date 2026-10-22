@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Terminal, Mail, Phone, ChevronRight, ExternalLink } from "lucide-react";
+import { Terminal, Mail, Phone, ChevronRight, ExternalLink, BookOpen } from "lucide-react";
 import { GithubIcon, LinkedinIcon, TryhackmeIcon } from "./SocialIcons";
 
 const COMMANDS = [
@@ -86,6 +86,32 @@ const COMMANDS = [
           <TryhackmeIcon size={13} className="text-rose-400" />
           <a href="https://tryhackme.com/p/parthrspandey25" target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-rose-400 transition-colors">
             tryhackme.com/p/parthrspandey25 <span className="text-xs text-rose-400 font-bold font-mono">[Top 2% | GURU]</span>
+          </a>
+        </p>
+        <p className="flex items-center gap-2 text-sm">
+          <BookOpen size={13} className="text-cyan-400" />
+          <a href="https://parthpandey25.github.io/parthpandey-cyberlab/" target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-cyan-400 transition-colors">
+            parthpandey25.github.io/parthpandey-cyberlab <span className="text-xs text-cyan-400 font-bold font-mono">[Live Lab Journal ↗]</span>
+          </a>
+        </p>
+      </div>
+    ),
+  },
+  {
+    cmd: "./cyberlab.sh",
+    output: (
+      <div className="space-y-1 text-sm">
+        <p><span className="text-cyan-400">Security Blog:</span> <span className="text-slate-200 font-bold">Parth Pandey CyberLab Journal</span></p>
+        <p><span className="text-cyan-400">Published Posts:</span> <span className="text-emerald-400 font-bold">12 In-Depth Research Articles</span></p>
+        <p><span className="text-cyan-400">Coverage:</span> <span className="text-slate-300">MS17-010, CVE-2014-0759, PrivEsc, Where Security Tools Break</span></p>
+        <p className="pt-1">
+          <a
+            href="https://parthpandey25.github.io/parthpandey-cyberlab/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-emerald-400 hover:text-emerald-300 font-mono font-bold underline"
+          >
+            Visit Live CyberLab Blog (parthpandey25.github.io/parthpandey-cyberlab/) ↗
           </a>
         </p>
       </div>
@@ -299,6 +325,10 @@ export default function TerminalHero() {
               <a href="https://tryhackme.com/p/parthrspandey25" target="_blank" rel="noopener noreferrer"
                 className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-rose-400 transition-colors">
                 <TryhackmeIcon size={13} /> TryHackMe
+              </a>
+              <a href="https://parthpandey25.github.io/parthpandey-cyberlab/" target="_blank" rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-cyan-400 transition-colors">
+                <BookOpen size={13} /> CyberLab ↗
               </a>
               <a href="mailto:parthrspandey25@gmail.com"
                 className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-emerald-400 transition-colors">
