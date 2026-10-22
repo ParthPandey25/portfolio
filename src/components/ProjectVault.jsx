@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Activity,
@@ -21,10 +21,12 @@ import {
   Search,
   BookOpen,
   FileText,
+  Zap,
 } from "lucide-react";
 import { GithubIcon } from "./SocialIcons";
 import TiltCard from "./TiltCard";
 import Link from "next/link";
+import ProjectInteractiveShowcaseModal from "./ProjectInteractiveShowcaseModal";
 
 const projects = [
   {
@@ -235,6 +237,8 @@ const colorMap = {
 };
 
 export default function ProjectVault() {
+  const [activeModalProject, setActiveModalProject] = useState(null);
+
   return (
     <div className="max-w-6xl mx-auto px-4">
       {/* Section Header */}
@@ -331,8 +335,18 @@ export default function ProjectVault() {
                       ))}
                     </div>
 
+                    {/* Interactive 3D / Live Simulator CTA */}
+                    <button
+                      type="button"
+                      onClick={() => setActiveModalProject(project)}
+                      className="w-full py-2 px-3 rounded-xl bg-gradient-to-r from-emerald-500/15 via-cyan-500/15 to-emerald-500/15 border border-emerald-500/30 text-emerald-300 hover:from-emerald-500/25 hover:to-cyan-500/25 text-xs font-mono font-bold transition-all flex items-center justify-center gap-1.5 shadow-[0_0_15px_rgba(16,185,129,0.15)] group"
+                    >
+                      <Zap size={13} className="text-emerald-400 group-hover:scale-110 transition-transform" />
+                      Launch Interactive 3D / Live Simulator ⚡
+                    </button>
+
                     {/* Links */}
-                    <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-800/60 mt-2">
+                    <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-800/60 mt-1">
                       <a
                         href={project.github}
                         target="_blank"
@@ -380,6 +394,14 @@ export default function ProjectVault() {
           Explore All Repositories on GitHub
         </a>
       </motion.div>
+
+      {/* Interactive Project Showcase Modal */}
+      {activeModalProject && (
+        <ProjectInteractiveShowcaseModal
+          project={activeModalProject}
+          onClose={() => setActiveModalProject(null)}
+        />
+      )}
     </div>
   );
 }
