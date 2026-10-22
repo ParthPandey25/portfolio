@@ -14,7 +14,7 @@ import {
   CheckCircle2,
   Terminal,
 } from "lucide-react";
-import { GithubIcon, LinkedinIcon } from "@/components/SocialIcons";
+import { GithubIcon, LinkedinIcon, TryhackmeIcon } from "@/components/SocialIcons";
 
 const SOCIAL = [
   {
@@ -44,6 +44,13 @@ const SOCIAL = [
     value: "linkedin.com/in/parth-pandey-045709258",
     href: "https://linkedin.com/in/parth-pandey-045709258",
     color: "hover:border-blue-500/50 hover:shadow-[0_8px_30px_rgba(59,130,246,0.15)]",
+  },
+  {
+    icon: <TryhackmeIcon size={18} className="text-rose-400" />,
+    label: "TryHackMe",
+    value: "tryhackme.com/p/parthrspandey25 [Top 2%]",
+    href: "https://tryhackme.com/p/parthrspandey25",
+    color: "hover:border-rose-500/50 hover:shadow-[0_8px_30px_rgba(244,63,94,0.2)]",
   },
   {
     icon: <MapPin size={18} className="text-orange-400" />,

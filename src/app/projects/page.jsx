@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import ProjectVault from "@/components/ProjectVault";
 import SectionHeader from "@/components/SectionHeader";
 import InteractiveBackground from "@/components/InteractiveBackground";
+import Isometric3DNetworkVisualizer from "@/components/Isometric3DNetworkVisualizer";
 import Link from "next/link";
 
 export const metadata = {
@@ -24,11 +25,27 @@ export default function ProjectsPage() {
           accent="cyan"
         />
 
-        <p className="text-slate-400 text-sm leading-relaxed mb-12 max-w-2xl">
+        <p className="text-slate-400 text-sm leading-relaxed mb-8 max-w-2xl">
           A collection of security engineering, network analysis, and full-stack development projects.
           Each project reflects hands-on technical depth — from enterprise firewall simulations to 
           real-time packet analysis and SIEM ingestion pipelines.
         </p>
+
+        {/* ── 3D Live Network Architecture Simulation ── */}
+        <div className="mb-14">
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h3 className="text-base sm:text-lg font-bold font-mono text-slate-100 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                Live Interactive 3D Network Topology &amp; Attack Simulation
+              </h3>
+              <p className="text-xs text-slate-400 font-mono mt-1">
+                Test live kill-chain traversals across enterprise boundaries, DMZ segregation, and Check Point / Cisco ASA filtering.
+              </p>
+            </div>
+          </div>
+          <Isometric3DNetworkVisualizer />
+        </div>
 
         <ProjectVault />
 

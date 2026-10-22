@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Shield, Menu, X, Download } from "lucide-react";
-import { LinkedinIcon, GithubIcon } from "./SocialIcons";
+import { LinkedinIcon, GithubIcon, TryhackmeIcon } from "./SocialIcons";
 
 const navLinks = [
   { href: "/",              label: "Home"           },
@@ -101,6 +101,16 @@ export default function Navbar() {
               <LinkedinIcon size={17} />
             </a>
             <a
+              href="https://tryhackme.com/p/parthrspandey25"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="TryHackMe"
+              title="TryHackMe: parthrspandey25 (Top 2% Global)"
+              className="p-2 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-slate-800 transition-colors"
+            >
+              <TryhackmeIcon size={17} />
+            </a>
+            <a
               href="/resume.pdf"
               download
               className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border border-emerald-500/30 text-emerald-300 hover:from-emerald-500/40 hover:to-cyan-500/40 hover:border-emerald-400/60 transition-all duration-300"
@@ -150,12 +160,15 @@ export default function Navbar() {
                 );
               })}
               <div className="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-slate-800 mt-2">
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
                   <a href="https://github.com/ParthPandey25" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-100">
                     <GithubIcon size={14} /> GitHub
                   </a>
                   <a href="https://linkedin.com/in/parth-pandey-045709258" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-100">
                     <LinkedinIcon size={14} /> LinkedIn
+                  </a>
+                  <a href="https://tryhackme.com/p/parthrspandey25" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-rose-400">
+                    <TryhackmeIcon size={14} /> TryHackMe
                   </a>
                 </div>
                 <a href="/resume.pdf" download className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border border-emerald-500/30 text-emerald-300">

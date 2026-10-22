@@ -9,6 +9,7 @@ import ExperienceTimeline from "@/components/ExperienceTimeline";
 import SectionHeader from "@/components/SectionHeader";
 import Navbar from "@/components/Navbar";
 import AboutSection from "@/components/AboutSection";
+import Isometric3DNetworkVisualizer from "@/components/Isometric3DNetworkVisualizer";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
@@ -64,6 +65,24 @@ export default function Home() {
               View All 15 Roles <ArrowRight size={14} />
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* ── 3D Live Network Architecture Simulation ────────────── */}
+      <section id="architecture-simulation" className="relative z-10 mt-24 md:mt-32">
+        <div className="max-w-6xl mx-auto px-4 mb-8">
+          <SectionHeader
+            title="3D Live Network Architecture Simulation"
+            subtitle="CRTA Enterprise Attack & Defense Topology"
+            accent="rose"
+          />
+          <p className="text-slate-400 text-sm max-w-3xl mt-3 font-mono leading-relaxed">
+            Interactive 3D isometric simulation modeling corporate network boundaries, DMZ segregation, 
+            stateful firewall filtering, and adversary kill-chain traversal. Select an attack phase or click any node to inspect live security posture.
+          </p>
+        </div>
+        <div className="max-w-6xl mx-auto px-4">
+          <Isometric3DNetworkVisualizer />
         </div>
       </section>
 

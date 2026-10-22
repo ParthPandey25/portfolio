@@ -23,7 +23,8 @@ import {
   Database,
   Lock,
 } from "lucide-react";
-import { GithubIcon } from "./SocialIcons";
+import { GithubIcon, TryhackmeIcon } from "./SocialIcons";
+import Isometric3DNetworkVisualizer from "./Isometric3DNetworkVisualizer";
 
 export default function ProjectInteractiveShowcaseModal({ project, onClose }) {
   if (!project) return null;
@@ -610,19 +611,28 @@ export default function ProjectInteractiveShowcaseModal({ project, onClose }) {
                 )}
               </div>
             ) : (
-              /* ARCHITECTURE TAB */
+              /* ARCHITECTURE & 3D TOPOLOGY TAB */
               <div className="space-y-4">
-                <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-3">
-                  <h4 className="text-sm font-bold text-slate-100 font-mono uppercase tracking-wider text-emerald-400">
-                    System Architecture &amp; Engineering Decisions
-                  </h4>
+                <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-sm font-bold text-slate-100 font-mono uppercase tracking-wider text-emerald-400 flex items-center gap-2">
+                      <Zap size={14} className="text-emerald-400" />
+                      3D Interactive Network Topology &amp; Attack Simulation
+                    </h4>
+                    <span className="text-[11px] font-mono text-cyan-400 bg-cyan-500/10 border border-cyan-500/30 px-2 py-0.5 rounded">
+                      Live Isometric Model
+                    </span>
+                  </div>
                   <p className="text-xs text-slate-400 leading-relaxed">
-                    {project.description}
+                    Interactive simulation of the enterprise perimeter, DMZ segmentation, stateful firewall inspection, and corporate Active Directory core.
                   </p>
                 </div>
 
+                {/* Live 3D Visualizer Component */}
+                <Isometric3DNetworkVisualizer />
+
                 <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
-                  <h5 className="text-xs font-mono font-bold text-slate-300">Core Technologies &amp; Standards</h5>
+                  <h5 className="text-xs font-mono font-bold text-slate-300">Target Hardening &amp; Compliance Standards</h5>
                   <div className="flex flex-wrap gap-2">
                     {project.tags.map((tag, i) => (
                       <span key={i} className="px-2.5 py-1 rounded bg-slate-800/60 border border-slate-700 text-xs font-mono text-slate-300">
@@ -637,14 +647,26 @@ export default function ProjectInteractiveShowcaseModal({ project, onClose }) {
 
           {/* Modal Footer with Direct External Links */}
           <div className="flex flex-wrap items-center justify-between p-4 border-t border-slate-800 bg-slate-950/80 gap-3">
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-mono transition-colors"
-            >
-              <GithubIcon size={14} /> View Code on GitHub →
-            </a>
+            <div className="flex items-center gap-2">
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-mono transition-colors"
+              >
+                <GithubIcon size={14} /> View Code on GitHub →
+              </a>
+
+              <a
+                href="https://tryhackme.com/p/parthrspandey25"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 hover:bg-rose-500/20 text-xs font-mono transition-colors"
+                title="Parth Pandey TryHackMe Profile (Top 2% Global)"
+              >
+                <TryhackmeIcon size={14} /> TryHackMe [Top 2%]
+              </a>
+            </div>
 
             {project.articleUrl && (
               <a

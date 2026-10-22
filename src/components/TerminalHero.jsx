@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Terminal, Mail, Phone, ChevronRight, ExternalLink } from "lucide-react";
-import { GithubIcon, LinkedinIcon } from "./SocialIcons";
+import { GithubIcon, LinkedinIcon, TryhackmeIcon } from "./SocialIcons";
 
 const COMMANDS = [
   {
@@ -80,6 +80,12 @@ const COMMANDS = [
           <LinkedinIcon size={13} className="text-emerald-400" />
           <a href="https://linkedin.com/in/parth-pandey-045709258" target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-emerald-400 transition-colors">
             linkedin.com/in/parth-pandey-045709258
+          </a>
+        </p>
+        <p className="flex items-center gap-2 text-sm">
+          <TryhackmeIcon size={13} className="text-rose-400" />
+          <a href="https://tryhackme.com/p/parthrspandey25" target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-rose-400 transition-colors">
+            tryhackme.com/p/parthrspandey25 <span className="text-xs text-rose-400 font-bold font-mono">[Top 2% | GURU]</span>
           </a>
         </p>
       </div>
@@ -289,6 +295,10 @@ export default function TerminalHero() {
               <a href="https://linkedin.com/in/parth-pandey-045709258" target="_blank" rel="noopener noreferrer"
                 className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-cyan-400 transition-colors">
                 <LinkedinIcon size={13} /> LinkedIn
+              </a>
+              <a href="https://tryhackme.com/p/parthrspandey25" target="_blank" rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-rose-400 transition-colors">
+                <TryhackmeIcon size={13} /> TryHackMe
               </a>
               <a href="mailto:parthrspandey25@gmail.com"
                 className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-emerald-400 transition-colors">

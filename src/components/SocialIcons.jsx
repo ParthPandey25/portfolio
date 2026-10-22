@@ -29,3 +29,18 @@ export function GithubIcon({ size = 18, className = "" }) {
     </svg>
   );
 }
+
+export function TryhackmeIcon({ size = 18, className = "" }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M12 0c-.55 0-1.07.24-1.42.66L2.3 10.38a2.15 2.15 0 0 0-.25 2.37l5.25 9.15c.34.6 1 .9 1.67.9h6.06c.67 0 1.33-.3 1.67-.9l5.25-9.15a2.15 2.15 0 0 0-.25-2.37L13.42.66A1.85 1.85 0 0 0 12 0zm0 3.2l6.82 8.16-4.08 7.14H9.26l-4.08-7.14L12 3.2zm-1.25 4.5v3.25H7.5v2.5h3.25V17h2.5v-3.55h3.25v-2.5h-3.25V7.7h-2.5z" />
+    </svg>
+  );
+}
