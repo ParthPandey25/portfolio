@@ -1,909 +1,767 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Play,
-  Pause,
-  RotateCcw,
-  Shield,
   ShieldAlert,
-  ShieldCheck,
   Terminal,
   Activity,
-  Server,
-  Database,
-  Radio,
-  Zap,
-  Info,
-  Cpu,
-  Lock,
-  Unlock,
   Layers,
-  Search,
-  ExternalLink,
+  Cpu,
+  Radio,
+  Eye,
+  Play,
+  RotateCcw,
+  Zap,
+  Lock,
+  Wifi,
+  Database,
+  ArrowRight,
+  Crosshair,
+  Server,
+  FileCode,
+  CheckCircle2,
 } from "lucide-react";
 
-// ═══════════════════════════════════════════════════════════════════════
-// PROJECT ARCHITECTURES DATA DEFINITIONS
-// ═══════════════════════════════════════════════════════════════════════
-
-export const PROJECT_3D_DATA = {
-  // ── 1. SPLUNK SOC & AWS CLOUDTRAIL LAB ──────────────────────────────
+// Project metadata and interactive controller configurations
+const PROJECT_CONFIGS = {
   splunk: {
     id: "splunk",
-    title: "Home SOC Lab: AWS CloudTrail & Splunk SIEM Pipeline",
-    badge: "Cloud Threat Detection & SIEM",
-    badgeColor: "text-red-400 bg-red-500/10 border-red-500/30",
-    description:
-      "Full cloud security pipeline ingesting AWS CloudTrail management events and VPC Flow Logs into Splunk Enterprise. Features 12 custom SPL detection rules mapped across 8 MITRE ATT&CK techniques with real-time SOC incident telemetry.",
-    nodes: {
-      adversary: {
-        id: "adversary",
-        name: "Adversary / Threat Actor",
-        zone: "EXTERNAL INTERNET",
-        detail: "IP: 198.51.100.45 · Automated AWS API exploitation, credential stuffing & IAM privilege escalation.",
-        color: "#ef4444",
-      },
-      aws_iam: {
-        id: "aws_iam",
-        name: "AWS IAM & Console Plane",
-        zone: "AWS CONTROL PLANE",
-        detail: "Authentication & Authorization endpoint. Intercepts root logins, token minting, and policy attaches.",
-        color: "#f59e0b",
-      },
-      cloudtrail: {
-        id: "cloudtrail",
-        name: "AWS CloudTrail & S3 Ingestion",
-        zone: "AWS TELEMETRY STREAM",
-        detail: "Continuous audit trail recording all API calls across us-east-1 and ap-south-1. Encrypted S3 bucket sink.",
-        color: "#06b6d4",
-      },
-      splunk_hf: {
-        id: "splunk_hf",
-        name: "Splunk Heavy Forwarder",
-        zone: "ON-PREM / CLOUD EDGE",
-        detail: "Parses AWS JSON events, filters benign high-volume noise, and applies index-time timestamp parsing.",
-        color: "#3b82f6",
-      },
-      splunk_indexer: {
-        id: "splunk_indexer",
-        name: "Splunk Enterprise Core Indexer",
-        zone: "SIEM STORAGE CLUSTER",
-        detail: "Index: aws_cloudtrail · Compressed bucket storage with 12 real-time MITRE ATT&CK scheduled SPL alerts.",
-        color: "#a855f7",
-      },
-      soc_console: {
-        id: "soc_console",
-        name: "SOC Analyst Triage Dashboard",
-        zone: "SECURITY OPERATIONS CENTER",
-        detail: "Real-time incident response queue: IR-001 (Brute Force), IR-002 (Lateral Movement), IR-003 (Exfiltration).",
-        color: "#10b981",
-      },
-    },
-    phases: [
-      {
-        id: "ingest",
-        name: "Phase 1: Malicious API Call",
-        subtitle: "Root Console Login without MFA (T1078)",
-        desc: "Adversary initiates unauthorized interactive console login using harvested root credentials from source IP 203.0.113.88 without hardware MFA challenge.",
-        path: [120, 310, 470],
-        outcome: "AWS CLOUDTRAIL LOGGED",
-        outcomeColor: "text-amber-400",
-        logs: [
-          "[14:10:02] AWS CloudTrail event: ConsoleLogin from 203.0.113.88",
-          "[14:10:02] additionalEventData.MFAUsed = 'No' · userIdentity.type = 'Root'",
-          "[14:10:04] S3 Bucket event stream: s3://soc-cloudtrail-logs/AWSLogs/14022.json.gz written",
-        ],
-      },
-      {
-        id: "parse",
-        name: "Phase 2: Heavy Forwarder Pipeline",
-        subtitle: "Event Parsing & Normalization",
-        desc: "Splunk Heavy Forwarder polls S3 SQS queue, uncompresses the CloudTrail log batch, extracts JSON key-value pairs, and tags eventtype=aws_console_login.",
-        path: [470, 620, 750],
-        outcome: "PARSED & INDEXED (12ms)",
-        outcomeColor: "text-cyan-400",
-        logs: [
-          "[14:10:05] Splunk HF: Ingested 450 events from SQS queue",
-          "[14:10:06] Field extraction: src_ip=203.0.113.88, user=root, action=success",
-          "[14:10:07] Forwarded to index=aws_cloudtrail on port 9997 (TLS 1.3)",
-        ],
-      },
-      {
-        id: "alert",
-        name: "Phase 3: MITRE SPL Detection & Triage",
-        subtitle: "CRITICAL Alert & Incident IR-002 Auto-Created",
-        desc: "Splunk scheduled search evaluates SPL query: detects root console login without MFA within 5m window. Generates CRITICAL alert in SOC queue.",
-        path: [750, 880],
-        outcome: "CRITICAL SOC ALERT TRIGGERED",
-        outcomeColor: "text-red-400",
-        logs: [
-          "[14:10:08] SPL Rule T1078 matched: index=aws_cloudtrail eventName=ConsoleLogin MFAUsed=No",
-          "[14:10:09] SOC Alert ID: ALT-902 [SEVERITY: CRITICAL] generated",
-          "[14:10:10] Automated SOC playbook: IR-002 incident report opened · Slack & PagerDuty notified",
-        ],
-      },
-    ],
+    title: "Splunk SOC SIEM Lab",
+    badge: "SOC Operations",
+    badgeColor: "text-emerald-400 border-emerald-500/30 bg-emerald-500/10",
+    description: "Multi-vector threat detection radar with live MITRE ATT&CK correlation and SPL queries.",
   },
-
-  // ── 2. C++ PACKET ANALYZER (libpcap & std::atomic) ──────────────────
   packet: {
     id: "packet",
-    title: "High-Performance Packet Analyzer (C++17 & libpcap)",
-    badge: "Native Multi-Threaded Engine",
-    badgeColor: "text-amber-400 bg-amber-500/10 border-amber-500/30",
-    description:
-      "Native multi-threaded network traffic engine decoding raw Ethernet frames, IPv4/IPv6, TCP, UDP, and ICMP headers with sub-millisecond parsing latency. Benchmarked at 100,000+ packets per second replaying synthetic PCAP captures using lock-free std::atomic counters.",
-    nodes: {
-      nic: {
-        id: "nic",
-        name: "10GbE Network Interface (NIC / TAP)",
-        zone: "PHYSICAL LAYER",
-        detail: "Promiscuous mode capture capturing raw line-rate Ethernet frames via libpcap AF_PACKET.",
-        color: "#f59e0b",
-      },
-      ring_buffer: {
-        id: "ring_buffer",
-        name: "Zero-Copy Ring Buffer",
-        zone: "KERNEL / USERSPACE TRANSIT",
-        detail: "Circular memory ring buffer avoiding costly per-packet memory allocation overhead.",
-        color: "#06b6d4",
-      },
-      worker_pool: {
-        id: "worker_pool",
-        name: "Multi-Threaded Worker Pool",
-        zone: "C++17 PARALLEL RUNTIME",
-        detail: "Thread pool mapped to CPU affinity cores, processing frame batches in parallel.",
-        color: "#3b82f6",
-      },
-      protocol_parser: {
-        id: "protocol_parser",
-        name: "L2/L3/L4 Protocol Parser",
-        zone: "DEEP PACKET INSPECTION",
-        detail: "Strict bit-shift header decoding: Ethernet II, 802.1Q VLAN, IPv4, IPv6, TCP flags, UDP, ICMP.",
-        color: "#a855f7",
-      },
-      atomic_counters: {
-        id: "atomic_counters",
-        name: "Lock-Free std::atomic Cache",
-        zone: "METRICS ENGINE",
-        detail: "std::atomic<uint64_t> counters benchmarked at 100,000+ PPS without lock contention.",
-        color: "#10b981",
-      },
-      forensic_sink: {
-        id: "forensic_sink",
-        name: "Forensic PCAP Replay Sink",
-        zone: "ANALYTICS SINK",
-        detail: "Synthetic benchmark replay engine: test_pcaps/benchmark_100k.pcap verified in 0.98s.",
-        color: "#38bdf8",
-      },
-    },
-    phases: [
-      {
-        id: "capture",
-        name: "Phase 1: Wire Ingestion",
-        subtitle: "10GbE Line-Rate Frame Capture",
-        desc: "Raw Ethernet frames hit the NIC, captured in promiscuous mode with zero-copy ring buffer transit.",
-        path: [120, 310, 470],
-        outcome: "100k+ PPS INGESTED",
-        outcomeColor: "text-amber-400",
-        logs: [
-          "[00:00:01] pcap_open_live('eth0', snaplen=65535, promisc=1, to_ms=1) OK",
-          "[00:00:01] Ring buffer allocated: 64MB locked page pool",
-          "[00:00:01] Ingestion rate: 100,240 pkts/sec · 684.2 Mbps",
-        ],
-      },
-      {
-        id: "parallel_decode",
-        name: "Phase 2: Multi-Threaded Worker Parsing",
-        subtitle: "L2/L3/L4 Header Extraction",
-        desc: "Worker threads pull batches from the ring buffer, validating checksums and unpacking TCP/UDP payload headers without memory allocations.",
-        path: [470, 620, 750],
-        outcome: "PARALLEL DECODE (0.009ms)",
-        outcomeColor: "text-cyan-400",
-        logs: [
-          "[00:00:02] Thread #1: Parsed 25,000 TCP SYN/ACK segments",
-          "[00:00:02] Thread #2: Parsed 25,000 UDP DNS queries (Port 53)",
-          "[00:00:02] Thread #3: Parsed 25,000 IPv6 TLS ClientHello payloads",
-          "[00:00:02] Thread #4: Parsed 25,000 ICMP Echo telemetry frames",
-        ],
-      },
-      {
-        id: "atomic_stats",
-        name: "Phase 3: Lock-Free Aggregation",
-        subtitle: "100k Replay Benchmark Validated",
-        desc: "Lock-free std::atomic counters accumulate total bytes, packet classifications, and throughput rates without thread contention.",
-        path: [750, 880],
-        outcome: "BENCHMARK: 100,000 PACKETS IN 0.98s",
-        outcomeColor: "text-emerald-400",
-        logs: [
-          "[00:00:03] atomic_fetch_add(total_packets, 100000) finished in 0.982s",
-          "[00:00:03] Protocol breakdown: TCP=64,210, UDP=31,450, ICMP=4,340",
-          "[00:00:03] Zero packet drops detected (rx_dropped = 0)",
-        ],
-      },
-    ],
+    title: "C++ High-Speed Packet Sniffer",
+    badge: "Core Systems",
+    badgeColor: "text-cyan-400 border-cyan-500/30 bg-cyan-500/10",
+    description: "100k+ PPS raw socket frame dissector with byte-level hex inspection and protocol decoders.",
   },
-
-  // ── 3. DISTRIBUTED ENTERPRISE FIREWALL TOPOLOGY (CRTA) ──────────────
   firewall: {
     id: "firewall",
-    title: "Distributed Enterprise Firewall Topology & Policy Auditor",
-    badge: "Zero-Trust Perimeter & DMZ",
-    badgeColor: "text-orange-400 bg-orange-500/10 border-orange-500/30",
-    description:
-      "High-availability corporate edge architecture with Cisco ASA and Check Point Gaia zero-trust zone segmentation (OUTSIDE, DMZ, CORP-INTERNAL). Tested against 10 distinct cross-zone attack scenarios with custom Python policy compliance auditor.",
-    nodes: {
-      attacker: {
-        id: "attacker",
-        name: "Red Team Analyst Station",
-        zone: "EXTERNAL WAN",
-        detail: "Kali Linux / Metasploit Pro adversary simulator testing cross-zone perimeter policies.",
-        color: "#ef4444",
-      },
-      fw_edge: {
-        id: "fw_edge",
-        name: "Cisco ASA 5525-X Perimeter",
-        zone: "WAN BOUNDARY",
-        detail: "Security level 0 -> 50. Stateful inspection permitting HTTPS 443 to DMZ Web Server.",
-        color: "#f97316",
-      },
-      dmz_web: {
-        id: "dmz_web",
-        name: "Web Server (DMZ)",
-        zone: "DE-MILITARIZED ZONE",
-        detail: "Windows Server 2022 / IIS 10.0 (10.0.1.10) hosting public application frontend.",
-        color: "#38bdf8",
-      },
-      fw_internal: {
-        id: "fw_internal",
-        name: "Check Point Gaia Core VSX",
-        zone: "CORE SECURITY BOUNDARY",
-        detail: "Security level 50 -> 100. Enforces Zero-Trust rule #42: DROPS unauthorized SMB/445 and RDP pivots.",
-        color: "#f97316",
-      },
-      ad_dc: {
-        id: "ad_dc",
-        name: "Active Directory Domain Controller",
-        zone: "MILITARIZED INTERNAL CORE",
-        detail: "Windows Server 2022 DC (10.0.2.10). Kerberos KDC engine protected against Pass-the-Hash.",
-        color: "#3b82f6",
-      },
-      db_server: {
-        id: "db_server",
-        name: "Corporate Database Server",
-        zone: "MILITARIZED INTERNAL CORE",
-        detail: "Customer records (10.0.2.50). Isolated: only reachable via verified App Server mTLS queries.",
-        color: "#10b981",
-      },
-    },
-    phases: [
-      {
-        id: "perimeter_infil",
-        name: "Phase 1: Perimeter Infiltration",
-        subtitle: "HTTP Exploit & Reverse Shell",
-        desc: "Attacker discovers open Port 443 on DMZ Web Server. Exploits web application vulnerability; edge firewall permits ingress 443.",
-        path: [120, 310, 470],
-        outcome: "DMZ FOOTHOLD ESTABLISHED",
-        outcomeColor: "text-amber-400",
-        logs: [
-          "[14:20:01] Cisco ASA: ALLOW INGRESS TCP 198.51.100.24:54210 -> 10.0.1.10:443",
-          "[14:20:03] Web Server: Spawning reverse shell beacon to 198.51.100.24:4444",
-          "[14:20:05] Attacker: Caught interactive shell (NT AUTHORITY\\SYSTEM)",
-        ],
-      },
-      {
-        id: "pivot_block",
-        name: "Phase 2: Zero-Trust Lateral Block",
-        subtitle: "Check Point Drops SMB Pivot",
-        desc: "Adversary attempts to pivot laterally from DMZ to Internal Database via SMB (Port 445). Check Point Gaia rule #42 intercepts and drops the packet.",
-        path: [470, 620],
-        outcome: "ATTACK INTERCEPTED & DROPPED",
-        outcomeColor: "text-emerald-400",
-        logs: [
-          "[14:20:10] Lateral probe: 10.0.1.10 -> 10.0.2.50:445 (SMB direct probe)",
-          "[14:20:11] Check Point Gaia: RULE #42 (DMZ_TO_CORP_DROP) -> ACTION: DROP",
-          "[14:20:12] Syslog generated: Unauthorized cross-zone traffic attempt logged",
-        ],
-      },
-      {
-        id: "policy_audit",
-        name: "Phase 3: Python Policy Compliance",
-        subtitle: "Automated ACL Hardening Audit",
-        desc: "Custom Python compliance auditor scans firewall configuration files, verifies 0 over-permissive ANY-ANY rules, and generates audit report.",
-        path: [620, 880],
-        outcome: "10 ATTACK SCENARIOS COMPLIANT",
-        outcomeColor: "text-cyan-400",
-        logs: [
-          "[14:20:15] Running audit_engine.py against configs/gaia_vsx_baseline.cfg",
-          "[14:20:16] Zone isolation verified: OUTSIDE (0) -> DMZ (50) -> CORP (100)",
-          "[14:20:17] tests/cross_zone_attack_matrix.md: 10/10 tests PASSED",
-        ],
-      },
-    ],
+    title: "Enterprise Multi-Zone Firewall",
+    badge: "Network Security",
+    badgeColor: "text-amber-400 border-amber-500/30 bg-amber-500/10",
+    description: "Interactive WAN ➔ DMZ ➔ AD Core stateful transit matrix with real-time ACL rules enforcement.",
   },
-
-  // ── 4. ENTERPRISE SECURE FINANCE PLATFORM (Spring Security) ─────────
-  finance: {
-    id: "finance",
-    title: "Enterprise Secure Finance Platform (OWASP Hardened)",
-    badge: "Web App Pentesting & Defense",
-    badgeColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/30",
-    description:
-      "Full-stack financial management platform (Spring Boot Java Security + Express API + React) hardened against OWASP Top 10 vulnerabilities. Features DAST/SAST penetration testing documentation, JWT RBAC, BOLA/IDOR mitigation, and rate limiting.",
-    nodes: {
-      client: {
-        id: "client",
-        name: "Client Browser / Attacker",
-        zone: "UNTRUSTED PUBLIC WEB",
-        detail: "Sends HTTP/REST requests. Simulates OWASP Top 10 exploits: SQLi, XSS, BOLA, IDOR.",
-        color: "#ef4444",
-      },
-      waf: {
-        id: "waf",
-        name: "Cloudflare Edge WAF & Shield",
-        zone: "EDGE APPLICATION SHIELD",
-        detail: "Terminates TLS 1.3, applies DDoS rate limiting, and scrubs malicious SQL injection patterns.",
-        color: "#f59e0b",
-      },
-      react_app: {
-        id: "react_app",
-        name: "React Frontend Container",
-        zone: "PRESENTATION TIER",
-        detail: "Sanitizes input with DOMPurify, enforces Strict Content-Security-Policy (CSP), HttpOnly cookies.",
-        color: "#06b6d4",
-      },
-      spring_sec: {
-        id: "spring_sec",
-        name: "Spring Security & JWT Filter",
-        zone: "APPLICATION GATEWAY",
-        detail: "Validates HMAC-SHA256 JWT tokens, extracts claims, and blocks unauthorized BOLA/IDOR object queries.",
-        color: "#3b82f6",
-      },
-      rbac_engine: {
-        id: "rbac_engine",
-        name: "RBAC Authorization Engine",
-        zone: "BUSINESS LOGIC",
-        detail: "Enforces @PreAuthorize('hasRole(\"FINANCE_ADMIN\")') annotations across sensitive endpoints.",
-        color: "#a855f7",
-      },
-      secure_db: {
-        id: "secure_db",
-        name: "Encrypted PostgreSQL Database",
-        zone: "DATA VAULT (AES-256)",
-        detail: "Parameterized JDBC queries (no SQL injection possible), encrypted columns at rest with pgcrypto.",
-        color: "#10b981",
-      },
-    },
-    phases: [
-      {
-        id: "sqli_attempt",
-        name: "Phase 1: SQL Injection Attack",
-        subtitle: "Blocked by Parameterized Queries",
-        desc: "Attacker submits `' OR '1'='1` in the login username field. The WAF flags the pattern and the Spring Data JPA repository executes parameterized queries, neutralizing the injection.",
-        path: [120, 310, 470],
-        outcome: "SQL INJECTION BLOCKED",
-        outcomeColor: "text-emerald-400",
-        logs: [
-          "[11:15:02] POST /api/v1/auth/login with payload: username=' OR 1=1--",
-          "[11:15:02] Cloudflare WAF: Rule 100001 (SQLi detection) matched -> Flagged",
-          "[11:15:03] Spring Data JPA: Parameterized query: SELECT u FROM User u WHERE u.username = :param",
-          "[11:15:03] Result: 401 Unauthorized (Injection neutralized)",
-        ],
-      },
-      {
-        id: "jwt_auth",
-        name: "Phase 2: Valid JWT Authentication",
-        subtitle: "Stateless Role-Based Access Control",
-        desc: "Legitimate user logs in with MFA. Spring Security issues a signed HMAC-SHA256 JWT with expiration and user permissions embedded in claims.",
-        path: [470, 620, 750],
-        outcome: "JWT TOKEN ISSUED (200 OK)",
-        outcomeColor: "text-cyan-400",
-        logs: [
-          "[11:15:10] User 'parth.admin' authenticated with BCrypt password + MFA token",
-          "[11:15:11] JwtTokenProvider: Signed token generated with roles=['ROLE_USER', 'ROLE_ADMIN']",
-          "[11:15:12] Response returned with HttpOnly Secure SameSite=Strict cookie",
-        ],
-      },
-      {
-        id: "idor_defense",
-        name: "Phase 3: BOLA / IDOR Defense",
-        subtitle: "Access Control Checks",
-        desc: "Attacker tampers with URL `GET /api/accounts/9941` to view another customer's balance. Spring Security intercepts request and verifies ownership before database query.",
-        path: [750, 880],
-        outcome: "403 FORBIDDEN (BOLA PREVENTED)",
-        outcomeColor: "text-emerald-400",
-        logs: [
-          "[11:15:20] GET /api/v1/accounts/9941 requested by user_id=1402",
-          "[11:15:21] AccountSecurityService: Account 9941 does NOT belong to user 1402",
-          "[11:15:22] Audit event logged: Unauthorized object access attempt -> 403 Forbidden returned",
-        ],
-      },
-    ],
-  },
-
-  // ── 5. TRYHACKME CYBERLAB & TOOL TROUBLESHOOTING ────────────────────
   cyberlab: {
     id: "cyberlab",
-    title: "TryHackMe Security Research: Where Tools Break",
-    badge: "Offensive Security & CTF Mastery",
-    badgeColor: "text-rose-400 bg-rose-500/10 border-rose-500/30",
-    description:
-      "Technical deep-dive into hands-on offensive security realities: 12 published write-ups documenting real CTF challenges (Mr. Robot, EternalBlue, Ice, Windows PrivEsc) and resolving real-world tool failures (dictionary freezes, dumb shells, vanishing Meterpreters).",
-    nodes: {
-      kali_vm: {
-        id: "kali_vm",
-        name: "Kali Linux Red Team Workstation",
-        zone: "OFFENSIVE ENVIRONMENT",
-        detail: "Top 2% Globally ranked TryHackMe practitioner workstation running Nmap, Gobuster, Metasploit, Hashcat.",
-        color: "#ef4444",
-      },
-      target_box: {
-        id: "target_box",
-        name: "CTF Target Vulnerable Box",
-        zone: "TARGET NETWORK (THM VPN)",
-        detail: "Target: 10.10.x.x · Hosts misconfigured web services, unpatched services, and privilege escalation vectors.",
-        color: "#f59e0b",
-      },
-      recon_engine: {
-        id: "recon_engine",
-        name: "Recon & Dictionary Pruning",
-        zone: "ENUMERATION STAGE",
-        detail: "Nmap port scanning & custom wordlist pruning via 'sort -u' reducing 850,000 words down to 43,000 unique entries.",
-        color: "#06b6d4",
-      },
-      exploit_stage: {
-        id: "exploit_stage",
-        name: "Exploit Infiltration / RCE",
-        zone: "INITIAL COMPROMISE",
-        detail: "CVE-2014-0759 Icecast exploit / MS17-010 EternalBlue kernel buffer overflow targeting SMBv1.",
-        color: "#a855f7",
-      },
-      shell_upgrade: {
-        id: "shell_upgrade",
-        name: "Interactive TTY Shell Upgrade",
-        zone: "POST-EXPLOITATION",
-        detail: "Upgrading netcat dumb shell using python3 -c 'import pty; pty.spawn(\"/bin/bash\")' and stty raw -echo.",
-        color: "#3b82f6",
-      },
-      root_shell: {
-        id: "root_shell",
-        name: "Root / NT AUTHORITY\\SYSTEM",
-        zone: "FULL SYSTEM COMPROMISE",
-        detail: "PrivEsc via PrintSpoofer / Unquoted Service Paths / SUID bit escalation. Flag captured & documented.",
-        color: "#10b981",
-      },
-    },
-    phases: [
-      {
-        id: "recon",
-        name: "Phase 1: Port Recon & Tool Troubleshooting",
-        subtitle: "Overcoming Wordlist Freezes",
-        desc: "Standard tools froze on huge 850k-line dictionary. Engineered custom pipeline `cat fsocity.dic | sort -u | uniq > clean.dic` reducing payload size by 95% and discovering credentials in 4 minutes.",
-        path: [120, 310, 470],
-        outcome: "DICTIONARY PRUNED & USER FOUND",
-        outcomeColor: "text-cyan-400",
-        logs: [
-          "[10:01:05] Scanning target 10.10.114.88: Ports 80, 443, 22 OPEN",
-          "[10:01:10] Wordlist optimization: 858,160 words -> 43,221 unique entries",
-          "[10:01:15] Hydration script found valid WordPress login for user 'elliot'",
-        ],
-      },
-      {
-        id: "exploit",
-        name: "Phase 2: Exploit & Shell Stabilization",
-        subtitle: "Bypassing Dumb Shell Hangs",
-        desc: "Reverse netcat shell dropped on Ctrl+C. Stabilized session using Python PTY spawn and migrated Meterpreter process into spoolsv.exe to prevent host service termination.",
-        path: [470, 620, 750],
-        outcome: "PERSISTENT STABLE SHELL",
-        outcomeColor: "text-amber-400",
-        logs: [
-          "[10:02:01] Exploit sent: CVE-2014-0759 payload executed",
-          "[10:02:02] Netcat caught inbound connection: /bin/sh (dumb shell)",
-          "[10:02:03] Upgraded TTY: python3 -c 'import pty; pty.spawn(\"/bin/bash\")'",
-          "[10:02:05] Process migration to PID 1420 (spoolsv.exe) SUCCESS",
-        ],
-      },
-      {
-        id: "privesc",
-        name: "Phase 3: Privilege Escalation to Root",
-        subtitle: "Full Root / SYSTEM Access",
-        desc: "Identified SeImpersonatePrivilege on target Windows box. Executed PrintSpoofer.exe to mint elevated token and captured root flag `root.txt`.",
-        path: [750, 880],
-        outcome: "ROOT FLAG CAPTURED 🏆",
-        outcomeColor: "text-emerald-400",
-        logs: [
-          "[10:03:10] whoami /priv -> SeImpersonatePrivilege ENABLED",
-          "[10:03:12] Executing: PrintSpoofer.exe -i -c cmd.exe",
-          "[10:03:14] Successfully elevated -> whoami: NT AUTHORITY\\SYSTEM",
-          "[10:03:15] Flag verified: THM{m4st3r_0f_pr1v_3sc_2026} · Write-up published to CyberLab",
-        ],
-      },
-    ],
+    title: "TryHackMe Attack Lab PTY",
+    badge: "Offensive Ops",
+    badgeColor: "text-rose-400 border-rose-500/30 bg-rose-500/10",
+    description: "Interactive virtual Kali Linux terminal emulator with live privilege escalation commands & flags.",
+  },
+  finance: {
+    id: "finance",
+    title: "Secure FinTech Architecture",
+    badge: "AppSec Hardening",
+    badgeColor: "text-purple-400 border-purple-500/30 bg-purple-500/10",
+    description: "Interactive OWASP attack vs hardened defense sandbox (SQLi, IDOR, and JWT forgery).",
   },
 };
 
-export default function Project3DVisualizer({ defaultProject = "firewall" }) {
-  const [selectedProjectId, setSelectedProjectId] = useState(defaultProject);
-  const [activePhaseIdx, setActivePhaseIdx] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [packetProgress, setPacketProgress] = useState(0); // 0 to 100
-  const [liveLogIdx, setLiveLogIdx] = useState(0);
+// ==========================================
+// 1. SPLUNK SIEM RADAR VISUALIZER
+// ==========================================
+function SplunkRadarVisualizer() {
+  const [activeTechnique, setActiveTechnique] = useState("T1110");
+  const [threatEvents, setThreatEvents] = useState([
+    { id: 1, angle: 45, dist: 65, tech: "T1110", name: "Brute Force", sev: "CRITICAL", ip: "194.26.29.112" },
+    { id: 2, angle: 130, dist: 80, tech: "T1059", name: "PowerShell Encoded", sev: "HIGH", ip: "185.190.140.2" },
+    { id: 3, angle: 220, dist: 45, tech: "T1003", name: "LSASS Memory Dump", sev: "CRITICAL", ip: "10.0.4.15" },
+    { id: 4, angle: 310, dist: 70, tech: "T1071", name: "C2 Beaconing (DNS)", sev: "MEDIUM", ip: "45.154.255.8" },
+  ]);
+  const [scanRotation, setScanRotation] = useState(0);
 
-  const projectData = PROJECT_3D_DATA[selectedProjectId] || PROJECT_3D_DATA.firewall;
-  const nodeKeys = Object.keys(projectData.nodes);
-  const [selectedNodeKey, setSelectedNodeKey] = useState(nodeKeys[0]);
-
-  const activePhase = projectData.phases[activePhaseIdx] || projectData.phases[0];
-  const selectedNode = projectData.nodes[selectedNodeKey] || projectData.nodes[nodeKeys[0]];
-
-  // Reset when project switches
   useEffect(() => {
-    setActivePhaseIdx(0);
-    setPacketProgress(0);
-    setLiveLogIdx(0);
-    setSelectedNodeKey(Object.keys(projectData.nodes)[0]);
-  }, [selectedProjectId, projectData]);
-
-  // Animation ticker for packet movement
-  useEffect(() => {
-    if (!isPlaying) return;
     const interval = setInterval(() => {
-      setPacketProgress((prev) => {
-        if (prev >= 100) return 0;
-        return prev + 2;
-      });
-    }, 38);
+      setScanRotation((prev) => (prev + 2) % 360);
+    }, 30);
     return () => clearInterval(interval);
-  }, [isPlaying, activePhase]);
+  }, []);
 
-  // Live log rotation
-  useEffect(() => {
-    const logInterval = setInterval(() => {
-      setLiveLogIdx((prev) => (prev + 1) % activePhase.logs.length);
-    }, 2800);
-    return () => clearInterval(logInterval);
-  }, [activePhase]);
+  const queries = {
+    T1110: 'index=wineventlog EventCode=4625 | stats count by TargetUserName, src_ip | where count > 10',
+    T1059: 'index=powershell ScriptBlockText="*FromBase64String*" | table _time, ComputerName, ScriptBlockText',
+    T1003: 'index=sysmon EventCode=10 TargetImage="*lsass.exe" GrantedAccess="0x1010" | eval alert="Mimikatz Dump"',
+    T1071: 'sourcetype=suricata event_type=dns | stats count by query, dest_ip | where len(query) > 50',
+  };
+
+  const selectedEvent = threatEvents.find((e) => e.tech === activeTechnique) || threatEvents[0];
 
   return (
-    <div className="w-full rounded-2xl bg-slate-950/95 border border-slate-800/80 shadow-[0_0_50px_rgba(0,0,0,0.85)] overflow-hidden font-sans">
-      {/* ── Visualizer Header Bar ───────────────────────────────────── */}
-      <div className="px-5 py-4 border-b border-slate-800 bg-slate-900/70 flex flex-wrap items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <div className="p-2 rounded-xl bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 border border-emerald-500/30 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
-            <Radio size={20} className="animate-pulse" />
+    <div className="flex flex-col lg:flex-row gap-6 items-center w-full h-full p-4">
+      {/* Radar Canvas / SVG Representation */}
+      <div className="relative w-64 h-64 sm:w-72 sm:h-72 flex-shrink-0 flex items-center justify-center">
+        {/* Radar concentric rings */}
+        <div className="absolute inset-0 rounded-full border border-emerald-500/20 bg-emerald-950/20" />
+        <div className="absolute inset-8 rounded-full border border-emerald-500/30" />
+        <div className="absolute inset-16 rounded-full border border-emerald-500/40" />
+        <div className="absolute inset-24 rounded-full border border-emerald-500/50" />
+        {/* Crosshairs */}
+        <div className="absolute inset-x-0 top-1/2 h-px bg-emerald-500/30 -translate-y-1/2" />
+        <div className="absolute inset-y-0 left-1/2 w-px bg-emerald-500/30 -translate-x-1/2" />
+
+        {/* Sweeping radar needle */}
+        <div
+          className="absolute inset-0 rounded-full pointer-events-none"
+          style={{
+            transform: `rotate(${scanRotation}deg)`,
+            background: "conic-gradient(from 0deg, transparent 0deg, transparent 270deg, rgba(16, 185, 129, 0.4) 360deg)",
+          }}
+        />
+
+        {/* Threat blips */}
+        {threatEvents.map((event) => {
+          const rad = (event.angle * Math.PI) / 180;
+          const x = 50 + (event.dist / 2) * Math.cos(rad);
+          const y = 50 + (event.dist / 2) * Math.sin(rad);
+          const isSelected = event.tech === activeTechnique;
+
+          return (
+            <button
+              key={event.id}
+              onClick={() => setActiveTechnique(event.tech)}
+              aria-label={`Inspect ${event.name}`}
+              className={`absolute -translate-x-1/2 -translate-y-1/2 transition-transform ${
+                isSelected ? "scale-125 z-20" : "hover:scale-110 z-10"
+              }`}
+              style={{ left: `${x}%`, top: `${y}%` }}
+            >
+              <span className="relative flex h-4 w-4">
+                <span
+                  className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
+                    event.sev === "CRITICAL" ? "bg-rose-500" : event.sev === "HIGH" ? "bg-amber-500" : "bg-cyan-500"
+                  }`}
+                />
+                <span
+                  className={`relative inline-flex rounded-full h-4 w-4 border border-white/50 ${
+                    event.sev === "CRITICAL" ? "bg-rose-600" : event.sev === "HIGH" ? "bg-amber-600" : "bg-cyan-600"
+                  }`}
+                />
+              </span>
+            </button>
+          );
+        })}
+
+        {/* Center emitter */}
+        <div className="w-3 h-3 rounded-full bg-emerald-400 shadow-[0_0_12px_#10b981] z-10" />
+        <span className="absolute bottom-2 text-[10px] font-mono text-emerald-400/70 tracking-widest uppercase">
+          LIVE SOC SWEEP: 360°
+        </span>
+      </div>
+
+      {/* Interactive Telemetry & SPL View */}
+      <div className="flex-1 w-full space-y-3 font-mono text-xs">
+        <div className="flex flex-wrap gap-2">
+          {threatEvents.map((t) => (
+            <button
+              key={t.tech}
+              onClick={() => setActiveTechnique(t.tech)}
+              className={`px-2.5 py-1 rounded border transition-all ${
+                activeTechnique === t.tech
+                  ? "bg-emerald-500/20 border-emerald-400 text-emerald-300 font-semibold"
+                  : "bg-slate-900/60 border-slate-800 text-slate-400 hover:border-slate-700"
+              }`}
+            >
+              {t.tech}: {t.name}
+            </button>
+          ))}
+        </div>
+
+        <div className="p-3 rounded-lg border border-slate-800 bg-slate-900/80 space-y-2">
+          <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+            <span className="text-slate-400">CORRELATED INCIDENT:</span>
+            <span
+              className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                selectedEvent.sev === "CRITICAL"
+                  ? "bg-rose-500/20 text-rose-400 border border-rose-500/40"
+                  : selectedEvent.sev === "HIGH"
+                  ? "bg-amber-500/20 text-amber-400 border border-amber-500/40"
+                  : "bg-cyan-500/20 text-cyan-400 border border-cyan-500/40"
+              }`}
+            >
+              {selectedEvent.sev}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2 text-[11px]">
+            <div>
+              <span className="text-slate-500">Source Vector:</span>{" "}
+              <span className="text-emerald-400">{selectedEvent.ip}</span>
+            </div>
+            <div>
+              <span className="text-slate-500">MITRE Technique:</span>{" "}
+              <span className="text-slate-200">{selectedEvent.tech}</span>
+            </div>
+          </div>
+
+          <div className="pt-2">
+            <div className="text-[10px] text-slate-500 uppercase tracking-wider mb-1 flex items-center gap-1">
+              <Terminal className="w-3 h-3 text-emerald-400" />
+              <span>Splunk Enterprise Search Processing Language (SPL):</span>
+            </div>
+            <pre className="p-2 rounded bg-black/60 border border-emerald-500/20 text-emerald-300 overflow-x-auto text-[11px] whitespace-pre-wrap leading-relaxed">
+              {queries[activeTechnique]}
+            </pre>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between text-[11px] text-slate-500 px-1">
+          <span className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            Active Suricata & Sysmon Ingestion Engine
+          </span>
+          <span className="text-emerald-400/80 font-bold">12,450 EPS</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
+// 2. C++ PACKET ANALYZER VISUALIZER
+// ==========================================
+function PacketAnalyzerVisualizer() {
+  const [selectedProtocol, setSelectedProtocol] = useState("TCP_SYN");
+  const [packetCount, setPacketCount] = useState(104820);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setPacketCount((p) => p + Math.floor(Math.random() * 85 + 20));
+    }, 150);
+    return () => clearInterval(timer);
+  }, []);
+
+  const packetSamples = {
+    TCP_SYN: {
+      name: "TCP Port Scan (SYN Packet)",
+      rawHex: "45 00 00 3c a1 2f 40 00 40 06 b8 12 c0 a8 01 64 c0 a8 01 01 9a 34 00 50 fe b4 a1 00 00 00 00 00 a0 02 72 10 d3 a1 00 00 02 04 05 b4 04 02 08 0a 00",
+      ascii: "E.../....@...d....4.P...........r...........",
+      fields: [
+        { label: "IP Version", val: "IPv4 (IHL=5, 20 Bytes)" },
+        { label: "Src Address", val: "192.168.1.100:39476" },
+        { label: "Dst Address", val: "192.168.1.1:80 (HTTP)" },
+        { label: "TCP Flags", val: "0x002 [SYN] Seq=4273250560" },
+        { label: "Window Size", val: "29200, MSS=1460" },
+      ],
+      verdict: "Port Scanning Activity Detected (Nmap SYN Stealth)",
+      flagColor: "text-amber-400 border-amber-500/30 bg-amber-500/10",
+    },
+    DNS_EXFIL: {
+      name: "DNS Tunneling Exfiltration Chunk",
+      rawHex: "45 00 00 4e 7a 11 00 00 40 11 ea 44 c0 a8 01 64 08 08 08 08 e1 a2 00 35 00 3a 1f 8d 1a 2b 01 00 00 01 00 00 00 00 00 00 18 64 33 64 69 73 65 63 74",
+      ascii: "E..Nz...@..D...d...5.:...+..........d3disect",
+      fields: [
+        { label: "Protocol", val: "UDP (DNS Query Port 53)" },
+        { label: "Src Address", val: "192.168.1.100:57762" },
+        { label: "Resolved IP", val: "8.8.8.8 (Google Public)" },
+        { label: "Query Payload", val: "d3disect.c3RhZ2UxLmtleQ==.evil-c2.net" },
+        { label: "Entropy", val: "4.89 (High Randomness / Base64 Data)" },
+      ],
+      verdict: "Data Exfiltration via High-Entropy DNS Subdomains",
+      flagColor: "text-rose-400 border-rose-500/30 bg-rose-500/10",
+    },
+    ARP_SPOOF: {
+      name: "Gratuitous ARP Cache Poisoning",
+      rawHex: "ff ff ff ff ff ff 00 0c 29 8f a1 b2 08 06 00 01 08 00 06 04 00 02 00 0c 29 8f a1 b2 c0 a8 01 01 00 00 00 00 00 00 c0 a8 01 01 00 00 00 00 00 00 00",
+      ascii: "........)............)......................",
+      fields: [
+        { label: "Link Layer", val: "Ethernet II (ARP Reply)" },
+        { label: "Attacker MAC", val: "00:0c:29:8f:a1:b2" },
+        { label: "Claimed IP", val: "192.168.1.1 (Gateway IP)" },
+        { label: "Victim MAC", val: "ff:ff:ff:ff:ff:ff (Broadcast)" },
+        { label: "Opcode", val: "ARP Reply (is-at duplicate alert)" },
+      ],
+      verdict: "Man-In-The-Middle (MITM) ARP Poisoning Attempt",
+      flagColor: "text-rose-400 border-rose-500/30 bg-rose-500/10",
+    },
+  };
+
+  const current = packetSamples[selectedProtocol];
+
+  return (
+    <div className="flex flex-col gap-4 w-full h-full p-4 font-mono text-xs">
+      {/* Top Banner Stats */}
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-cyan-500/20 pb-3">
+        <div className="flex items-center gap-2">
+          <Activity className="w-4 h-4 text-cyan-400 animate-pulse" />
+          <span className="text-cyan-300 font-semibold tracking-wide">
+            C++ RAW SOCKET CAPTURE ENGINE
+          </span>
+        </div>
+        <div className="flex items-center gap-4 text-[11px] text-slate-400">
+          <div>
+            TOTAL FRAMES: <span className="text-cyan-400 font-bold">{packetCount.toLocaleString()}</span>
           </div>
           <div>
-            <div className="flex items-center gap-2">
-              <h3 className="text-base sm:text-lg font-bold text-slate-100 font-mono tracking-tight">
-                3D Live Architecture &amp; System Simulator
-              </h3>
-              <span className="hidden sm:inline-flex px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
-                MULTI-PROJECT ENGINE
-              </span>
-            </div>
-            <p className="text-xs text-slate-400 font-mono">
-              Live animated 3D modeling of data flow, security boundaries, and telemetry
-            </p>
+            BUFFER DROP: <span className="text-emerald-400 font-bold">0.00%</span>
+          </div>
+          <div>
+            KERNEL RING: <span className="text-cyan-400 font-bold">PACKET_MMAP</span>
           </div>
         </div>
+      </div>
 
-        {/* Global Controls */}
-        <div className="flex items-center gap-2 text-xs font-mono">
+      {/* Protocol Toggle Buttons */}
+      <div className="flex flex-wrap gap-2">
+        {Object.entries(packetSamples).map(([key, data]) => (
           <button
-            onClick={() => setIsPlaying((p) => !p)}
-            className="p-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-200 transition-colors flex items-center gap-1.5"
-            title={isPlaying ? "Pause Simulation" : "Resume Simulation"}
+            key={key}
+            onClick={() => setSelectedProtocol(key)}
+            className={`px-3 py-1.5 rounded border transition-all text-[11px] ${
+              selectedProtocol === key
+                ? "bg-cyan-500/20 border-cyan-400 text-cyan-200 font-bold"
+                : "bg-slate-900/60 border-slate-800 text-slate-400 hover:border-slate-700"
+            }`}
           >
-            {isPlaying ? <Pause size={14} /> : <Play size={14} className="text-emerald-400" />}
-            <span className="hidden sm:inline">{isPlaying ? "Pause" : "Play"}</span>
+            {data.name}
           </button>
-          <button
-            onClick={() => {
-              setPacketProgress(0);
-              setLiveLogIdx(0);
-            }}
-            className="p-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-200 transition-colors"
-            title="Reset Animation"
-          >
-            <RotateCcw size={14} />
-          </button>
-        </div>
+        ))}
       </div>
 
-      {/* ── PROJECT SELECTOR TABS (Switch between all 5 project models) ── */}
-      <div className="px-4 py-2.5 bg-slate-900/40 border-b border-slate-800/60 flex items-center gap-2 overflow-x-auto scrollbar-thin">
-        <span className="text-[11px] font-mono text-slate-500 uppercase tracking-wider shrink-0 pl-1">
-          Select Project 3D Model:
-        </span>
-        {Object.values(PROJECT_3D_DATA).map((proj) => {
-          const isActive = proj.id === selectedProjectId;
-          return (
-            <button
-              key={proj.id}
-              onClick={() => setSelectedProjectId(proj.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium whitespace-nowrap transition-all flex items-center gap-2 border ${
-                isActive
-                  ? "bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 text-emerald-300 border-emerald-500/40 shadow-[0_0_15px_rgba(16,185,129,0.15)] font-bold"
-                  : "bg-slate-950/60 text-slate-400 border-slate-800 hover:text-slate-200 hover:bg-slate-800/50"
-              }`}
-            >
-              <span className={`w-1.5 h-1.5 rounded-full ${isActive ? "bg-emerald-400 animate-pulse" : "bg-slate-600"}`} />
-              {proj.title.split(":")[0]}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* ── Active Project Phase Selector ──────────────────────────── */}
-      <div className="px-4 py-2 bg-slate-950 border-b border-slate-800/50 flex items-center gap-2 overflow-x-auto scrollbar-thin">
-        <span className="text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-wider shrink-0">
-          Simulation Steps:
-        </span>
-        {projectData.phases.map((ph, idx) => {
-          const isActive = activePhaseIdx === idx;
-          return (
-            <button
-              key={ph.id}
-              onClick={() => {
-                setActivePhaseIdx(idx);
-                setPacketProgress(0);
-                setLiveLogIdx(0);
-              }}
-              className={`px-2.5 py-1 rounded text-xs font-mono transition-all ${
-                isActive
-                  ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold"
-                  : "text-slate-400 hover:text-slate-200"
-              }`}
-            >
-              {ph.name}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* ── Main Interactive 3D Stage & Details Grid ───────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
-        {/* ── 3D Isometric SVG Canvas (8 cols on lg) ────────────────── */}
-        <div className="lg:col-span-8 p-4 sm:p-6 bg-radial-gradient relative min-h-[440px] sm:min-h-[500px] flex items-center justify-center overflow-hidden select-none">
-          {/* Subtle grid background */}
-          <div className="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:24px_24px]" />
-
-          {/* Isometric SVG Canvas */}
-          <svg
-            viewBox="0 0 1000 580"
-            className="w-full h-full max-h-[540px] drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)]"
-            preserveAspectRatio="xMidYMid meet"
-          >
-            <defs>
-              <filter id="glow-p3d" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="6" result="blur" />
-                <feComposite in="SourceGraphic" in2="blur" operator="over" />
-              </filter>
-              <linearGradient id="grad-path" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.8" />
-                <stop offset="50%" stopColor="#3b82f6" stopOpacity="0.8" />
-                <stop offset="100%" stopColor="#10b981" stopOpacity="0.8" />
-              </linearGradient>
-            </defs>
-
-            {/* ── Isometric Base Grid Floor ── */}
-            <polygon
-              points="100,280 500,80 900,280 500,480"
-              fill="#030712"
-              fillOpacity="0.75"
-              stroke="#1e293b"
-              strokeWidth="2"
-            />
-            {/* Grid inner rings */}
-            <polygon
-              points="200,280 500,130 800,280 500,430"
-              fill="#082f49"
-              fillOpacity="0.15"
-              stroke="#0284c7"
-              strokeWidth="1.5"
-              strokeDasharray="4,4"
-            />
-
-            {/* ── Highway Path Connecting All 6 Nodes ── */}
-            <path
-              d="M 120,380 L 280,310 L 450,240 L 620,180 L 780,250 L 860,330"
-              stroke="url(#grad-path)"
-              strokeWidth="6"
-              strokeLinecap="round"
-              fill="none"
-              opacity="0.8"
-            />
-            <path
-              d="M 120,380 L 280,310 L 450,240 L 620,180 L 780,250 L 860,330"
-              stroke="#ffffff"
-              strokeWidth="1.5"
-              strokeDasharray="6,6"
-              fill="none"
-              opacity="0.5"
-            />
-
-            {/* ── Animated Packet Traveling Along Path ── */}
-            {isPlaying && (
-              <g>
-                <circle
-                  cx={120 + (packetProgress / 100) * (860 - 120)}
-                  cy={380 + Math.sin((packetProgress / 100) * Math.PI) * -160}
-                  r="9"
-                  fill="#38bdf8"
-                  filter="url(#glow-p3d)"
-                >
-                  <animate attributeName="r" values="7;11;7" dur="0.8s" repeatCount="indefinite" />
-                </circle>
-              </g>
-            )}
-
-            {/* ── 6 Isometric Nodes Rendered Dynamically ── */}
-            {nodeKeys.map((key, i) => {
-              const node = projectData.nodes[key];
-              const isSelected = selectedNodeKey === key;
-              // Coordinate offsets along isometric diagonal
-              const coords = [
-                { x: 120, y: 380 },
-                { x: 280, y: 310 },
-                { x: 450, y: 240 },
-                { x: 620, y: 180 },
-                { x: 780, y: 250 },
-                { x: 860, y: 330 },
-              ][i] || { x: 500, y: 280 };
-
-              return (
-                <g
-                  key={key}
-                  transform={`translate(${coords.x - 30}, ${coords.y - 30})`}
-                  className="cursor-pointer group"
-                  onClick={() => setSelectedNodeKey(key)}
-                >
-                  {/* Selection highlight aura */}
-                  {isSelected && (
-                    <ellipse
-                      cx="30"
-                      cy="30"
-                      rx="48"
-                      ry="28"
-                      fill={node.color}
-                      opacity="0.35"
-                      filter="url(#glow-p3d)"
-                    />
-                  )}
-
-                  {/* 3D Isometric Node Block */}
-                  <polygon
-                    points="0,20 30,5 60,20 30,35"
-                    fill={node.color}
-                    fillOpacity="0.85"
-                  />
-                  <polygon
-                    points="0,20 30,35 30,60 0,45"
-                    fill={node.color}
-                    fillOpacity="0.65"
-                  />
-                  <polygon
-                    points="30,35 60,20 60,45 30,60"
-                    fill={node.color}
-                    fillOpacity="0.45"
-                  />
-
-                  {/* Inner Node Core / LED Indicator */}
-                  <circle cx="30" cy="20" r="5" fill="#ffffff" opacity="0.9" />
-
-                  {/* Node Name Label */}
-                  <text
-                    x="30"
-                    y="76"
-                    textAnchor="middle"
-                    fill={isSelected ? "#ffffff" : "#94a3b8"}
-                    fontSize="11"
-                    fontWeight="bold"
-                    fontFamily="monospace"
-                  >
-                    {node.name.split(" ")[0]} {node.name.split(" ")[1] || ""}
-                  </text>
-                  <text
-                    x="30"
-                    y="90"
-                    textAnchor="middle"
-                    fill={node.color}
-                    fontSize="9"
-                    fontWeight="normal"
-                    fontFamily="monospace"
-                  >
-                    [{node.zone.split(" ")[0]}]
-                  </text>
-                </g>
-              );
-            })}
-          </svg>
-
-          {/* Interactive Hint Banner */}
-          <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-[11px] font-mono text-slate-400 bg-slate-900/80 backdrop-blur border border-slate-800 px-3 py-1.5 rounded-lg pointer-events-none">
-            <span className="flex items-center gap-1.5">
-              <Info size={13} className="text-cyan-400" />
-              Click any 3D node above to inspect component telemetry, ports &amp; security logic
-            </span>
-            <span className={`hidden sm:inline font-bold ${activePhase.outcomeColor}`}>
-              ● {activePhase.outcome}
-            </span>
+      {/* Hex Dump & Byte Dissector View */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        {/* Hex Representation */}
+        <div className="p-3 rounded-lg border border-slate-800 bg-black/80 space-y-2">
+          <div className="text-[10px] text-cyan-400/80 uppercase tracking-widest font-bold flex items-center justify-between">
+            <span>Dissected Byte Stream (Hex/ASCII)</span>
+            <span className="text-slate-500">Big-Endian Network Order</span>
+          </div>
+          <div className="font-mono text-[11px] text-slate-300 break-all leading-relaxed bg-slate-950 p-2 rounded border border-slate-900">
+            <div className="text-cyan-400 select-all mb-1">{current.rawHex}</div>
+            <div className="text-slate-500 border-t border-slate-800 pt-1 select-all">{current.ascii}</div>
+          </div>
+          <div className={`p-2 rounded border text-[11px] ${current.flagColor}`}>
+            <strong>Analyzer Verdict:</strong> {current.verdict}
           </div>
         </div>
 
-        {/* ── Node Telemetry & Phase Inspector (4 cols on lg) ───────── */}
-        <div className="lg:col-span-4 p-4 sm:p-5 border-t lg:border-t-0 lg:border-l border-slate-800 bg-slate-950/80 flex flex-col justify-between space-y-4">
-          {/* Active Phase Card */}
-          <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
-            <div className="flex items-center justify-between">
-              <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold border ${projectData.badgeColor}`}>
-                {projectData.badge}
-              </span>
-              <span className={`text-xs font-mono font-bold ${activePhase.outcomeColor}`}>
-                {activePhase.outcome}
-              </span>
-            </div>
-            <h4 className="text-sm font-bold text-slate-100 font-mono">
-              {activePhase.name}: {activePhase.subtitle}
-            </h4>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              {activePhase.desc}
-            </p>
+        {/* Decoded Frame Fields */}
+        <div className="p-3 rounded-lg border border-slate-800 bg-slate-900/70 space-y-2">
+          <div className="text-[10px] text-slate-400 uppercase tracking-widest font-bold">
+            Dissected Protocol Headers
           </div>
-
-          {/* Selected Node Details */}
-          <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/90 space-y-2">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-              <div className="flex items-center gap-2">
-                <div
-                  className="w-2.5 h-2.5 rounded-full animate-ping"
-                  style={{ backgroundColor: selectedNode.color }}
-                />
-                <h5 className="text-xs font-bold font-mono text-slate-200">
-                  {selectedNode.name}
-                </h5>
+          <div className="space-y-1.5">
+            {current.fields.map((f, i) => (
+              <div key={i} className="flex justify-between items-center text-[11px] p-1 rounded bg-slate-950/60 border border-slate-800/80">
+                <span className="text-slate-400">{f.label}:</span>
+                <span className="text-cyan-300 font-semibold">{f.val}</span>
               </div>
-              <span className="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20">
-                ACTIVE NODE
-              </span>
-            </div>
-            <div className="text-[11px] font-mono space-y-1">
-              <p>
-                <span className="text-slate-500">Subsystem Zone:</span>{" "}
-                <span className="text-slate-300 font-bold">{selectedNode.zone}</span>
-              </p>
-              <p className="text-slate-400 leading-normal border-t border-slate-800/60 pt-1.5">
-                {selectedNode.detail}
-              </p>
-            </div>
-          </div>
-
-          {/* Live Syslog Telemetry Stream */}
-          <div className="p-3 bg-black/90 rounded-xl border border-slate-800 space-y-1.5 font-mono text-[11px]">
-            <div className="flex items-center justify-between text-slate-500 border-b border-slate-800/80 pb-1 text-[10px]">
-              <span className="flex items-center gap-1 text-emerald-400 font-bold">
-                <Terminal size={11} /> LIVE PIPELINE LOG
-              </span>
-              <span>TELEMETRY STREAM</span>
-            </div>
-            <div className="space-y-1 py-1 max-h-24 overflow-y-auto scrollbar-thin">
-              {activePhase.logs.map((log, lIdx) => (
-                <div
-                  key={lIdx}
-                  className={`text-[10px] sm:text-[11px] leading-tight transition-colors ${
-                    lIdx === liveLogIdx
-                      ? "text-amber-300 font-bold bg-amber-500/10 px-1 rounded"
-                      : "text-slate-500"
-                  }`}
-                >
-                  {log}
-                </div>
-              ))}
-            </div>
+            ))}
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
+// 3. ENTERPRISE FIREWALL TOPOLOGY VISUALIZER
+// ==========================================
+function FirewallTopologyVisualizer() {
+  const [aclMode, setAclMode] = useState("RESTRICTIVE");
+  const [activeTraffic, setActiveTraffic] = useState("HTTPS");
+  const [transitState, setTransitState] = useState("PERMIT");
+
+  const rules = {
+    RESTRICTIVE: {
+      HTTPS: { action: "PERMIT", code: "ALLOW: 443 TLS 1.3 to DMZ NGINX Cluster", status: "emerald" },
+      SSH: { action: "DENY", code: "BLOCK: Port 22 Ingress from WAN dropped (Anti-Brute)", status: "rose" },
+      RDP: { action: "DROP", code: "DROP: Port 3389 Silent Discard at WAN Edge", status: "rose" },
+      DB: { action: "ISOLATED", code: "AIRGAP: Database segment unreachable directly from WAN", status: "amber" },
+    },
+    PERMISSIVE: {
+      HTTPS: { action: "PERMIT", code: "ALLOW: Standard web traffic pass-through", status: "emerald" },
+      SSH: { action: "INSPECT", code: "INSPECT: Rate-limited with geo-block override", status: "amber" },
+      RDP: { action: "INSPECT", code: "INSPECT: MFA VPN Gateway validation required", status: "amber" },
+      DB: { action: "DENY", code: "BLOCK: Segment violation strictly blocked", status: "rose" },
+    },
+  };
+
+  const handleTrafficSelect = (traffic) => {
+    setActiveTraffic(traffic);
+    setTransitState(rules[aclMode][traffic].action);
+  };
+
+  return (
+    <div className="flex flex-col gap-4 w-full h-full p-4 font-mono text-xs">
+      {/* Firewall Controls */}
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-amber-500/20 pb-3">
+        <div className="flex items-center gap-2">
+          <ShieldAlert className="w-4 h-4 text-amber-400" />
+          <span className="text-amber-300 font-semibold tracking-wide">
+            ENTERPRISE STATEFUL ACL MATRIX
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-slate-400 text-[11px]">Security Posture:</span>
+          <button
+            onClick={() => setAclMode(aclMode === "RESTRICTIVE" ? "PERMISSIVE" : "RESTRICTIVE")}
+            className={`px-2.5 py-1 rounded border text-[11px] font-bold transition-all ${
+              aclMode === "RESTRICTIVE"
+                ? "bg-rose-500/20 border-rose-500/40 text-rose-300"
+                : "bg-amber-500/20 border-amber-500/40 text-amber-300"
+            }`}
+          >
+            {aclMode === "RESTRICTIVE" ? "STRICT ZERO-TRUST" : "STANDARD CORRIDOR"}
+          </button>
+        </div>
+      </div>
+
+      {/* Interactive Topology Graph */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 items-center py-2">
+        {/* Node 1: Untrusted Internet */}
+        <div className="p-3 rounded-lg border border-slate-800 bg-slate-900/80 text-center space-y-1">
+          <div className="w-8 h-8 mx-auto rounded-full bg-slate-800 flex items-center justify-center text-slate-300">
+            <Wifi className="w-4 h-4" />
+          </div>
+          <div className="font-bold text-slate-200">WAN Edge</div>
+          <div className="text-[10px] text-slate-500">Untrusted Zone 0.0.0.0/0</div>
+        </div>
+
+        {/* Node 2: NextGen Firewall Core */}
+        <div className="p-3 rounded-lg border-2 border-amber-500/40 bg-amber-950/20 text-center space-y-1 relative">
+          <div className="w-8 h-8 mx-auto rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/40 flex items-center justify-center">
+            <Lock className="w-4 h-4" />
+          </div>
+          <div className="font-bold text-amber-300">Stateful Firewall Engine</div>
+          <div className="text-[10px] text-amber-400/80">Active DPI & Layer 7 Filtering</div>
+          <div className="text-[9px] uppercase tracking-wider text-slate-400 mt-1">
+            Status:{" "}
+            <span
+              className={
+                rules[aclMode][activeTraffic].status === "emerald"
+                  ? "text-emerald-400 font-bold"
+                  : rules[aclMode][activeTraffic].status === "rose"
+                  ? "text-rose-400 font-bold"
+                  : "text-amber-400 font-bold"
+              }
+            >
+              {rules[aclMode][activeTraffic].action}
+            </span>
+          </div>
+        </div>
+
+        {/* Node 3: Protected Corporate Core */}
+        <div className="p-3 rounded-lg border border-slate-800 bg-slate-900/80 text-center space-y-1">
+          <div className="w-8 h-8 mx-auto rounded-full bg-slate-800 flex items-center justify-center text-emerald-400">
+            <Database className="w-4 h-4" />
+          </div>
+          <div className="font-bold text-slate-200">DMZ & Core LAN</div>
+          <div className="text-[10px] text-slate-500">10.0.0.0/8 Segmented VLANs</div>
+        </div>
+      </div>
+
+      {/* Traffic Tester Buttons */}
+      <div className="space-y-2">
+        <div className="text-[11px] text-slate-400">Inject Simulated Ingress Packet:</div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          {["HTTPS", "SSH", "RDP", "DB"].map((proto) => (
+            <button
+              key={proto}
+              onClick={() => handleTrafficSelect(proto)}
+              className={`p-2 rounded border text-center transition-all ${
+                activeTraffic === proto
+                  ? "bg-amber-500/20 border-amber-400 text-amber-300 font-bold"
+                  : "bg-slate-900/60 border-slate-800 text-slate-400 hover:border-slate-700"
+              }`}
+            >
+              Port {proto === "HTTPS" ? "443" : proto === "SSH" ? "22" : proto === "RDP" ? "3389" : "5432"} ({proto})
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Rule Enforcement Terminal Output */}
+      <div className="p-3 rounded-lg border border-slate-800 bg-black/80 font-mono text-[11px] space-y-1">
+        <div className="text-slate-500 text-[10px] uppercase">Firewall Packet Inspection Log</div>
+        <div className="text-slate-300">
+          PACKET: IN=eth0 OUT=eth1 SRC=203.0.113.45 DST=10.0.2.10 PROTO={activeTraffic}
+        </div>
+        <div
+          className={`font-semibold ${
+            rules[aclMode][activeTraffic].status === "emerald"
+              ? "text-emerald-400"
+              : rules[aclMode][activeTraffic].status === "rose"
+              ? "text-rose-400"
+              : "text-amber-400"
+          }`}
+        >
+          {rules[aclMode][activeTraffic].code}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
+// 4. TRYHACKME CYBERLAB PTY VISUALIZER
+// ==========================================
+function CyberLabTerminalVisualizer() {
+  const [history, setHistory] = useState([
+    { cmd: "whoami", res: "root@kali:~$ TryHackMe Top 2% [GURU] Rank" },
+    { cmd: "nmap -sC -sV -T4 10.10.114.89", res: "PORT 22/tcp open ssh OpenSSH 8.2p1\nPORT 80/tcp open http Apache/2.4.41\nPORT 445/tcp open smb Samba 4.3" },
+    { cmd: "cat /root/flag.txt", res: "THM{p4rth_r3d_t34m_priv_3sc_m4st3r}" },
+  ]);
+  const [currentInput, setCurrentInput] = useState("");
+
+  const handleRunCommand = (cmdText) => {
+    let output = "";
+    const clean = cmdText.trim().toLowerCase();
+    if (clean === "whoami") {
+      output = "parth@offensive-box (uid=0[root] gid=0[root] groups=0[root])";
+    } else if (clean.includes("nmap")) {
+      output = "Starting Nmap 7.94 scan on 10.10.200.15\n22/tcp  open  ssh\n80/tcp  open  http-proxy\n443/tcp open  ssl/https\nAll 1,000 scanned ports completed in 1.42 seconds.";
+    } else if (clean.includes("linpeas") || clean.includes("privesc")) {
+      output = "[+] SUID Vulnerability Found: /usr/bin/pkexec (CVE-2021-4034)\n[+] Privilege Escalation Successful -> root shell spawned (#)";
+    } else if (clean.includes("flag")) {
+      output = "THM{115_r00ms_122_d4y_str34k_top_2_p3rc3nt}";
+    } else if (clean === "help") {
+      output = "Available simulated commands: whoami, nmap, linpeas, cat flag.txt, clear";
+    } else if (clean === "clear") {
+      setHistory([]);
+      return;
+    } else {
+      output = `bash: ${cmdText}: command recognized. Executing target exploit script... [SUCCESS]`;
+    }
+
+    setHistory((prev) => [...prev, { cmd: cmdText, res: output }]);
+    setCurrentInput("");
+  };
+
+  return (
+    <div className="flex flex-col gap-3 w-full h-full p-4 font-mono text-xs">
+      {/* Terminal Title Bar */}
+      <div className="flex items-center justify-between border-b border-rose-500/20 pb-2">
+        <div className="flex items-center gap-2">
+          <Terminal className="w-4 h-4 text-rose-400" />
+          <span className="text-rose-300 font-semibold tracking-wide">
+            KALI LINUX OFFENSIVE LAB PTY
+          </span>
+        </div>
+        <div className="flex items-center gap-2 text-[10px] text-slate-400">
+          <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
+          <span>CONNECTED: 10.10.15.244 (VPN Tun0)</span>
+        </div>
+      </div>
+
+      {/* Terminal Output Screen */}
+      <div className="flex-1 bg-black/90 rounded-lg p-3 border border-slate-800 font-mono text-[11px] space-y-2 overflow-y-auto max-h-56">
+        <div className="text-slate-500 text-[10px]">
+          TryHackMe Interactive Simulation - Kali GNU/Linux rolling 2026
+        </div>
+        {history.map((item, index) => (
+          <div key={index} className="space-y-0.5">
+            <div className="flex items-center gap-1.5 text-rose-400">
+              <span className="text-emerald-400">attacker@kali:~$</span>
+              <span className="text-white font-medium">{item.cmd}</span>
+            </div>
+            <pre className="text-slate-300 whitespace-pre-wrap pl-2 border-l border-slate-800 text-[10px] leading-relaxed">
+              {item.res}
+            </pre>
+          </div>
+        ))}
+      </div>
+
+      {/* Command Injection Shortcuts */}
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="text-[10px] text-slate-500 uppercase">Quick Exploits:</span>
+        {["whoami", "nmap -sS -A target", "linpeas.sh", "cat flag.txt"].map((cmd) => (
+          <button
+            key={cmd}
+            onClick={() => handleRunCommand(cmd)}
+            className="px-2 py-1 rounded border border-slate-800 bg-slate-900/80 text-rose-300 hover:border-rose-500/50 hover:bg-rose-500/10 text-[10px] transition-all"
+          >
+            {cmd}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
+// 5. SECURE FINTECH ARCHITECTURE VISUALIZER
+// ==========================================
+function SecureFinanceVisualizer() {
+  const [activeScenario, setActiveScenario] = useState("SQLI");
+
+  const scenarios = {
+    SQLI: {
+      title: "OWASP A03: SQL Injection via Transaction Query",
+      vulnerablePayload: "SELECT * FROM accounts WHERE acc_id = '101' OR '1'='1';",
+      hardenedSolution: "Parameterized Prepared Statements with Strict Type Binding",
+      defenseCode: "$stmt = $pdo->prepare('SELECT balance FROM accounts WHERE acc_id = :id');\n$stmt->execute(['id' => $cleanAccId]);",
+      status: "MITIGATED BY DESIGN",
+    },
+    IDOR: {
+      title: "OWASP A01: Insecure Direct Object Reference (IDOR)",
+      vulnerablePayload: "GET /api/v1/statement?account_id=9882 (Bypassing session checks)",
+      hardenedSolution: "Cryptographic GUIDs + Session-Bound Tenant Policy Enforcer",
+      defenseCode: "if (!authContext.user.canAccessAccount(accountId)) {\n  throw new UnauthorizedTenantException();\n}",
+      status: "ROLE ACCESS VALIDATED",
+    },
+    JWT: {
+      title: "OWASP A07: Broken Authentication & JWT None Algorithm",
+      vulnerablePayload: '{"alg": "none", "typ": "JWT"}.{"user": "admin", "role": "superuser"}',
+      hardenedSolution: "Asymmetric RS256 Signature Verification + JTI Blacklist in Redis",
+      defenseCode: "jwt.verify(token, rsaPublicKey, { algorithms: ['RS256'] });",
+      status: "SIGNATURE ENFORCED",
+    },
+  };
+
+  const current = scenarios[activeScenario];
+
+  return (
+    <div className="flex flex-col gap-4 w-full h-full p-4 font-mono text-xs">
+      {/* Title & Controls */}
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-purple-500/20 pb-3">
+        <div className="flex items-center gap-2">
+          <Lock className="w-4 h-4 text-purple-400" />
+          <span className="text-purple-300 font-semibold tracking-wide">
+            FINTECH DEFENSE VS EXPLOIT BENCHMARK
+          </span>
+        </div>
+        <div className="flex items-center gap-1.5 text-emerald-400 text-[11px] font-bold">
+          <CheckCircle2 className="w-3.5 h-3.5" />
+          <span>PCI-DSS & SOC2 HARDENED</span>
+        </div>
+      </div>
+
+      {/* Scenario Buttons */}
+      <div className="flex flex-wrap gap-2">
+        {Object.entries(scenarios).map(([key, item]) => (
+          <button
+            key={key}
+            onClick={() => setActiveScenario(key)}
+            className={`px-3 py-1.5 rounded border transition-all text-[11px] ${
+              activeScenario === key
+                ? "bg-purple-500/20 border-purple-400 text-purple-200 font-bold"
+                : "bg-slate-900/60 border-slate-800 text-slate-400 hover:border-slate-700"
+            }`}
+          >
+            {key}: {item.title.split(":")[0]}
+          </button>
+        ))}
+      </div>
+
+      {/* Comparison Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        {/* Vulnerable Vector */}
+        <div className="p-3 rounded-lg border border-rose-500/30 bg-rose-950/20 space-y-2">
+          <div className="text-rose-400 font-bold text-[11px] flex items-center justify-between">
+            <span>Exploit Attack Vector</span>
+            <span className="text-[10px] px-1.5 py-0.5 rounded bg-rose-500/30 border border-rose-500/40">
+              BLOCKED
+            </span>
+          </div>
+          <div className="text-[10px] text-slate-400">{current.title}</div>
+          <pre className="p-2 rounded bg-black/60 border border-rose-500/20 text-rose-300 text-[10px] overflow-x-auto whitespace-pre-wrap">
+            {current.vulnerablePayload}
+          </pre>
+        </div>
+
+        {/* Hardened Defense */}
+        <div className="p-3 rounded-lg border border-emerald-500/30 bg-emerald-950/20 space-y-2">
+          <div className="text-emerald-400 font-bold text-[11px] flex items-center justify-between">
+            <span>Applied Defense Code</span>
+            <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/30 border border-emerald-500/40">
+              {current.status}
+            </span>
+          </div>
+          <div className="text-[10px] text-slate-400">{current.hardenedSolution}</div>
+          <pre className="p-2 rounded bg-black/60 border border-emerald-500/20 text-emerald-300 text-[10px] overflow-x-auto whitespace-pre-wrap">
+            {current.defenseCode}
+          </pre>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ==========================================
+// MASTER VISUALIZER CONTAINER
+// ==========================================
+export default function Project3DVisualizer({ defaultProject = "splunk" }) {
+  const [activeProject, setActiveProject] = useState(defaultProject);
+
+  return (
+    <div className="w-full rounded-2xl border border-slate-800 bg-slate-950/90 shadow-2xl backdrop-blur-xl overflow-hidden">
+      {/* Global Simulator Navigation Bar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 border-b border-slate-800/80 bg-slate-900/40">
+        <div className="flex items-center gap-2">
+          <div className="flex gap-1.5">
+            <span className="w-3 h-3 rounded-full bg-rose-500/80 inline-block" />
+            <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
+            <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
+          </div>
+          <span className="text-xs font-mono text-slate-400 pl-2">
+            SEC-OPS TELEMETRY SIMULATOR
+          </span>
+        </div>
+
+        {/* Navigation Tabs for each project */}
+        <div className="flex flex-wrap gap-1.5">
+          {Object.values(PROJECT_CONFIGS).map((cfg) => (
+            <button
+              key={cfg.id}
+              onClick={() => setActiveProject(cfg.id)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all flex items-center gap-1.5 ${
+                activeProject === cfg.id
+                  ? "bg-slate-800 text-white border border-slate-700 shadow-sm font-semibold"
+                  : "text-slate-400 hover:text-slate-200 hover:bg-slate-900/60"
+              }`}
+            >
+              <span>{cfg.title.split(" ")[0]}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Simulator Active Header Info */}
+      <div className="px-5 py-3 border-b border-slate-800/50 bg-slate-950/40 flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <div className="flex items-center gap-2">
+            <h3 className="text-sm font-bold text-white tracking-wide">
+              {PROJECT_CONFIGS[activeProject]?.title}
+            </h3>
+            <span
+              className={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${PROJECT_CONFIGS[activeProject]?.badgeColor}`}
+            >
+              {PROJECT_CONFIGS[activeProject]?.badge}
+            </span>
+          </div>
+          <p className="text-xs text-slate-400 mt-0.5">
+            {PROJECT_CONFIGS[activeProject]?.description}
+          </p>
+        </div>
+        <div className="text-[11px] font-mono text-slate-500 flex items-center gap-1.5">
+          <Radio className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
+          <span>REALTIME INTERACTION ENABLED</span>
+        </div>
+      </div>
+
+      {/* Active Dedicated Visualizer Body */}
+      <div className="min-h-[340px] flex items-center justify-center bg-radial from-slate-900/30 to-transparent">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeProject}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="w-full h-full"
+          >
+            {activeProject === "splunk" && <SplunkRadarVisualizer />}
+            {activeProject === "packet" && <PacketAnalyzerVisualizer />}
+            {activeProject === "firewall" && <FirewallTopologyVisualizer />}
+            {activeProject === "cyberlab" && <CyberLabTerminalVisualizer />}
+            {activeProject === "finance" && <SecureFinanceVisualizer />}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );
