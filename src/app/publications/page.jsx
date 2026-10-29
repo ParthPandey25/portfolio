@@ -7,7 +7,7 @@ import SectionHeader from "@/components/SectionHeader";
 import InteractiveBackground from "@/components/InteractiveBackground";
 import TiltCard from "@/components/TiltCard";
 import Link from "next/link";
-import { FileText, Calendar, ExternalLink, Tag, Award, Mic } from "lucide-react";
+import { FileText, Calendar, ExternalLink, Tag, Award, Mic, ShieldAlert, Terminal, Layers, ArrowUpRight } from "lucide-react";
 
 const papers = [
   {
@@ -41,6 +41,41 @@ const papers = [
   },
 ];
 
+const technicalArticles = [
+  {
+    title: "SOC Operations: Splunk Enterprise Threat Hunting & Production SPL",
+    category: "SOC-Operations",
+    badgeColor: "text-emerald-400 border-emerald-500/20 bg-emerald-500/10",
+    date: "October 2026",
+    summary: "Production SPL queries for brute force (4625), encoded PowerShell (4104), LSASS memory dumping (Sysmon 10), and DNS C2 tunneling.",
+    link: "https://parthpandey25.github.io/parthpandey-cyberlab/posts/soc-splunk-siem-live-incident-investigation/",
+  },
+  {
+    title: "Confessions of a Top 2% TryHackMe Practitioner: Where Tools Break",
+    category: "Cybersecurity",
+    badgeColor: "text-rose-400 border-rose-500/20 bg-rose-500/10",
+    date: "October 2026",
+    summary: "Deep dive into real-world tool failures: 850k dictionary freeze, dumb TTY trap, vanishing Meterpreter sessions, and Windows root DACLs.",
+    link: "https://parthpandey25.github.io/parthpandey-cyberlab/posts/confessions-of-a-tryhackme-practitioner-where-tools-break/",
+  },
+  {
+    title: "Applied Cryptography: AES-GCM, RSA Math, Diffie-Hellman & TLS 1.3",
+    category: "Applied-Cryptography",
+    badgeColor: "text-purple-400 border-purple-500/20 bg-purple-500/10",
+    date: "September 2026",
+    summary: "Mathematical foundations of asymmetric ciphers (Euler's Totient), AEAD authentication tags, forward secrecy, and 1-RTT TLS 1.3 handshakes.",
+    link: "https://parthpandey25.github.io/parthpandey-cyberlab/posts/applied-cryptography-symmetric-asymmetric-ciphers/",
+  },
+  {
+    title: "TryHackMe: Alfred — Jenkins Groovy RCE & Token Impersonation",
+    category: "TryHackMe Case Study",
+    badgeColor: "text-amber-400 border-amber-500/20 bg-amber-500/10",
+    date: "October 2026",
+    summary: "Jenkins administrative compromise, Nishang PowerShell reverse shell, and SeImpersonatePrivilege token theft via Incognito to SYSTEM.",
+    link: "https://parthpandey25.github.io/parthpandey-cyberlab/posts/tryhackme-alfred-jenkins-token-impersonation/",
+  },
+];
+
 const colorMap = {
   emerald: {
     border: "border-emerald-500/20 hover:border-emerald-500/50",
@@ -70,25 +105,32 @@ export default function PublicationsPage() {
       <div className="relative z-10 pt-28 pb-24 max-w-4xl mx-auto px-4">
         <SectionHeader
           title="Publications & Research"
-          subtitle="academic contributions"
+          subtitle="academic contributions & technical security research"
           accent="dual"
         />
 
         {/* Summary badges */}
         <div className="flex flex-wrap gap-3 mb-12">
           <span className="flex items-center gap-2 px-4 py-2 glass-card rounded-full border border-slate-800/60 text-sm">
-            <FileText size={14} className="text-emerald-400" /> 2 Publications
+            <FileText size={14} className="text-emerald-400" /> 2 Peer-Reviewed Papers
           </span>
           <span className="flex items-center gap-2 px-4 py-2 glass-card rounded-full border border-slate-800/60 text-sm">
-            <Mic size={14} className="text-cyan-400" /> 2 Conference Presentations
+            <ShieldAlert size={14} className="text-cyan-400" /> 23 CyberLab Security Articles
           </span>
           <span className="flex items-center gap-2 px-4 py-2 glass-card rounded-full border border-slate-800/60 text-sm">
-            <Award size={14} className="text-purple-400" /> Peer-Reviewed Journal
+            <Award size={14} className="text-purple-400" /> TryHackMe Top 2% [GURU]
           </span>
         </div>
 
+        {/* Academic Papers Header */}
+        <div className="mb-6 flex items-center justify-between border-b border-slate-800/80 pb-3">
+          <h2 className="text-lg font-bold text-white flex items-center gap-2">
+            <Award className="text-emerald-400" size={18} /> Peer-Reviewed Academic Papers
+          </h2>
+        </div>
+
         {/* Paper cards */}
-        <div className="space-y-8">
+        <div className="space-y-8 mb-16">
           {papers.map((paper, i) => {
             const c = colorMap[paper.color];
             const isOpen = expanded === i;
@@ -214,6 +256,82 @@ export default function PublicationsPage() {
               </motion.div>
             );
           })}
+        </div>
+
+        {/* CyberLab Technical Publications Section */}
+        <div className="mb-6 flex items-center justify-between border-b border-slate-800/80 pb-3">
+          <div>
+            <h2 className="text-lg font-bold text-white flex items-center gap-2">
+              <ShieldAlert className="text-cyan-400" size={18} /> CyberLab Security Research & Walkthroughs (23 Articles)
+            </h2>
+            <p className="text-xs text-slate-400 mt-1">
+              Hands-on vulnerability case studies, SIEM threat hunts, and offensive security research hosted on CyberLab.
+            </p>
+          </div>
+          <a
+            href="https://parthpandey25.github.io/parthpandey-cyberlab/categories/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 text-xs font-mono text-cyan-400 hover:underline"
+          >
+            All Categories <ArrowUpRight size={13} />
+          </a>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
+          {technicalArticles.map((art, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: idx * 0.1 }}
+            >
+              <div className="glass-card rounded-xl border border-slate-800/80 p-5 hover:border-cyan-500/40 transition-all flex flex-col justify-between h-full bg-slate-950/40">
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className={`text-[10px] font-mono px-2 py-0.5 rounded border ${art.badgeColor}`}>
+                      {art.category}
+                    </span>
+                    <span className="text-[11px] text-slate-500 font-mono flex items-center gap-1">
+                      <Calendar size={10} /> {art.date}
+                    </span>
+                  </div>
+                  <h3 className="font-bold text-sm text-slate-100 mb-2 leading-snug">
+                    {art.title}
+                  </h3>
+                  <p className="text-xs text-slate-400 leading-relaxed mb-4">
+                    {art.summary}
+                  </p>
+                </div>
+                <div>
+                  <a
+                    href={art.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs font-mono text-emerald-400 hover:underline font-semibold"
+                  >
+                    Read on CyberLab <ExternalLink size={11} />
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="p-5 rounded-2xl border border-slate-800 bg-gradient-to-r from-emerald-950/20 via-slate-900/40 to-cyan-950/20 flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <h4 className="text-sm font-bold text-white">Explore Full CyberLab Archive</h4>
+            <p className="text-xs text-slate-400">Browse all 23 articles categorized across TryHackMe, Coursera, Labs, and SOC operations.</p>
+          </div>
+          <a
+            href="https://parthpandey25.github.io/parthpandey-cyberlab/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 rounded-xl text-xs font-mono font-bold bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/30 transition-all flex items-center gap-1.5"
+          >
+            Open CyberLab Blog <ArrowUpRight size={13} />
+          </a>
         </div>
 
         <div className="mt-12 text-center">
