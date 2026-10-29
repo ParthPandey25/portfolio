@@ -5,7 +5,7 @@
 <p align="center">
   <a href="https://linkedin.com/in/parth-pandey-045709258"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
   <a href="https://github.com/ParthPandey25"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" /></a>
-  <a href="https://tryhackme.com/p/parthrspandey25"><img src="https://img.shields.io/badge/TryHackMe-Top_8%25-212C42?style=for-the-badge&logo=tryhackme&logoColor=white" /></a>
+  <a href="https://tryhackme.com/p/parthrspandey25"><img src="https://img.shields.io/badge/TryHackMe-Top_2%25_[GURU]-212C42?style=for-the-badge&logo=tryhackme&logoColor=white" /></a>
   <a href="mailto:parthrspandey25@gmail.com"><img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white" /></a>
 </p>
 
@@ -19,11 +19,12 @@ I built this portfolio from scratch to showcase my real skills, certifications, 
 
 ### 🔭 What I'm Currently Doing
 
-- 🎓 **Google Cybersecurity Professional Certificate** (Coursera) — 3/9 courses completed
-- 🛡️ **CompTIA Network+ & EC-Council CEH** training at [Unisoft Technology](https://www.unisoftindia.org/), Nagpur
-- 💻 **Google IT Support** & **IBM Full Stack Developer** certificates on Coursera
-- 🏴‍☠️ **TryHackMe** — Top 8% globally, 58 rooms completed, 70-day streak, 11 badges
-- 🔬 Building a **Home SOC Lab** with Splunk SIEM + AWS CloudTrail ingestion
+- 🎓 **Google Cybersecurity Professional Certificate** (Coursera) — **Completed (All 8 Courses Verified)**
+- 🛡️ **EC-Council CEH v13 & CompTIA Network+ / Cisco CCNA** training at [Unisoft Technologies](https://www.unisoftindia.org/), Nagpur
+- 🎓 **Applied Cryptography** (University of Colorado) & **IBM Cybersecurity Analyst** specialization on Coursera
+- 🏴‍☠️ **TryHackMe** — **Top 2% Globally [Level 12 GURU]**, 115+ rooms completed, 🔥 **122-day continuous streak**, 23 badges
+- 🔬 Engineering a **Home SOC Lab** with Splunk SIEM + AWS CloudTrail ingestion & live MITRE ATT&CK correlation
+- 📝 Publishing hands-on vulnerability assessments & threat hunting research on [CyberLab](https://parthpandey25.github.io/parthpandey-cyberlab/) (23 Technical Articles)
 
 ---
 

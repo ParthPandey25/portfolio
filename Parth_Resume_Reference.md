@@ -272,7 +272,7 @@
 ## 🏆 ACHIEVEMENTS & ACTIVITIES
 
 - **GATE 2024** — Qualified with Score 355 (CS/IT)
-- **TryHackMe** — Top 8% globally (Rank 190,478), 58 rooms, 70-day streak, 11 badges
+- **TryHackMe** — Top 2% globally (Rank #42,194), Level 12 [GURU], 115+ rooms, 🔥 122-day streak, 23 badges
 - **NPTEL Elite** — Data Analytics with Python (72%), Social Networks (70%)
 - **Code Clash** — Competitive programming participation at ACET
 - **Ennovate 25** — National-level hackathon participation
@@ -294,7 +294,7 @@
 ## 💡 RESUME TIPS FOR PARTH
 
 1. **Lead with certifications** — your 40+ certs are your strongest signal since you're entry-level
-2. **Highlight TryHackMe** — Top 8% with 58 rooms shows self-driven hands-on learning
+2. **Highlight TryHackMe** — Top 2% with 115+ rooms shows elite, self-driven hands-on operational practice
 3. **Use STAR bullets** — every experience bullet should follow Situation→Task→Action→Result
 4. **Projects > Job titles** — your SOC lab and packet analyzer projects are more impressive than internship titles
 5. **Keep it to 2 pages max** — prioritize security certs, projects, and top 3-4 internships
