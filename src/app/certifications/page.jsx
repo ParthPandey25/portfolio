@@ -13,7 +13,7 @@ export const metadata = {
 };
 
 const highlights = [
-  { label: "Security Certs",    value: "11", color: "text-emerald-400" },
+  { label: "Security Certs",    value: "12", color: "text-emerald-400" },
   { label: "Cloud Certs",       value: "5",  color: "text-yellow-400"  },
   { label: "Academic Badges",   value: "9",  color: "text-purple-400"  },
   { label: "Internship Certs",  value: "11", color: "text-indigo-400"  },

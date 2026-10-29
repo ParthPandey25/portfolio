@@ -137,7 +137,7 @@ const COMMANDS = [
           <span className="text-emerald-400 font-semibold">ACTIVELY SEEKING:</span>
           <span className="text-slate-300">SOC Analyst / Cybersecurity Engineer / Pen Testing roles</span>
         </p>
-        <p><span className="text-cyan-400">Credentials &amp; Training:</span> <span className="text-slate-300">Google Cybersec Pro · CEH v13 &amp; Network+ Training · TryHackMe (Top 2% | Level 12 [GURU])</span></p>
+        <p><span className="text-cyan-400">Credentials &amp; Training:</span> <span className="text-slate-300">Google Cybersec Pro · Google IT Support · OWASP Top 10 · CEH v13 &amp; Network+ · TryHackMe Top 2% [GURU]</span></p>
         <p><span className="text-cyan-400">Current build:</span> <span className="text-slate-300">Home SOC Lab — Splunk SIEM + AWS CloudTrail ingestion</span></p>
         <p><span className="text-cyan-400">Location:</span> <span className="text-slate-300">India (Open to Remote)</span></p>
       </div>

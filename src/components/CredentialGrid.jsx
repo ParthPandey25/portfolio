@@ -234,7 +234,28 @@ const ALL_CREDS = [
     ],
   },
 
-  // 6. Check Point Software Technologies (Program Bundle)
+  // 6. OWASP Top 10 Application Security (Infosec / Coursera)
+  {
+    title: "OWASP Top 10: 2023 — Web Application Vulnerability Assessment & Mitigation",
+    issuer: "Infosec / Coursera",
+    abbr: "OWASP-TOP-10",
+    category: "security",
+    icon: <ShieldCheck size={22} className="text-rose-400" />,
+    color: "rose",
+    desc: "Rigorous specialization in auditing, testing, and mitigating the critical OWASP Top 10 web vulnerabilities — including Broken Access Control (BOLA/IDOR), Cryptographic Failures, Injection attacks (SQLi/XSS), Insecure Design, and Security Misconfiguration.",
+    mainFile: "Coursera OWASP TOP 10 2023 INFOSEC PARTH.pdf",
+    mainLabel: "🏆 View Official OWASP Top 10 Certificate",
+    subBadge: "AppSec & DAST Specialization",
+    subCerts: [
+      {
+        title: "OWASP Top 10: 2023 Certification of Completion",
+        file: "Coursera OWASP TOP 10 2023 INFOSEC PARTH.pdf",
+        tag: "Web Security & Vulnerability Auditing",
+      },
+    ],
+  },
+
+  // 7. Check Point Software Technologies (Program Bundle)
   {
     title: "Check Point CCSA & CCVS — Virtual Architecture & SWG Suite",
     issuer: "Check Point Software Technologies (Secure Hub)",
