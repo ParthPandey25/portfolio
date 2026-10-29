@@ -30,7 +30,7 @@ const COMMANDS = [
     cmd: "./tryhackme.sh",
     output: (
       <div className="space-y-2">
-        <p className="text-xs text-slate-500 mb-2">// TryHackMe Profile — parthrspandey25 [GURU Level 12]</p>
+        <p className="text-xs text-slate-500 mb-2">{"// TryHackMe Profile — parthrspandey25 [GURU Level 12]"}</p>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div className="bg-slate-800/60 border border-emerald-500/20 rounded-lg p-2.5 text-center">
             <p className="text-lg font-extrabold text-emerald-400">Top 2%</p>
@@ -147,7 +147,7 @@ const COMMANDS = [
     cmd: "./tools.sh",
     output: (
       <div className="space-y-1.5 text-xs text-slate-300">
-        <p className="text-emerald-400 font-mono font-semibold">// Primary Cybersecurity Tool Arsenal</p>
+        <p className="text-emerald-400 font-mono font-semibold">{"// Primary Cybersecurity Tool Arsenal"}</p>
         <p><span className="text-red-400 font-semibold">Reconnaissance:</span> Nmap · Amass · Subfinder · theHarvester · Shodan</p>
         <p><span className="text-pink-400 font-semibold">Web Security:</span> Burp Suite · OWASP ZAP · Nikto · Gobuster · SQLmap</p>
         <p><span className="text-purple-400 font-semibold">Network Security:</span> Wireshark · tcpdump · Zeek · Suricata · Snort</p>
@@ -313,7 +313,7 @@ export default function TerminalHero() {
           {/* Quick social row */}
           <div className="border-t border-slate-800 px-4 sm:px-6 md:px-7 py-3 flex flex-wrap items-center justify-between gap-3 bg-slate-950/50">
             <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-              <span className="text-xs text-slate-600 font-mono hidden xs:inline">// quick links</span>
+              <span className="text-xs text-slate-600 font-mono hidden xs:inline">{"// quick links"}</span>
               <a href="https://github.com/ParthPandey25" target="_blank" rel="noopener noreferrer"
                 className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-emerald-400 transition-colors">
                 <GithubIcon size={13} /> GitHub

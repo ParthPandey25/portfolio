@@ -49,7 +49,7 @@ export default function CertificationsPage() {
 
         {/* Sub-caption */}
         <p className="text-center text-sm text-slate-500 mb-10 font-mono">
-          // click <span className="text-emerald-400">View</span> on any card to open the original certificate PDF
+          {"//"} click <span className="text-emerald-400">View</span> on any card to open the original certificate PDF
         </p>
 
         {/* Grid */}

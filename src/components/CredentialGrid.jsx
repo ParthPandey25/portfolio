@@ -688,7 +688,7 @@ export default function CredentialGrid() {
                           >
                             <div className="space-y-2 p-3 rounded-xl bg-slate-950/80 border border-slate-800/90 max-h-72 overflow-y-auto">
                               <p className="text-[10px] uppercase font-mono text-slate-500 tracking-wider">
-                                // Nested Course Certificates ({cred.subCerts.length})
+                                {`// Nested Course Certificates (${cred.subCerts.length})`}
                               </p>
                               {cred.subCerts.map((sub, sIdx) => (
                                 <div
