@@ -15,7 +15,7 @@
 | **LinkedIn** | [linkedin.com/in/parth-pandey-045709258](https://linkedin.com/in/parth-pandey-045709258) |
 | **GitHub** | [github.com/ParthPandey25](https://github.com/ParthPandey25) |
 | **TryHackMe** | [tryhackme.com/p/parthrspandey25](https://tryhackme.com/p/parthrspandey25) — Top 2% (#42,194), Level 12 [GURU], 115+ Rooms, 122-day Streak, 23 Badges, Diamond League |
-| **Portfolio** | [Live on Vercel](https://portfolio-parth-pandey.vercel.app) |
+| **Portfolio** | [Live on Vercel](https://portfolio-parthpandey.vercel.app) |
 | **Location** | India (Open to Remote) |
 
 ---
@@ -45,11 +45,11 @@
 ## 📚 CURRENT TRAINING (In Progress)
 
 ### 1. Google Cybersecurity Professional Certificate — Google / Coursera
-- **Status**: 3 of 9 courses completed
+- **Status**: Completed (8 of 8 courses completed)
 - **Courses Done**: Foundations of Cybersecurity, Play It Safe: Manage Security Risks, Connect & Protect: Networks and Network Security
 - **Topics**: Threat modeling, risk frameworks (NIST CSF), TCP/IP defense, security operations
 
-### 2. CompTIA Network+ & EC-Council CEH — Unisoft Technology, Nagpur
+### 2. Cybersecurity & Network Engineering Trainee — Unisoft Technology, Nagpur (July 2026 – Present)
 - **Website**: [unisoftindia.org](https://www.unisoftindia.org/)
 - **Network+**: Network topologies, switching & routing protocols, subnetting, VLANs, troubleshooting (N10-009)
 - **CEH**: Reconnaissance, vulnerability analysis, system hacking, web app attacks, social engineering

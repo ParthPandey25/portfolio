@@ -20,14 +20,14 @@ export const experiences = [
   },
   {
     company: "Unisoft Technology",
-    role: "CompTIA Network+ & EC-Council CEH v13 Training",
-    period: "2026",
-    location: "Nagpur, India",
+    role: "Cybersecurity & Network Engineering Trainee",
+    period: "July 2026 – Present",
+    location: "Nagpur, India (On-site)",
     type: "training",
-    status: "completed",
+    status: "in-progress",
     color: "cyan",
     bullets: [
-      "Recognized that a strong networking foundation paired with offensive security skills is essential for cybersecurity roles (Situation). Enrolled in and completed instructor-led CompTIA Network+ and EC-Council Certified Ethical Hacker (CEH v13 AI) preparation programs at Unisoft Technology, Nagpur (Task). Mastered network topologies, switching & routing protocols, subnetting, VLANs, and troubleshooting for Network+, alongside reconnaissance techniques, vulnerability analysis, system hacking methodologies, web application attacks, and social engineering for CEH (Action). Built a well-rounded red team + blue team skill set aligned with CompTIA N10-009 and CEH v13 exam objectives (Result).",
+      "Undergoing intensive hands-on enterprise networking, firewall administration, and ethical hacking training at Unisoft Technology, Nagpur (Situation). Assigned to configure enterprise perimeter defenses, routing domains, and ethical hacking methodology labs (Task). Mastering Cisco enterprise routing (OSPF, EIGRP) and switching, alongside EC-Council CEH v13 attack chains and countermeasures (Action). Building verified practical competencies across blue-team defense and offensive security (Result).",
     ],
   },
   {
