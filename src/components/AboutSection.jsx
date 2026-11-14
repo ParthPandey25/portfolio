@@ -39,7 +39,7 @@ export default function AboutSection() {
             Hi, I&apos;m <span className="gradient-text">Parth Pandey</span> 👋
           </h2>
           <p className="text-slate-400 leading-relaxed mb-4">
-            Driven <strong className="text-slate-200">Cybersecurity Engineer</strong> (B.Tech CSE, CGPA 8.3, GATE 355) 
+            Driven <strong className="text-slate-200">Cybersecurity Engineer &amp; B.Tech CSE Graduate</strong> (CGPA 8.3, GATE CS 2026 Qualified: 355) 
             with 10+ virtual internships across <strong className="text-slate-200">Zscaler, Palo Alto Networks, Fortinet, 
             Google Cloud &amp; AWS</strong>. Certified in <strong className="text-slate-200">Google Cybersecurity Professional, Google IT Support, and OWASP Top 10 Application Defense</strong>, with hands-on training in <strong className="text-slate-200">Cisco CCNA / CompTIA Network+ and EC-Council CEH v13 (Unisoft)</strong>. Hands-on with enterprise firewalls (Check Point Gaia, FortiGate), 
             ZTNA frameworks, and TCP/IP packet analysis. Actively building <strong className="text-emerald-400">Red Team &amp; Blue Team</strong> competencies 

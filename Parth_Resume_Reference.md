@@ -31,9 +31,9 @@
 ### B.Tech in Computer Science & Engineering
 **Anjuman College of Engineering & Technology, Nagpur**
 - CGPA: **8.3 / 10**
-- Graduation: **May 2026**
-- GATE Score: **355** (CS/IT)
-- Relevant Coursework: Cybersecurity, Network Security, Cloud Computing, Data Structures, AI, DBMS, Machine Learning
+- Status: **Graduated — Class of 2026** (May 2026)
+- GATE 2026 Score: **355** (CS/IT Qualified | Reg: CS26S42062430)
+- Relevant Coursework: Cybersecurity, Network Security & Cryptography, Cloud Computing, Data Structures & Algorithms, Operating Systems, DBMS, Machine Learning
 
 ### Higher Secondary (HSC) & Secondary (SSC)
 **St. Xavier's High School**
@@ -269,14 +269,19 @@
 
 ---
 
-## 🏆 ACHIEVEMENTS & ACTIVITIES
+## 🏆 ACHIEVEMENTS, HACKATHONS & ACTIVITIES
 
-- **GATE 2024** — Qualified with Score 355 (CS/IT)
-- **TryHackMe** — Top 2% globally (Rank #42,194), Level 12 [GURU], 115+ rooms, 🔥 122-day streak, 23 badges
+- **GATE 2026 CS/IT** — Qualified with Score 355 (Reg: CS26S42062430)
+- **TryHackMe** — Top 2% globally (Rank #42,194), Level 12 [GURU], 115+ rooms, 🔥 122-day streak, 23 badges, Diamond League
+- **Ennovate '25 Project Hackathon** — **Winner — Project Excellence Award** (Serverless Mass Email with AWS SES, Lambda & Alexa)
+- **Hack-Wack 24-Hr Hackathon (SBJITMR)** — Built & pitched full-stack real-time application with ML automation (Feb 2025)
+- **AI-Powered Tutor Hackathon** — Built adaptive exam tutor with hybrid LLM inference (Llama 2/3 + Bedrock fallback) & Alexa voice
+- **SITANK (Symbiosis Innovation Tank)** — Technology venture pitch finalist before venture capitalists (Feb 2025)
+- **Krans Community (ACET)** — Active Core Member (June 2024 – May 2025 | 1 Year Tenure in 3rd Year B.Tech)
 - **NPTEL Elite** — Data Analytics with Python (72%), Social Networks (70%)
-- **Code Clash** — Competitive programming participation at ACET
-- **Ennovate 25** — National-level hackathon participation
-- **Published Author** — Peer-reviewed paper in IRJAEH (International Research Journal)
+- **Code Clash** — Competitive programming contest at ACET & DevTown
+- **Published Author** — 2 Peer-reviewed papers: IRJAEH (2026, ICESM Presentation) & IJACTE (2025, ICTTSEM-25)
+- **Athletics & Civic** — Inter-College Fencing (ACET 2023), Judo Federation Nagpur (2017-2018), Mera Yuva Bharat Youth Leader
 
 ---
 
